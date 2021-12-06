@@ -1,22 +1,42 @@
+--[[ -- local Color, colors, Group, groups, styles = require('colorbuddy').setup()
+
+cc = {
+  bg_dark = "#1f2335",
+  bg = "#24283b",
+  bg_highlight = "#292e42",
+  terminal_black = "#414868",
+  fg = "#c0caf5",
+  fg_dark = "#a9b1d6",
+  fg_gutter = "#3b4261",
+  dark3 = "#545c7e",
+  comment = "#565f89",
+  dark5 = "#737aa2",
+  blue0 = "#3d59a1",
+  blue = "#7aa2f7",
+  cyan = "#7dcfff",
+  blue1 = "#2ac3de",
+  blue2 = "#0db9d7",
+  blue5 = "#89ddff",
+  blue6 = "#B4F9F8",
+  blue7 = "#394b70",
+  magenta = "#bb9af7",
+  magenta2 = "#ff007c",
+  purple = "#9d7cd8",
+  orange = "#ff9e64",
+  yellow = "#e0af68",
+  green = "#9ece6a",
+  green1 = "#73daca",
+  green2 = "#41a6b5",
+  teal = "#1abc9c",
+  red = "#f7768e",
+  red1 = "#db4b4b",
+}
+
+for k, v in pairs(cc) do
+  Color.new(k, v)
+end ]]
 -- vim.api.nvim_exec(
---     [[
---         hi StatusLine guibg=#171717 guifg=#9f9f9f cterm=NONE gui=NONE
---         hi StatusLineNC guibg=#171717 guifg=#4d4d4d cterm=NONE gui=NONE
---         hi DiffAdd guibg=#184e43
---         hi DiffChange guibg=#002e4d
---         hi DiffText guibg=#9c7a30
---         hi DiffDelete guibg=#892a2a
---         hi CursorLine guibg=#262626
---         hi Normal ctermfg=7 guifg=#d4d4d4 ctermbg=0 guibg=#131313 cterm=NONE gui=NONE
---         hi SignColumn ctermbg=0 guibg=#131313 cterm=NONE gui=NONE
---         hi NormalNC ctermbg=0 guibg=#131313 cterm=NONE gui=NONE
---         hi EndOfBuffer ctermfg=0 guifg=#505050 ctermbg=0 guibg=#131313 cterm=NONE gui=NONE
---         hi LineNr ctermfg=0 guifg=#505050 ctermbg=0 guibg=#131313 cterm=NONE gui=NONE
---         hi CursorLineNr ctermfg=2 guifg=#608b4e ctermbg=0 guibg=#131313 cterm=NONE gui=NONE
---         hi CursorLine ctermbg=0 guibg=#1c1c1c cterm=NONE gui=NONE
---
---         hi Cursor ctermbg=white guibg=white
---         hi iCursor guifg=white guibg=white
---     ]],
---     true
--- ) ]]
+--   [[
+--   ]],
+--   true
+-- )

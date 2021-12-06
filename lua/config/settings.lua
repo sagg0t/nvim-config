@@ -8,9 +8,9 @@ vim.cmd 'filetype plugin indent on'
 
 vim.g.mapleader = ' '
 
-vim.g.nobackup = true
-vim.g.nowritebackup = true
-vim.g.noswapfile = true
+vim.g.backup = false
+vim.g.writebackup = false
+vim.g.swapfile = false
 vim.g.laststatus = 0
 vim.g.hidden = true
 

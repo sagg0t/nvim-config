@@ -12,27 +12,27 @@ end
 return require('packer').startup(function()
     use 'wbthomason/packer.nvim'
 
-    ---------------------------------
-    ------------ SYNTAX -------------
-    ---------------------------------
     use 'dunstontc/vim-vscode-theme'
     use 'folke/tokyonight.nvim'
+
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', }
     use { 'rrethy/vim-hexokinase', run = 'make hexokinase' } -- highlight hex colors
 
+    use 'onsails/lspkind-nvim'
+    use 'tjdevries/colorbuddy.nvim'
 
-    ---------------------------------
-    ------------- LSP ---------------
-    ---------------------------------
-    use 'neovim/nvim-lsp'
     use 'neovim/nvim-lspconfig'
-    use 'nvim-lua/completion-nvim'
-    use 'norcalli/snippets.nvim'
+
+    use 'hrsh7th/cmp-nvim-lsp'
+    use 'hrsh7th/cmp-nvim-lua'
+    use 'hrsh7th/cmp-buffer'
+    use 'hrsh7th/cmp-path'
+    use 'hrsh7th/nvim-cmp'
+    use 'saadparwaiz1/cmp_luasnip'
+
+    use 'L3MON4D3/LuaSnip'
 
 
-    ---------------------------------
-    ---------- INTERFACE ------------
-    ---------------------------------
     use 'kyazdani42/nvim-tree.lua'
     use 'hoob3rt/lualine.nvim'
     use 'folke/trouble.nvim'
@@ -54,9 +54,6 @@ return require('packer').startup(function()
     use { 'nvim-telescope/telescope-dap.nvim' }
 
 
-    ---------------------------------
-    ------------- GIT ---------------
-    ---------------------------------
     use {
         'TimUntersberger/neogit',
         requires = {
@@ -67,9 +64,6 @@ return require('packer').startup(function()
     use { 'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'} }
 
 
-    ---------------------------------
-    ------- TESTING/DEBUGGING -------
-    ---------------------------------
     use {
       'rcarriga/vim-ultest',
       requires = {'vim-test/vim-test'},
@@ -79,22 +73,21 @@ return require('packer').startup(function()
     -- use 'rcarriga/nvim-dap-ui'
 
 
-    ---------------------------------
-    ------------ UTILS --------------
-    ---------------------------------
     use { 'tpope/vim-endwise', ft = { 'rb', 'ruby' } }
     use 'szw/vim-maximizer'
     use 'jiangmiao/auto-pairs' -- find lua analogue
     use 'tpope/vim-surround'
     use 'andrewradev/splitjoin.vim'
-    use 'b3nj5m1n/kommentary'
+    use {
+      'numToStr/Comment.nvim',
+      config = function()
+          require('Comment').setup()
+      end
+    }
     use 'vimwiki/vimwiki'
     use { 'jgdavey/tslime.vim', branch = 'main' }
 
 
-    ---------------------------------
-    --------- DB QUERYING -----------
-    ---------------------------------
     -- slow, need alternative
     use 'tpope/vim-dadbod'
     use 'kristijanhusak/vim-dadbod-ui'

@@ -2,9 +2,7 @@
 --------------------  NVIM TREE  ----------------------
 -------------------------------------------------------
 
-vim.g.nvim_tree_hide_dotfiles = 1
-vim.g.nvim_tree_disable_default_keybindings = 1
--- vim.g.nvim_tree_indent_markers = 1
+vim.g.nvim_tree_indent_markers = 1
 vim.g.nvim_tree_icon_padding = ''
 vim.g.nvim_tree_show_icons = {
   git = 0,
@@ -27,7 +25,7 @@ vim.g.nvim_tree_icons = {
 
 local tree_cb = require('nvim-tree.config').nvim_tree_callback
 
-vim.g.nvim_tree_bindings = {
+local mappings = {
   { key = {'<CR>', 'o', '<2-LeftMouse>'}, cb = tree_cb('edit') },
   { key = 'C',                            cb = tree_cb('cd') },
   { key = 's',                            cb = tree_cb('vsplit') },
@@ -61,4 +59,20 @@ vim.g.nvim_tree_bindings = {
   { key = '?',                            cb = tree_cb('toggle_help') },
 }
 
+require('nvim-tree').setup({
+  disable_netrw = true,
+  hijack_cursor = true,
+  view = {
+    width = 35,
+    mappings = {
+      only_custom = true,
+      list = mappings
+    }
+  },
+  filters = {
+    dotfiles = true
+  }
+})
+
 vim.api.nvim_set_keymap('n', '<C-b>', ':NvimTreeToggle<CR>', default_opts)
+

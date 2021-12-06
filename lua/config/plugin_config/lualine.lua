@@ -11,6 +11,25 @@ lualine.setup({
   options = {
     theme = 'tokyonight',
   },
+  sections = {
+    lualine_b = {
+      {
+        enabled = false
+      }
+    },
+    lualine_c = {
+      {
+        'filename',
+        file_status = true,
+        path = 1
+      }
+    },
+    lualine_x = {
+      'encoding',
+      -- 'fileformat',
+      'filetype' 
+    },
+  }
 })
 
 -- DEFAULT_COLORS
