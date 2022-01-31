@@ -1,5 +1,7 @@
-trouble = require('trouble')
+local trouble = require('trouble')
 
 trouble.setup({
-  icons = false
+    -- icons = true,
+    -- mode = "workspace_diagnostics", -- "workspace_diagnostics", "document_diagnostics", "quickfix", "lsp_references", "loclist"
+    -- use_diagnostics_signs = true
 })

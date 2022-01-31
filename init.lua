@@ -15,6 +15,8 @@ require('config.plugin_config.snippets')
 require('config.plugin_config.nvim_lsp')
 require('config.plugin_config.dap')
 require('config.plugin_config.git')
+require('config.plugin_config.neorg')
+require('config.plugin_config.which_key')
 
 -- require('sql')
 

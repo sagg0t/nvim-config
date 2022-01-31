@@ -5,31 +5,76 @@
 -- Eviline config for lualine
 -- Author: shadmansaleh
 -- Credit: glepnir
-local lualine = require('lualine')
+local lualine = require("lualine")
+local gps = require("nvim-gps")
+
+-- 'symbol_map = {
+--     Text = "",
+--     Method = ,
+--     Function = "",
+--     Constructor = "",
+--     Field = "ﰠ",
+--     Variable = "",
+--     Class = "ﴯ",
+--     Interface = "",
+--     Module = "",
+--     Property = "ﰠ",
+--     Unit = "塞",
+--     Value = "",
+--     Enum = "",
+--     Keyword = "",
+--     Snippet = "",
+--     Struct = "פּ",
+--     Event = "",
+--     Operator = "",
+--     TypeParameter = ""
+-- },
+gps.setup({
+    icons = {
+        ["class-name"] = ' ',
+        ["function-name"] = ' ',
+        ["method-name"] = " ",
+        ["container-name"] = "פּ ",
+        ["tag-name"] = '炙'
+    },
+    separator = "  "
+})
 
 lualine.setup({
-  options = {
-    theme = 'tokyonight',
-  },
-  sections = {
-    lualine_b = {
-      {
-        enabled = false
-      }
+    options = {
+        theme = "tokyonight",
+        -- theme = "vscode",
+        section_separators = { left = "", right = "" },
+        disabled_filetypes = { 'NvimTree' }
     },
-    lualine_c = {
-      {
-        'filename',
-        file_status = true,
-        path = 1
-      }
-    },
-    lualine_x = {
-      'encoding',
-      -- 'fileformat',
-      'filetype' 
-    },
-  }
+    sections = {
+        lualine_b = {
+            {
+                "filename",
+                file_status = true,
+                path = 0
+            },
+        },
+        lualine_c = {
+            {
+                gps.get_location,
+                cond = gps.is_available
+            },
+            "diagnostics"
+        },
+        lualine_x = { { enabled = false } },
+        lualine_y = { 'filetype' },
+        lualine_z = {
+            {
+                'progress',
+                padding = { left = 0, right = 1 }
+            },
+            {
+                'location',
+                padding = 1
+            }
+        }
+    }
 })
 
 -- DEFAULT_COLORS
