@@ -7,7 +7,6 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 end
 -----------------------------
 
-
 return require("packer").startup({
     function()
         use "wbthomason/packer.nvim"
@@ -15,9 +14,11 @@ return require("packer").startup({
         use "dunstontc/vim-vscode-theme"
         use "folke/tokyonight.nvim"
         use "Mofiqul/vscode.nvim"
+        use "shaeinst/roshnivim-cs"
 
         use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate", }
         use { "nvim-treesitter/playground" }
+        use "RRethy/nvim-treesitter-endwise"
         use {
             "lukas-reineke/indent-blankline.nvim",
             config = function()
@@ -41,6 +42,7 @@ return require("packer").startup({
         }
 
         use "neovim/nvim-lspconfig"
+        use "j-hui/fidget.nvim"
 
         use "hrsh7th/cmp-nvim-lsp"
         use "hrsh7th/cmp-nvim-lua"
@@ -97,7 +99,8 @@ return require("packer").startup({
             }
         }
         use { "nvim-telescope/telescope-dap.nvim" }
-        use {'nvim-telescope/telescope-ui-select.nvim' }
+        use { "nvim-telescope/telescope-ui-select.nvim" }
+        use { "nvim-telescope/telescope-media-files.nvim" }
 
         -- use {
         --     "TimUntersberger/neogit",
@@ -124,14 +127,7 @@ return require("packer").startup({
         use "rcarriga/nvim-dap-ui"
 
 
-        use "jbyuki/venn.nvim" -- tables
-        use {
-            "nvim-neorg/neorg", -- notes
-            requires = {
-                "nvim-lua/plenary.nvim"
-            },
-            after = "nvim-treesitter"
-        }
+        use "jbyuki/venn.nvim" -- graphs
         use "jbyuki/nabla.nvim" -- math formulas not set up
 
 

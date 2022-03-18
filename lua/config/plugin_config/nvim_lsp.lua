@@ -1,4 +1,5 @@
-local nvim_lsp = require('lspconfig')
+local lsp = require('lspconfig')
+local fidget = require("fidget")
 
 ---@diagnostic disable-next-line: unused-vararg
 local on_attach = function(client, bufnr, ...)
@@ -78,21 +79,22 @@ end
 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 
-nvim_lsp.solargraph.setup({
-    on_attach = on_attach,
-    capabilities = capabilities
-})
-nvim_lsp.sorbet.setup({
+lsp.solargraph.setup({
     on_attach = on_attach,
     capabilities = capabilities,
-    cmd = { 'srb', 'tc', '--lsp', '--disable-watchman' }
+    cmd = { "bundle", "exec", "solargraph", "stdio" }
 })
+-- nvim_lsp.sorbet.setup({
+--     on_attach = on_attach,
+--     capabilities = capabilities,
+--     cmd = { 'srb', 'tc', '--lsp', '--disable-watchman' }
+-- })
 
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
-nvim_lsp.sumneko_lua.setup({
+lsp.sumneko_lua.setup({
     on_attach = on_attach,
     capabilities = capabilities,
     settings = {
@@ -119,6 +121,28 @@ nvim_lsp.sumneko_lua.setup({
     },
 })
 
-nvim_lsp.clangd.setup({
-    on_attach = on_attach
+lsp.clangd.setup({
+    on_attach = on_attach,
+    capabilities = capabilities
 })
+
+lsp.jsonls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities
+})
+
+lsp.gopls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    cmd = {"gopls", "serve"},
+    settings = {
+      gopls = {
+        analyses = {
+          unusedparams = true,
+        },
+        staticcheck = true
+      }
+    }
+})
+
+fidget.setup({})

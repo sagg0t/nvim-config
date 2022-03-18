@@ -9,6 +9,11 @@ telescope.setup({
             --     ["<ESC>"] = actions.close,
             -- }
         },
+        selection_strategy = "reset",
+        sorting_strategy = "ascending",
+        layout_strategy = "horizontal",
+        file_ignore_patterns = { "node_modules" },
+        generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
     },
     pickers = {
         live_grep = { prompt_title = "Search" },
@@ -47,6 +52,8 @@ telescope.load_extension("fzf")
 telescope.load_extension("dap")
 telescope.load_extension("ui-select")
 telescope.load_extension("notify")
+telescope.load_extension("media_files")
+
 
 
 local opts = { noremap = true, silent = true }

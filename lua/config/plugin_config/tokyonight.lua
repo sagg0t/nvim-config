@@ -9,3 +9,4 @@ vim.g.vscode_transparent = 1
 vim.g.vscode_italic_comment = 1
 -- vim.cmd("colorscheme vscode")
 vim.cmd("colorscheme tokyonight")
+-- vim.cmd("colorscheme rvcs")
