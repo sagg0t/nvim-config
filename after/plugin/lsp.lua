@@ -1,8 +1,7 @@
 local lsp = require("lspconfig")
 -- local configs = require("lspconfig.configs")
 local fidget = require("fidget")
--- local lsp_lines = require("lsp_lines")
--- local navic = require("nvim-navic")
+local navic = require("nvim-navic")
 require('mason').setup()
 require('mason-lspconfig').setup()
 
@@ -11,7 +10,7 @@ vim.lsp.set_log_level("trace")
 local on_attach = function(client, bufnr, ...)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-    -- navic.attach(client, bufnr)
+    navic.attach(client, bufnr)
 
     -- Mappings
     local opts = { buffer = bufnr }
@@ -90,79 +89,71 @@ capabilities.textDocument.foldingRange = {
     lineFoldingOnly = true
 }
 
-
-lsp.solargraph.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-    -- cmd = { "solargraph", "stdio" }
-})
-
--- lsp.ruby_lsp.setup({
---     on_attach = on_attach,
---     capabilities = capabilities,
--- })
-
-lsp.sorbet.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-    -- cmd = { 'bundle', 'exec', 'srb', 'tc', '--lsp', '--disable-watchman' }
-})
+local language_servers = {
+    "solargraph",
+    -- "ruby_lsp",
+    "sorbet",
+    "sumneko_lua",
+    "clangd",
+    "jsonls",
+    "gopls"
+}
 
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
-lsp.sumneko_lua.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-    settings = {
-        Lua = {
-            runtime = {
-                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                version = 'LuaJIT',
-                -- Setup your lua path
-                path = runtime_path,
-            },
-            diagnostics = {
-                -- Get the language server to recognize the `vim` global
-                globals = { 'vim' },
-            },
-            workspace = {
-                -- Make the server aware of Neovim runtime files
-                library = vim.api.nvim_get_runtime_file("", true),
-                checkThirdParty = false,
-            },
-            -- Do not send telemetry data containing a randomized but unique identifier
-            telemetry = {
-                enable = false,
+local concrete_configs = {
+    sumneko_lua = {
+        settings = {
+            Lua = {
+                runtime = {
+                    -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                    version = 'LuaJIT',
+                    -- Setup your lua path
+                    path = runtime_path,
+                },
+                diagnostics = {
+                    -- Get the language server to recognize the `vim` global
+                    globals = { 'vim' },
+                },
+                workspace = {
+                    -- Make the server aware of Neovim runtime files
+                    library = vim.api.nvim_get_runtime_file("", true),
+                    checkThirdParty = false,
+                },
+                -- Do not send telemetry data containing a randomized but unique identifier
+                telemetry = {
+                    enable = false,
+                },
             },
         },
     },
-})
-
-lsp.clangd.setup({
-    on_attach = on_attach,
-    capabilities = capabilities
-})
-
-lsp.jsonls.setup({
-    on_attach = on_attach,
-    capabilities = capabilities
-})
-
-lsp.gopls.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-    cmd = { "gopls", "serve" },
-    settings = {
-        gopls = {
-            analyses = {
-                unusedparams = true,
-            },
-            staticcheck = true
+    gopls = {
+        cmd = { "gopls", "serve" },
+        settings = {
+            gopls = {
+                analyses = {
+                    unusedparams = true,
+                },
+                staticcheck = true
+            }
         }
-    }
-})
+    },
+    -- solargraph = {
+    --     cmd = { "solargraph", "stdio" }
+    -- },
+    -- sorbet = {
+    --     cmd = { 'bundle', 'exec', 'srb', 'tc', '--lsp', '--disable-watchman' }
+    -- }
+}
+
+local default_config = { on_attach = on_attach, capabilities = capabilities }
+
+for _, server in pairs(language_servers) do
+    local config = vim.tbl_extend("error", default_config, concrete_configs[server] or {})
+
+    lsp[server].setup(config)
+end
 
 fidget.setup({})
--- lsp_lines.setup()
