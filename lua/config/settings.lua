@@ -1,49 +1,48 @@
 vim.cmd 'syntax enable'
 vim.cmd 'filetype plugin indent on'
 
+local opt = vim.opt
 -- not available in current versio, need to wait till is available
--- for now use vim command
--- vim.g.colorscheme = 'dark_plus'
+-- for now use optommand
+-- opt.colorscheme = 'dark_plus'
 -- vim.cmd('colorscheme dark_plus')
 
-vim.g.mapleader = ' '
+opt.backup = false
+opt.writebackup = false
+opt.swapfile = false
+opt.laststatus = 3
+opt.hidden = true
 
-vim.g.backup = false
-vim.g.writebackup = false
-vim.b.swapfile = false
-vim.g.laststatus = 0
-vim.g.hidden = true
+opt.number = true
+opt.relativenumber = true
+opt.signcolumn = 'yes'        -- always have signcolumn shown to not shift buffer text
 
-vim.o.number = true
-vim.o.relativenumber = true
-vim.o.signcolumn = 'yes'        -- always have signcolumn shown to not shift buffer text
+opt.smartindent = true
+opt.shiftwidth = 4            -- number of spaces when shift indenting
+opt.tabstop = 4               -- number of visual spaces per tab
+opt.softtabstop = 4           -- number of spaces in tab when editing
+opt.expandtab = true          -- tab to spaces
 
-vim.o.smartindent = true
-vim.o.shiftwidth = 4            -- number of spaces when shift indenting
-vim.o.tabstop = 4               -- number of visual spaces per tab
-vim.o.softtabstop = 4           -- number of spaces in tab when editing
-vim.o.expandtab = true          -- tab to spaces
+opt.cursorline = true
+opt.background = 'dark'
+opt.termguicolors = true
+opt.colorcolumn = '105'
 
-vim.o.cursorline = true
-vim.o.background = 'dark'
-vim.o.termguicolors = true
-vim.o.colorcolumn = '105'
+opt.showmatch = true
+opt.incsearch = true
+opt.hlsearch = true
 
-vim.o.showmatch = true
-vim.o.incsearch = true
-vim.o.hlsearch = true
+opt.showcmd = true
 
-vim.o.showcmd = true
-
-vim.o.linebreak = true
-vim.o.textwidth = 105
-vim.o.ruler = false
-vim.o.foldmethod = 'indent'
-vim.o.foldenable = false -- unfold everything by default
--- vim.o.statusline = '%f\ %m%=%y\ %{&fileencoding?&fileencoding:&encoding}\ [%{&fileformat}\]\ %p%%\ %l:%c'
-vim.o.guicursor = 'a:block-Cursor'
-vim.o.updatetime = 250
-vim.g.ttimeoutlen = 0
+opt.linebreak = true
+opt.textwidth = 105
+opt.ruler = false
+opt.foldmethod = 'indent'
+opt.foldenable = false -- unfold everything by default
+-- opt.statusline = '%f\ %m%=%y\ %{&fileencoding?&fileencoding:&encoding}\ [%{&fileformat}\]\ %p%%\ %l:%c'
+opt.guicursor = 'a:block-Cursor'
+opt.updatetime = 250
+opt.ttimeoutlen = 0
 
 
-vim.o.clipboard = 'unnamedplus'
+opt.clipboard = 'unnamedplus'

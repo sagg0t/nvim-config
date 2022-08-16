@@ -1,44 +1,49 @@
 local telescope = require("telescope")
-local actions = require("telescope.actions")
-local sorters = require("telescope.sorters")
 
 telescope.setup({
     defaults = {
-        mappings = {
-            -- i = {
-            --     ["<ESC>"] = actions.close,
-            -- }
-        },
+        winblend = 10,
         selection_strategy = "reset",
         sorting_strategy = "ascending",
-        layout_strategy = "horizontal",
+        -- layout_strategy = "horizontal",
         file_ignore_patterns = { "node_modules" },
-        generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
+        -- generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
     },
+
+
     pickers = {
-        live_grep = { prompt_title = "Search" },
+        live_grep = {
+            theme = 'dropdown',
+            prompt_title = "Search",
+            results_title = '',
+            preview_title = '',
+            layout_config = {
+                width = 0.85,
+            }
+        },
         find_files = {
             layout_strategy = "center",
-            sorting_strategy = "ascending",
             prompt_title = "Search",
-            show_preview = false,
-            preview = false,
             layout_config = {
                 width = function(_, max_columns, _)
                     return math.min(max_columns - 3, 80)
                 end,
                 height = function(_, _, max_lines)
-                    return math.min(max_lines - 4, 25)
+                    return math.min(max_lines - 4, 30)
                 end,
-                preview_cutoff = 100 -- have no idea how it works, any value above 40 removes preview
             },
         },
     },
+
+
     extensions = {
         fzf = {
             fuzzy = true,
             override_generic_sorter = true,
             override_file_sorter = true
+        },
+        fzf_writer = {
+            use_highlighter = true
         },
         ["ui-select"] = {
             require("telescope.themes").get_dropdown {
@@ -57,8 +62,9 @@ telescope.load_extension("media_files")
 
 
 local opts = { noremap = true, silent = true }
-vim.api.nvim_set_keymap("n", "<Leader>ff", "<CMD>Telescope find_files<CR>", opts)
-vim.api.nvim_set_keymap("n", "<Leader>ft", "<CMD>Telescope live_grep<CR>", opts)
+vim.keymap.set("n", "<Leader>ff", "<CMD>Telescope find_files<CR>", opts)
+vim.keymap.set("n", "<Leader>ft", "<CMD>Telescope live_grep<CR>", opts)
+vim.keymap.set("n", "<Leader>fs", "<CMD>Telescope lsp_document_symbols<CR>", opts)
 
 --[[
     TelescopeSelection          selected item
@@ -75,21 +81,3 @@ vim.api.nvim_set_keymap("n", "<Leader>ft", "<CMD>Telescope live_grep<CR>", opts)
     TelescopeMatching           Used for highlighting characters that you match.
     TelescopePromptPrefix       Used for the prompt prefix
 --]]
-
--- vim.api.nvim_exec(
---     [[
---         highlight TelescopeSelection      guifg=#569cd6 gui=bold
---         highlight TelescopeSelectionCaret guifg=#f44747
---         highlight TelescopeMultiSelection guifg=#928374
---         highlight TelescopeNormal         guibg=#1e1e1e
--- 
---         highlight TelescopeBorder         guifg=#505050 gui=bold
---         highlight TelescopePromptBorder   guifg=#505050 gui=bold
---         highlight TelescopeResultsBorder  guifg=#505050 gui=bold
---         highlight TelescopePreviewBorder  guifg=#505050 gui=bold
--- 
---         highlight TelescopeMatching       guifg=#608b4e
---         highlight TelescopePromptPrefix   guifg=#f44747
---     ]],
---     true
--- )

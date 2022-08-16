@@ -1,8 +1,8 @@
 -- ensure packer is installed
-local install_path = vim.fn.stdpath("data").."/site/pack/packer/start/packer.nvim"
+local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-    vim.fn.system({"git", "clone", "https://github.com/wbthomason/packer.nvim", install_path})
+    vim.fn.system({ "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path })
     vim.api.nvim_command "packadd packer.vim"
 end
 -----------------------------
@@ -11,38 +11,66 @@ return require("packer").startup({
     function()
         use "wbthomason/packer.nvim"
 
-        use "dunstontc/vim-vscode-theme"
-        use "folke/tokyonight.nvim"
-        use "Mofiqul/vscode.nvim"
-        use "shaeinst/roshnivim-cs"
+        -- use {
+        --     "folke/tokyonight.nvim",
+        --     requires = { "lukas-reineke/indent-blankline.nvim" }
+        -- }
+        -- use {
+        --     "Mofiqul/vscode.nvim",
+        --     config = function()
+        --         require('vscode').setup({
+        --             transparent = false,
+        --             italic_comments = true,
+        --             disable_nvimtree_bg = true
+        --         })
+        --     end
+        -- }
+        use "~/dev/cs/sigma"
+        -- use "~/dev/cs/roshnivim-cs"
+        -- use "ellisonleao/gruvbox.nvim"
+        -- use "RRethy/nvim-base16"
+        -- use "rebelot/kanagawa.nvim"
+        -- use "sainnhe/sonokai"
+        -- use "martinsione/darkplus.nvim"
+        -- use { "shaunsingh/oxocarbon.nvim", run = "./install.sh" }
+        use "xiyaowong/nvim-transparent"
 
         use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate", }
         use { "nvim-treesitter/playground" }
-        use "RRethy/nvim-treesitter-endwise"
-        use {
-            "lukas-reineke/indent-blankline.nvim",
-            config = function()
-                require("indent_blankline").setup({
-                    show_current_context = true
-                })
-            end
-        }
-        use { "rrethy/vim-hexokinase", run = "make hexokinase" } -- highlight hex colors
 
-        use "onsails/lspkind-nvim"
+        use "RRethy/nvim-treesitter-endwise"
+        use { "lukas-reineke/indent-blankline.nvim", }
+        use {
+            "kevinhwang91/nvim-ufo",
+            requires = 'kevinhwang91/promise-async'
+        }
+        -- use { "rrethy/vim-hexokinase", run = "make hexokinase" } -- highlight hex colors
+        use { "ellisonleao/glow.nvim" }
+        -- use {
+        --     "NTBBloodbath/rest.nvim",
+        --     requires = { "nvim-lua/plenary.nvim" }
+        -- }
+
         use "tjdevries/colorbuddy.nvim"
+        use "brenoprata10/nvim-highlight-colors"
         use {
             "kyazdani42/nvim-web-devicons",
             config = function()
                 require("nvim-web-devicons").setup({
                     default = true,
                 })
-
             end
         }
 
+        use { "williamboman/mason.nvim" }
+        use { "williamboman/mason-lspconfig.nvim" }
+
         use "neovim/nvim-lspconfig"
+        use "jose-elias-alvarez/null-ls.nvim"
         use "j-hui/fidget.nvim"
+        use "onsails/lspkind-nvim"
+        use { "https://git.sr.ht/~whynothugo/lsp_lines.nvim" }
+
 
         use "hrsh7th/cmp-nvim-lsp"
         use "hrsh7th/cmp-nvim-lua"
@@ -56,59 +84,43 @@ return require("packer").startup({
         use "rafamadriz/friendly-snippets"
 
         use "kyazdani42/nvim-tree.lua"
-        -- use {
-        --     "ms-jpq/chadtree",
-        --     branch = "chad",
-        --     run = "python3 -m chadtree deps"
-        -- }
+
         use "hoob3rt/lualine.nvim"
         use {
-            "SmiteshP/nvim-gps",
-            requires = "nvim-treesitter/nvim-treesitter"
+            "SmiteshP/nvim-navic",
+            requires = "neovim/nvim-lspconfig"
         }
         use "folke/trouble.nvim"
         use "rcarriga/nvim-notify"
+        use { "folke/which-key.nvim" }
         use {
-            "folke/which-key.nvim",
-            config = function() require("which-key").setup({}) end
+            "folke/todo-comments.nvim",
+            requires = "nvim-lua/plenary.nvim"
         }
         use {
-          "folke/todo-comments.nvim",
-          requires = "nvim-lua/plenary.nvim",
-          config = function()
-              require("todo-comments").setup({})
-          end
-        }
-        use {
-          "folke/zen-mode.nvim",
-          config = function()
-            require("zen-mode").setup {
-              -- your configuration comes here
-              -- or leave it empty to use the default settings
-              -- refer to the configuration section below
-            }
-          end
+            "folke/zen-mode.nvim",
+            config = function()
+                require("zen-mode").setup {
+                    -- your configuration comes here
+                    -- or leave it empty to use the default settings
+                    -- refer to the configuration section below
+                }
+            end
         }
 
         use {
             "nvim-telescope/telescope.nvim",
             requires = {
-                {"nvim-lua/popup.nvim"},
-                {"nvim-lua/plenary.nvim"},
-                {"nvim-telescope/telescope-fzf-native.nvim", run = "make" }
+                { "nvim-lua/popup.nvim" },
+                { "nvim-lua/plenary.nvim" }
             }
         }
-        use { "nvim-telescope/telescope-dap.nvim" }
-        use { "nvim-telescope/telescope-ui-select.nvim" }
-        use { "nvim-telescope/telescope-media-files.nvim" }
+        use { "nvim-telescope/telescope-dap.nvim", requires = "nvim-telescope/telescope.nvim" }
+        use { "nvim-telescope/telescope-ui-select.nvim", requires = "nvim-telescope/telescope.nvim" }
+        use { "nvim-telescope/telescope-media-files.nvim", requires = "nvim-telescope/telescope.nvim" }
+        use { "nvim-telescope/telescope-fzf-native.nvim", run = "make", requires = "nvim-telescope/telescope.nvim" }
+        use { "nvim-telescope/telescope-fzf-writer.nvim", requires = "nvim-telescope/telescope.nvim" }
 
-        -- use {
-        --     "TimUntersberger/neogit",
-        --     requires = {
-        --         "nvim-lua/plenary.nvim",
-        --         "sindrets/diffview.nvim"
-        --     }
-        -- }
         use "sindrets/diffview.nvim"
         use {
             "lewis6991/gitsigns.nvim",
@@ -117,23 +129,39 @@ return require("packer").startup({
             }
         }
 
+        use { "anuvyklack/hydra.nvim" }
 
         use {
-            "rcarriga/vim-ultest",
-            requires = {"vim-test/vim-test"},
-            run = ":UpdateRemotePlugins",
+            "nvim-neotest/neotest",
+            -- "~/dev/neotest",
+            requires = {
+                "nvim-lua/plenary.nvim",
+                "nvim-treesitter/nvim-treesitter",
+                "antoinemadec/FixCursorHold.nvim",
+                "olimorris/neotest-rspec",
+                -- "~/dev/neotest-rspec",
+                "~/dev/neotest-go"
+            }
         }
+        use "MTDL9/vim-log-highlighting"
         use "mfussenegger/nvim-dap"
         use "rcarriga/nvim-dap-ui"
+        use "~/dev/nvim-dap-ruby"
+        use "jbyuki/one-small-step-for-vimkind"
 
 
-        use "jbyuki/venn.nvim" -- graphs
-        use "jbyuki/nabla.nvim" -- math formulas not set up
+        -- use "jbyuki/venn.nvim" -- graphs
+        -- use "jbyuki/nabla.nvim" -- math formulas not set up
 
 
         use "szw/vim-maximizer"
         use "jiangmiao/auto-pairs" -- find lua analogue
-        use "tpope/vim-surround"
+        use {
+            "kylechui/nvim-surround",
+            config = function()
+                require("nvim-surround").setup({})
+            end
+        }
         use "andrewradev/splitjoin.vim"
         use {
             "numToStr/Comment.nvim",
@@ -141,17 +169,19 @@ return require("packer").startup({
                 require("Comment").setup()
             end
         }
-        -- use "vimwiki/vimwiki"
-        use { "jgdavey/tslime.vim", branch = "main" }
 
 
         -- slow, need alternative
         use "tpope/vim-dadbod"
         use "kristijanhusak/vim-dadbod-ui"
     end,
+
     config = {
         display = {
-            open_fn = function() return require("packer.util").float({ border = "single" }) end
-        }
+            open_fn = function()
+                return require("packer.util").float({ border = "single" })
+            end
+        },
+        git = { default_url_format = "git@github.com:%s" }
     }
 })

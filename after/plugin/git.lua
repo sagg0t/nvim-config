@@ -23,7 +23,7 @@ local gitsigns = require('gitsigns')
 --     true
 -- )
 
--- vim.api.nvim_set_keymap('n', '<Leader>gg', '<CMD>Neogit<CR>', { noremap = true, silent = true })
+-- vim.keymap.set('n', '<Leader>gg', '<CMD>Neogit<CR>', { noremap = true, silent = true })
 
 
 ---------------------------------

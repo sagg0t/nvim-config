@@ -2,11 +2,8 @@
 ---------------------  LUALINE  -----------------------
 -------------------------------------------------------
 
--- Eviline config for lualine
--- Author: shadmansaleh
--- Credit: glepnir
 local lualine = require("lualine")
-local gps = require("nvim-gps")
+local navic = require("nvim-navic")
 
 -- 'symbol_map = {
 --     Text = "",
@@ -29,23 +26,23 @@ local gps = require("nvim-gps")
 --     Operator = "",
 --     TypeParameter = ""
 -- },
-gps.setup({
-    icons = {
-        ["class-name"] = ' ',
-        ["function-name"] = ' ',
-        ["method-name"] = " ",
-        ["container-name"] = "פּ ",
-        ["tag-name"] = '炙'
-    },
-    separator = "  "
-})
+-- navic.setup({
+--     icons = {
+--         ["class-name"] = ' ',
+--         ["function-name"] = ' ',
+--         ["method-name"] = " ",
+--         ["container-name"] = "פּ ",
+--         ["tag-name"] = '炙'
+--     },
+--     separator = "  "
+-- })
 
 lualine.setup({
     options = {
-        theme = "tokyonight",
-        -- theme = "vscode",
+        -- theme = "sigma",
         section_separators = { left = "", right = "" },
-        disabled_filetypes = { 'NvimTree' }
+        -- disabled_filetypes = { 'NvimTree' }
+        globalstatus = true
     },
     sections = {
         lualine_b = {
@@ -57,8 +54,8 @@ lualine.setup({
         },
         lualine_c = {
             {
-                gps.get_location,
-                cond = gps.is_available
+                navic.get_location,
+                cond = navic.is_available
             },
             "diagnostics"
         },

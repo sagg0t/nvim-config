@@ -3,7 +3,7 @@ local luasnip = require("luasnip")
 local lspkind = require("lspkind")
 
 cmp.setup({
-    sources = {
+    sources = cmp.config.sources({
         -- options:
         --   name
         --   keyword_length
@@ -11,12 +11,11 @@ cmp.setup({
         --   max_item_count
         --   (more?)
         { name = "nvim_lua" },
-        { name = "neorg" },
         { name = "luasnip" },
         { name = "nvim_lsp" },
-        { name = "buffer" },
+        { name = 'nvim_lsp_signature_help' },
         { name = "path" }
-    },
+    }, { { name = "buffer" } }),
 
     snippet = {
         expand = function(args)
@@ -39,20 +38,29 @@ cmp.setup({
         })
     },
 
+    mapping = cmp.mapping.preset.insert(),
+
     experimental = {
-        native_menu = false,
         ghost_text = true
     },
 
-    documentation = true
+    -- view = {
+    --     entries = "native"
+    -- },
+
+    window = {
+        documentation = cmp.config.window.bordered()
+    }
 })
 
 cmp.setup.cmdline(":", {
+    mapping = cmp.mapping.preset.cmdline(),
     sources = {
         { name = "cmdline" }
     }
 })
 cmp.setup.cmdline('/', {
+    mapping = cmp.mapping.preset.cmdline(),
     sources = {
         { name = 'buffer' }
     }
