@@ -2,8 +2,9 @@ local lsp = require("lspconfig")
 -- local configs = require("lspconfig.configs")
 local fidget = require("fidget")
 local navic = require("nvim-navic")
-require('mason').setup()
-require('mason-lspconfig').setup()
+local ufo = require("ufo")
+require("mason").setup()
+require("mason-lspconfig").setup()
 
 vim.lsp.set_log_level("trace")
 ---@diagnostic disable-next-line: unused-vararg
@@ -157,3 +158,4 @@ for _, server in pairs(language_servers) do
 end
 
 fidget.setup({})
+ufo.setup()
