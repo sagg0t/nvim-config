@@ -69,7 +69,6 @@ return require("packer").startup({
         use "jose-elias-alvarez/null-ls.nvim"
         use "j-hui/fidget.nvim"
         use "onsails/lspkind-nvim"
-        use { "https://git.sr.ht/~whynothugo/lsp_lines.nvim" }
 
 
         use "hrsh7th/cmp-nvim-lsp"
