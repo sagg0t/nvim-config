@@ -90,6 +90,11 @@ _G.packer_plugins = {
     path = "/Users/Oleh_Volynets/.local/share/nvim/site/pack/packer/start/auto-pairs",
     url = "git@github.com:jiangmiao/auto-pairs"
   },
+  ["clangd_extensions.nvim"] = {
+    loaded = true,
+    path = "/Users/Oleh_Volynets/.local/share/nvim/site/pack/packer/start/clangd_extensions.nvim",
+    url = "git@github.com:p00f/clangd_extensions.nvim"
+  },
   ["cmp-buffer"] = {
     loaded = true,
     path = "/Users/Oleh_Volynets/.local/share/nvim/site/pack/packer/start/cmp-buffer",
@@ -150,11 +155,6 @@ _G.packer_plugins = {
     path = "/Users/Oleh_Volynets/.local/share/nvim/site/pack/packer/start/glow.nvim",
     url = "git@github.com:ellisonleao/glow.nvim"
   },
-  ["hydra.nvim"] = {
-    loaded = true,
-    path = "/Users/Oleh_Volynets/.local/share/nvim/site/pack/packer/start/hydra.nvim",
-    url = "git@github.com:anuvyklack/hydra.nvim"
-  },
   ["indent-blankline.nvim"] = {
     loaded = true,
     path = "/Users/Oleh_Volynets/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim",
@@ -204,6 +204,12 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/Oleh_Volynets/.local/share/nvim/site/pack/packer/start/nvim-cmp",
     url = "git@github.com:hrsh7th/nvim-cmp"
+  },
+  ["nvim-coverage"] = {
+    config = { "\27LJ\2\n:\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\rcoverage\frequire\0" },
+    loaded = true,
+    path = "/Users/Oleh_Volynets/.local/share/nvim/site/pack/packer/start/nvim-coverage",
+    url = "git@github.com:andythigpen/nvim-coverage"
   },
   ["nvim-dap"] = {
     loaded = true,
@@ -281,6 +287,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/Oleh_Volynets/.local/share/nvim/site/pack/packer/start/one-small-step-for-vimkind",
     url = "git@github.com:jbyuki/one-small-step-for-vimkind"
+  },
+  ["oxocarbon-lua.nvim"] = {
+    loaded = true,
+    path = "/Users/Oleh_Volynets/.local/share/nvim/site/pack/packer/start/oxocarbon-lua.nvim",
+    url = "git@github.com:B4mbus/oxocarbon-lua.nvim"
   },
   ["packer.nvim"] = {
     loaded = true,
@@ -391,22 +402,26 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: zen-mode.nvim
-time([[Config for zen-mode.nvim]], true)
-try_loadstring("\27LJ\2\n:\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\rzen-mode\frequire\0", "config", "zen-mode.nvim")
-time([[Config for zen-mode.nvim]], false)
--- Config for: nvim-surround
-time([[Config for nvim-surround]], true)
-try_loadstring("\27LJ\2\n?\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\18nvim-surround\frequire\0", "config", "nvim-surround")
-time([[Config for nvim-surround]], false)
--- Config for: Comment.nvim
-time([[Config for Comment.nvim]], true)
-try_loadstring("\27LJ\2\n5\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\fComment\frequire\0", "config", "Comment.nvim")
-time([[Config for Comment.nvim]], false)
 -- Config for: nvim-web-devicons
 time([[Config for nvim-web-devicons]], true)
 try_loadstring("\27LJ\2\nO\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\1\fdefault\2\nsetup\22nvim-web-devicons\frequire\0", "config", "nvim-web-devicons")
 time([[Config for nvim-web-devicons]], false)
+-- Config for: nvim-coverage
+time([[Config for nvim-coverage]], true)
+try_loadstring("\27LJ\2\n:\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\rcoverage\frequire\0", "config", "nvim-coverage")
+time([[Config for nvim-coverage]], false)
+-- Config for: zen-mode.nvim
+time([[Config for zen-mode.nvim]], true)
+try_loadstring("\27LJ\2\n:\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\rzen-mode\frequire\0", "config", "zen-mode.nvim")
+time([[Config for zen-mode.nvim]], false)
+-- Config for: Comment.nvim
+time([[Config for Comment.nvim]], true)
+try_loadstring("\27LJ\2\n5\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\fComment\frequire\0", "config", "Comment.nvim")
+time([[Config for Comment.nvim]], false)
+-- Config for: nvim-surround
+time([[Config for nvim-surround]], true)
+try_loadstring("\27LJ\2\n?\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\18nvim-surround\frequire\0", "config", "nvim-surround")
+time([[Config for nvim-surround]], false)
 if should_profile then save_profiles() end
 
 end)

@@ -1,7 +1,7 @@
 local lsp = require("lspconfig")
 -- local configs = require("lspconfig.configs")
 local fidget = require("fidget")
-local navic = require("nvim-navic")
+-- local navic = require("nvim-navic")
 local ufo = require("ufo")
 require("mason").setup()
 require("mason-lspconfig").setup()
@@ -11,7 +11,7 @@ vim.lsp.set_log_level("trace")
 local on_attach = function(client, bufnr, ...)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-    navic.attach(client, bufnr)
+    -- navic.attach(client, bufnr)
 
     -- Mappings
     local opts = { buffer = bufnr }
@@ -95,7 +95,7 @@ local language_servers = {
     -- "ruby_lsp",
     "sorbet",
     "sumneko_lua",
-    "clangd",
+    -- "clangd",
     "jsonls",
     "gopls"
 }
@@ -156,6 +156,10 @@ for _, server in pairs(language_servers) do
 
     lsp[server].setup(config)
 end
+
+require("clangd_extensions").setup({
+    server = default_config
+})
 
 fidget.setup({})
 ufo.setup()

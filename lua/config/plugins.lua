@@ -32,7 +32,8 @@ return require("packer").startup({
         -- use "rebelot/kanagawa.nvim"
         -- use "sainnhe/sonokai"
         -- use "martinsione/darkplus.nvim"
-        -- use { "shaunsingh/oxocarbon.nvim", run = "./install.sh" }
+        use "B4mbus/oxocarbon-lua.nvim"
+
         use "xiyaowong/nvim-transparent"
 
         use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate", }
@@ -44,7 +45,6 @@ return require("packer").startup({
             "kevinhwang91/nvim-ufo",
             requires = 'kevinhwang91/promise-async'
         }
-        -- use { "rrethy/vim-hexokinase", run = "make hexokinase" } -- highlight hex colors
         use { "ellisonleao/glow.nvim" }
         -- use {
         --     "NTBBloodbath/rest.nvim",
@@ -69,6 +69,7 @@ return require("packer").startup({
         use "jose-elias-alvarez/null-ls.nvim"
         use "j-hui/fidget.nvim"
         use "onsails/lspkind-nvim"
+        use "p00f/clangd_extensions.nvim"
 
 
         use "hrsh7th/cmp-nvim-lsp"
@@ -128,8 +129,6 @@ return require("packer").startup({
             }
         }
 
-        use { "anuvyklack/hydra.nvim" }
-
         use {
             "nvim-neotest/neotest",
             -- "~/dev/neotest",
@@ -142,6 +141,13 @@ return require("packer").startup({
                 "~/dev/neotest-go"
             }
         }
+        use({
+            "andythigpen/nvim-coverage",
+            requires = "nvim-lua/plenary.nvim",
+            config = function()
+                require("coverage").setup({})
+            end,
+        })
         use "MTDL9/vim-log-highlighting"
         use "mfussenegger/nvim-dap"
         use "rcarriga/nvim-dap-ui"

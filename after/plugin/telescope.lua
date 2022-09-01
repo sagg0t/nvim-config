@@ -65,6 +65,14 @@ local opts = { noremap = true, silent = true }
 vim.keymap.set("n", "<Leader>ff", "<CMD>Telescope find_files<CR>", opts)
 vim.keymap.set("n", "<Leader>ft", "<CMD>Telescope live_grep<CR>", opts)
 vim.keymap.set("n", "<Leader>fs", "<CMD>Telescope lsp_document_symbols<CR>", opts)
+vim.keymap.set("n", '<Leader>fo', '<CMD>Telescope oldfiles<CR>', opts) -- { desc = 'recently opened files' } }
+vim.keymap.set("n", '<Leader>fh', '<CMD>Telescope help_tags<CR>', opts) -- { desc = 'vim help' } }
+vim.keymap.set("n", '<Leader>fk', '<CMD>Telescope keymaps<CR>', opts)
+vim.keymap.set("n", '<Leader>fO', '<CMD>Telescope vim_options<CR>', opts)
+vim.keymap.set("n", '<Leader>f/', '<CMD>Telescope current_buffer_fuzzy_find<CR>', opts) -- search in file
+vim.keymap.set("n", '<Leader>f?', '<CMD>Telescope search_history<CR>', opts) -- 'search history'
+vim.keymap.set("n", '<Leader>f;', '<CMD>Telescope command_history<CR>', opts) -- , { desc = 'command-line history' } }
+vim.keymap.set("n", '<Leader>fc', '<CMD>Telescope commands<CR>', opts) -- , { desc = 'execute command' } }
 
 --[[
     TelescopeSelection          selected item
