@@ -1,6 +1,8 @@
 vim.cmd 'syntax enable'
 vim.cmd 'filetype plugin indent on'
 
+vim.g.mapleader = " "
+
 local opt = vim.opt
 -- not available in current versio, need to wait till is available
 -- for now use optommand
@@ -46,3 +48,5 @@ opt.ttimeoutlen = 0
 
 
 opt.clipboard = 'unnamedplus'
+
+return {}

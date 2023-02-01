@@ -1,9 +1,57 @@
--------------------------------------------------------
----------------------  LUALINE  -----------------------
--------------------------------------------------------
+return {
+    {
+        "SmiteshP/nvim-navic",
+        dependencies = { "neovim/nvim-lspconfig" }
+    },
 
-local lualine = require("lualine")
-local navic = require("nvim-navic")
+    {
+        "hoob3rt/lualine.nvim",
+        dependencies = { "SmiteshP/nvim-navic" },
+        opts = {
+            options = {
+                -- theme = "sigma",
+                section_separators = { left = "", right = "" },
+                -- disabled_filetypes = { 'NvimTree' }
+                globalstatus = true
+            },
+            sections = {
+                lualine_b = {
+                    {
+                        "filename",
+                        file_status = true,
+                        path = 0
+                    },
+                },
+                lualine_x = { { enabled = false } },
+                lualine_y = { 'filetype' },
+                lualine_z = {
+                    {
+                        'progress',
+                        padding = { left = 0, right = 1 }
+                    },
+                    {
+                        'location',
+                        padding = 1
+                    }
+                }
+            }
+        },
+        config = function(_, opts)
+            local lualine = require("lualine")
+            local navic = require("nvim-navic")
+
+            opts.sections.lualine_c = {
+                {
+                    navic.get_location,
+                    cond = navic.is_available
+                },
+                "diagnostics"
+            }
+
+            lualine.setup(opts)
+        end
+    }
+}
 
 -- 'symbol_map = {
 --     Text = "",
@@ -36,43 +84,6 @@ local navic = require("nvim-navic")
 --     },
 --     separator = "  "
 -- })
-
-lualine.setup({
-    options = {
-        -- theme = "sigma",
-        section_separators = { left = "", right = "" },
-        -- disabled_filetypes = { 'NvimTree' }
-        globalstatus = true
-    },
-    sections = {
-        lualine_b = {
-            {
-                "filename",
-                file_status = true,
-                path = 0
-            },
-        },
-        lualine_c = {
-            {
-                navic.get_location,
-                cond = navic.is_available
-            },
-            "diagnostics"
-        },
-        lualine_x = { { enabled = false } },
-        lualine_y = { 'filetype' },
-        lualine_z = {
-            {
-                'progress',
-                padding = { left = 0, right = 1 }
-            },
-            {
-                'location',
-                padding = 1
-            }
-        }
-    }
-})
 
 -- DEFAULT_COLORS
 -- Color table for highlights

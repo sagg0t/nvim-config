@@ -19,3 +19,5 @@ vim.keymap.set('n', '<C-k>', ':m .-2<CR>==', default_opts)
 vim.keymap.set('n', '<Leader>m', ':MaximizerToggle<CR>', default_opts)
 
 vim.keymap.set('n', '<Leader>fn', ':TodoTrouble<CR>', default_opts)
+
+return {}
