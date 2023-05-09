@@ -18,7 +18,7 @@ return {
             local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
             function vim.lsp.util.open_floating_preview(contents, syntax, preview_opts, ...)
                 preview_opts = preview_opts or {}
-                preview_opts.border = preview_opts.border or icons.border
+                preview_opts.border = preview_opts.border or opts.icons.border
                 return orig_util_open_floating_preview(contents, syntax, preview_opts, ...)
             end
 
@@ -92,4 +92,6 @@ return {
             }
         }
     },
+
+    require("plugins.lsp.lspsaga"),
 }

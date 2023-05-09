@@ -3,7 +3,7 @@ table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
 return {
-    sumneko_lua = {
+    lua_ls = {
         settings = {
             Lua = {
                 runtime = {

@@ -1,6 +1,7 @@
 return {
     {
-        "olehvolynets/sigma.nvim",
+        -- "olehvolynets/sigma.nvim",
+        dir = "~/devel/sigma.nvim",
         lazy = false,
         priority = 1000,
         init = function()

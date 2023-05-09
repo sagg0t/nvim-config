@@ -6,11 +6,11 @@ return {
         event = "BufReadPost",
         opts = {
             ensure_installed = {
-                'c', 'cpp', 'cmake', 'cuda',
+                'c', 'cpp', 'cmake', 'cuda', 'go',
                 'ruby', 'dockerfile', 'graphql', 'json', 'yaml', 'python', 'http',
                 'javascript', 'css', 'html', 'scss', 'typescript', 'tsx',
-                'lua', 'regex',
-                'bash', 'fish'
+                'lua', 'regex', 'bash', 'fish', 'php', 'terraform'<
+                'markdown', 'markdown_inline'
             },
 
             highlight = {

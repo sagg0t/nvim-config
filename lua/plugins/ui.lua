@@ -1,7 +1,43 @@
+TEST_STRING = [[opts = {
+            lsp = {
+                override = {
+                    ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+                    ["vim.lsp.util.stylize_markdown"] = true,
+                },
+            },
+            presets = {
+                bottom_search = false,
+                command_palette = true,
+                long_message_to_split = true,
+            },
+            views = {
+                mini = {
+                    timeout = 4000
+                }
+            }
+            -- routes = {
+            --     {
+            --         filter = {
+            --             event = "msg_show",
+            --             kind = "",
+            --             find = "written",
+            --         },
+            --         opts = { skip = true },
+            --     },
+            -- },
+        }]]
 return {
-    "szw/vim-maximizer",
     "jiangmiao/auto-pairs", -- find lua analogue
     "andrewradev/splitjoin.vim",
+
+    {
+        "szw/vim-maximizer",
+        lazy = true,
+        cmd = "MaximizerToggle",
+        keys = {
+            { '<Leader>m', ':MaximizerToggle<CR>', noremap = true, silent = true }
+        }
+    },
 
     {
         "lukas-reineke/indent-blankline.nvim",
@@ -12,13 +48,18 @@ return {
     },
 
     {
-        "kyazdani42/nvim-web-devicons",
+        "nvim-tree/nvim-web-devicons",
         lazy = true,
         opts = { default = true }
     },
 
     {
+        "ii14/neorepl.nvim",
+    },
+
+    {
         "folke/noice.nvim",
+        -- enabled = false,
         event = "VeryLazy",
         keys = {
             { "<leader>nl", function() require("noice").cmd("last") end, desc = "Noice Last Message" },
@@ -26,17 +67,32 @@ return {
             { "<leader>na", function() require("noice").cmd("all") end, desc = "Noice All" },
         },
         opts = {
-          lsp = {
-            override = {
-              ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-              ["vim.lsp.util.stylize_markdown"] = true,
+            lsp = {
+                override = {
+                    ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+                    ["vim.lsp.util.stylize_markdown"] = true,
+                },
             },
-          },
-          presets = {
-            bottom_search = true,
-            command_palette = true,
-            long_message_to_split = true,
-          },
+            presets = {
+                bottom_search = false,
+                command_palette = true,
+                long_message_to_split = true,
+            },
+            views = {
+                mini = {
+                    timeout = 4000
+                }
+            }
+            -- routes = {
+            --     {
+            --         filter = {
+            --             event = "msg_show",
+            --             kind = "",
+            --             find = "written",
+            --         },
+            --         opts = { skip = true },
+            --     },
+            -- },
         },
         dependencies = {
             "MunifTanjim/nui.nvim",
@@ -48,9 +104,10 @@ return {
 
     {
         "folke/todo-comments.nvim",
-        lazy = true,
-        dependencies = {
-            "nvim-lua/plenary.nvim"
+        dependencies = { "nvim-lua/plenary.nvim" },
+        cmd = "TodoTrouble",
+        keys = {
+            { '<Leader>fn', '<CMD>TodoTrouble<CR>', noremap = true, silent = true }
         },
         opts = {
             search = {
@@ -66,5 +123,8 @@ return {
                 }
             }
         }
-    }
+    },
+
+
+    { "brenoprata10/nvim-highlight-colors", lazy = true }
 }

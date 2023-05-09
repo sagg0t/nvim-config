@@ -9,7 +9,7 @@ return {
             "flake8",
         },
     },
-    config = function(plugin, opts)
+    config = function(_, opts)
         require("mason").setup(opts)
         local mr = require("mason-registry")
         for _, tool in ipairs(opts.ensure_installed) do

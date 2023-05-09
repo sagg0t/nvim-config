@@ -9,7 +9,6 @@ local a = {
         -- }
 
         use "tjdevries/colorbuddy.nvim"
-        use "brenoprata10/nvim-highlight-colors"
 
 
         use "folke/trouble.nvim"

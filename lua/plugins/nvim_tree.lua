@@ -1,6 +1,7 @@
 return {
     {
         "kyazdani42/nvim-tree.lua",
+        enabled = false,
         keys = {
             { '<C-b>', ':NvimTreeToggle<CR>', noremap = true, silent = true }
         },
@@ -10,10 +11,7 @@ return {
             view = {
                 width = 35,
                 side = 'right',
-                mappings = {
-                    custom_only = true,
-                    list = mappings
-                }
+                mappings = { custom_only = true }
             },
             renderer = {
                 indent_markers = {
@@ -90,6 +88,5 @@ return {
 
             require('nvim-tree').setup(opts)
         end,
-        
     }
 }
