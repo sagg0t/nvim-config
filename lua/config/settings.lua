@@ -49,4 +49,15 @@ opt.ttimeoutlen = 0
 
 opt.clipboard = 'unnamedplus'
 
+-- opt.fillchars = {
+--     horiz     = '━',
+--     horizup   = '┻',
+--     horizdown = '┳',
+--     vert      = '┃',
+--     vertleft  = '┫',
+--     vertright = '┣',
+--     verthoriz = '╋',
+-- }
+
+
 return {}
