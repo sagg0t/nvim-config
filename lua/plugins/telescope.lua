@@ -38,7 +38,10 @@ return {
         },
         opts = {
             defaults = {
-                winblend = 10,
+                prompt_prefix = " ",
+                selection_caret = " ",
+                entry_prefix = "  ",
+                winblend = 0,
                 selection_strategy = "reset",
                 sorting_strategy = "ascending",
                 -- layout_strategy = "horizontal",
@@ -89,7 +92,7 @@ return {
             telescope.setup(opts)
 
             telescope.load_extension("fzf")
-            -- telescope.load_extension("dap")
+            telescope.load_extension("dap")
             -- telescope.load_extension("notify")
             telescope.load_extension("media_files")
             telescope.load_extension("noice")
@@ -115,5 +118,11 @@ return {
     {
         "nvim-telescope/telescope-fzf-writer.nvim",
         dependencies = { "nvim-telescope/telescope.nvim" }
+    },
+
+    {
+        "nvim-telescope/telescope-dap.nvim",
+        dependencies = { "nvim-telescope/telescope.nvim" }
     }
+
 }
