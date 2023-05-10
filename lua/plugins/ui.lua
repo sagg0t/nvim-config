@@ -126,5 +126,13 @@ return {
     },
 
 
-    { "brenoprata10/nvim-highlight-colors", lazy = true }
+    {
+        "brenoprata10/nvim-highlight-colors",
+        lazy = true,
+        cmd = {
+            "HighlightColorsOn",
+            "HighlightColorsOff",
+            "HighlightColorsToggle",
+        },
+    }
 }
