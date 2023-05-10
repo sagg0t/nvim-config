@@ -6,7 +6,7 @@ return {
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
             "onsails/lspkind-nvim",
-            "mason.nvim",
+            "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim"
         },
         opts = lsp_config,
