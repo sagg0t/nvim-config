@@ -1,24 +1,26 @@
 return {
     {
         "nvim-neo-tree/neo-tree.nvim",
-        branch = "v2.x",
+        branch = "v3.x",
         dependencies = {
             "nvim-lua/plenary.nvim",
             "nvim-tree/nvim-web-devicons",
             "MunifTanjim/nui.nvim",
             {
                 "s1n7ax/nvim-window-picker",
-                -- tag = "v1.*",
-                main = "window-picker",
+                version = "2.*",
+                name = "window-picker",
                 opts = {
-                    autoselect_one = true,
-                    include_current = false,
+                    hint = "floating-big-letter",
+                    show_prompt = false,
                     filter_rules = {
+                        autoselect_one = true,
+                        include_current = false,
                         bo = {
                             -- if the file type is one of following, the window will be ignored
-                            filetype = { 'neo-tree', "neo-tree-popup", "notify" },
+                            filetype = { "neo-tree", "neo-tree-popup", "notify", "noice" },
                             -- if the buffer type is one of following, the window will be ignored
-                            buftype = { 'terminal', "quickfix" },
+                            buftype = { "terminal", "quickfix", "nofile" },
                         },
                     },
                     other_win_hl_color = '#e35e4f',
@@ -52,7 +54,8 @@ return {
             window = {
                 -- use_libuv_file_watcher = true
                 mappings = {
-                    ["o"] = "open_with_window_picker",
+                    -- ["o"] = "open_with_window_picker",
+                    ["o"] = "open",
                     ["i"] = "open_split",
                     ["s"] = "open_vsplit",
                     ["w"] = "none"

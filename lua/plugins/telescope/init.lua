@@ -1,23 +1,7 @@
---[[
-    TelescopeSelection          selected item
-    TelescopeSelectionCaret     selection caret
-    TelescopeMultiSelection     multisections
-    TelescopeNormal             floating windows created by telescope.
-
-                    Border highlight groups.
-    TelescopeBorder
-    TelescopePromptBorder
-    TelescopeResultsBorder
-    TelescopePreviewBorder
-
-    TelescopeMatching           Used for highlighting characters that you match.
-    TelescopePromptPrefix       Used for the prompt prefix
---]]
-
-
 return {
     {
         "nvim-telescope/telescope.nvim",
+        lazy = true,
         cmd = "Telescope",
         keys = {
             { "<Leader>ff", "<CMD>Telescope find_files<CR>" },
@@ -38,6 +22,11 @@ return {
         },
         opts = {
             defaults = {
+                borderchars = {
+                    prompt = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+                    results = { "─", "│", "─", "│", "╭", "╮", "┤", "├" },
+                    preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+                },
                 prompt_prefix = " ",
                 selection_caret = " ",
                 entry_prefix = "  ",
@@ -52,23 +41,27 @@ return {
 
             pickers = {
                 live_grep = {
-                    theme = 'dropdown',
-                    prompt_title = "Search",
-                    results_title = '',
-                    preview_title = '',
-                    layout_config = {
-                        width = 0.85,
-                    }
-                },
-                find_files = {
                     layout_strategy = "center",
-                    prompt_title = "Search",
+                    prompt_title = "",
+                    results_title = "",
+                    preview_title = "",
                     layout_config = {
                         width = function(_, max_columns, _)
                             return math.min(max_columns - 3, 80)
                         end,
+                    }
+                },
+                find_files = {
+                    layout_strategy = "center",
+                    prompt_title = "",
+                    results_title = "",
+                    preview_title = "",
+                    layout_config = {
+                        width = function(_, max_columns, _)
+                            return math.min(max_columns - 3, 70)
+                        end,
                         height = function(_, _, max_lines)
-                            return math.min(max_lines - 4, 30)
+                            return math.min(max_lines - 4, 25)
                         end,
                     },
                 },
@@ -90,6 +83,7 @@ return {
             local telescope = require("telescope")
 
             telescope.setup(opts)
+
 
             telescope.load_extension("fzf")
             telescope.load_extension("dap")

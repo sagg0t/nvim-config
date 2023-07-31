@@ -145,7 +145,7 @@ return {
             "mfussenegger/nvim-dap",
         },
         config = function()
-            require("dap-go").setup()
+            require("dap-go").setup({ port = 5000 })
             require("dap.ext.vscode").load_launchjs(vim.fn.getcwd() .. "/.launch.json", {})
         end
     }

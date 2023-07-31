@@ -1,31 +1,3 @@
-TEST_STRING = [[opts = {
-            lsp = {
-                override = {
-                    ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-                    ["vim.lsp.util.stylize_markdown"] = true,
-                },
-            },
-            presets = {
-                bottom_search = false,
-                command_palette = true,
-                long_message_to_split = true,
-            },
-            views = {
-                mini = {
-                    timeout = 4000
-                }
-            }
-            -- routes = {
-            --     {
-            --         filter = {
-            --             event = "msg_show",
-            --             kind = "",
-            --             find = "written",
-            --         },
-            --         opts = { skip = true },
-            --     },
-            -- },
-        }]]
 return {
     "jiangmiao/auto-pairs", -- find lua analogue
     "andrewradev/splitjoin.vim",
@@ -59,28 +31,35 @@ return {
 
     {
         "folke/noice.nvim",
-        -- enabled = false,
         event = "VeryLazy",
         keys = {
-            { "<leader>nl", function() require("noice").cmd("last") end, desc = "Noice Last Message" },
+            { "<leader>nl", function() require("noice").cmd("last") end,    desc = "Noice Last Message" },
             { "<leader>nh", function() require("noice").cmd("history") end, desc = "Noice History" },
-            { "<leader>na", function() require("noice").cmd("all") end, desc = "Noice All" },
+            { "<leader>na", function() require("noice").cmd("all") end,     desc = "Noice All" },
         },
         opts = {
+            cmdline = {
+                format = {
+                    search_down = { icon = " " },
+                    search_up = { icon = " " },
+                },
+            },
             lsp = {
                 override = {
                     ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
                     ["vim.lsp.util.stylize_markdown"] = true,
+                    ["cmp.entry.get_documentation"] = true,
                 },
             },
             presets = {
                 bottom_search = false,
                 command_palette = true,
                 long_message_to_split = true,
+                lsp_doc_border = true,
             },
             views = {
                 mini = {
-                    timeout = 4000
+                    timeout = 5000
                 }
             }
             -- routes = {
@@ -100,10 +79,9 @@ return {
         }
     },
 
-    { "MunifTanjim/nui.nvim", lazy = true },
-
     {
         "folke/todo-comments.nvim",
+        lazy = false,
         dependencies = { "nvim-lua/plenary.nvim" },
         cmd = "TodoTrouble",
         keys = {

@@ -5,8 +5,9 @@ return {
             gopls = {
                 analyses = {
                     unusedparams = true,
+                    unreachable = true,
                 },
-                staticcheck = true
+                staticcheck = true,
             }
         }
     }

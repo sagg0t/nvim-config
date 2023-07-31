@@ -4,6 +4,7 @@ return vim.tbl_extend(
     require('plugins.lsp.server.solargraph'),
     require('plugins.lsp.server.jsonls'),
     require('plugins.lsp.server.gopls'),
+    require('plugins.lsp.server.rust'),
     require('plugins.lsp.server.sorbet'),
     require('plugins.lsp.server.ruby_lsp'),
     require('plugins.lsp.server.neocmake'),

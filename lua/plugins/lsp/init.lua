@@ -74,7 +74,7 @@ return {
     require("plugins.lsp.mason"),
     "williamboman/mason-lspconfig.nvim",
 
-    "jose-elias-alvarez/null-ls.nvim",
+    require("plugins.lsp.null_ls"),
 
     {
         "onsails/lspkind-nvim",

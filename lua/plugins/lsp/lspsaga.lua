@@ -11,5 +11,8 @@ return {
         outline = {
             win_position = "left"
         },
+        -- ui = {
+        --     title = false,
+        -- },
     },
 }
