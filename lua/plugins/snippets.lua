@@ -2,6 +2,7 @@ return {
     {
         "L3MON4D3/LuaSnip",
         name = "luasnip",
+        version = "2.*",
         -- dependencies = {
         --     "rafamadriz/friendly-snippets"
         -- },
