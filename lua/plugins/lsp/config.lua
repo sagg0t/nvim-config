@@ -5,7 +5,7 @@ return {
         underline = true,
     },
     icons = {
-        diagnostics = { Error = "", Warn = "", Hint = "", Info = "" },
+        diagnostics = { Error = "󰃤", Warn = "", Hint = "", Info = "󰍩" },
         border = {
             -- { "┏", "FloatBorder" },
             { "╭", "FloatBorder" },
