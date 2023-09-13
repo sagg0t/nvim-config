@@ -7,14 +7,15 @@ return {
             { "<Leader>ff", "<CMD>Telescope find_files<CR>" },
             { "<Leader>ft", "<CMD>Telescope live_grep<CR>" },
             { "<Leader>fs", "<CMD>Telescope lsp_document_symbols<CR>" },
-            { '<Leader>fo', '<CMD>Telescope oldfiles<CR>' },
-            { '<Leader>fh', '<CMD>Telescope help_tags<CR>' },
-            { '<Leader>fk', '<CMD>Telescope keymaps<CR>' },
-            { '<Leader>fO', '<CMD>Telescope vim_options<CR>' },
-            { '<Leader>f/', '<CMD>Telescope current_buffer_fuzzy_find<CR>' },
-            { '<Leader>f?', '<CMD>Telescope search_history<CR>' },
-            { '<Leader>f;', '<CMD>Telescope command_history<CR>' },
-            { '<Leader>fc', '<CMD>Telescope commands<CR>' }
+            { "<Leader>fo", "<CMD>Telescope oldfiles<CR>" },
+            { "<Leader>fh", "<CMD>Telescope help_tags<CR>" },
+            { "<Leader>fk", "<CMD>Telescope keymaps<CR>" },
+            { "<Leader>fO", "<CMD>Telescope vim_options<CR>" },
+            { "<Leader>f/", "<CMD>Telescope current_buffer_fuzzy_find<CR>" },
+            { "<Leader>f?", "<CMD>Telescope search_history<CR>" },
+            { "<Leader>f;", "<CMD>Telescope command_history<CR>" },
+            { "<Leader>fc", "<CMD>Telescope commands<CR>" },
+            { "<Leader>fm", "<CMD>Telescope noice<CR>" }
         },
         dependencies = {
             { "nvim-lua/popup.nvim" },
@@ -87,16 +88,10 @@ return {
 
             telescope.load_extension("fzf")
             telescope.load_extension("dap")
-            -- telescope.load_extension("notify")
             telescope.load_extension("media_files")
             telescope.load_extension("noice")
         end
     },
-
-    -- {
-    --     "nvim-telescope/telescope-dap.nvim",
-    --     dependencies = { "nvim-telescope/telescope.nvim" }
-    -- },
 
     {
         "nvim-telescope/telescope-media-files.nvim",
