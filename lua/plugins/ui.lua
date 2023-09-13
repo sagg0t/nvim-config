@@ -26,16 +26,12 @@ return {
     },
 
     {
-        "ii14/neorepl.nvim",
-    },
-
-    {
         "folke/noice.nvim",
         event = "VeryLazy",
         keys = {
             { "<leader>nl", function() require("noice").cmd("last") end,    desc = "Noice Last Message" },
-            { "<leader>nh", function() require("noice").cmd("history") end, desc = "Noice History" },
-            { "<leader>na", function() require("noice").cmd("all") end,     desc = "Noice All" },
+            -- { "<leader>nh", function() require("noice").cmd("history") end, desc = "Noice History" },
+            -- { "<leader>na", function() require("noice").cmd("all") end,     desc = "Noice All" },
         },
         opts = {
             cmdline = {
@@ -75,7 +71,6 @@ return {
         },
         dependencies = {
             "MunifTanjim/nui.nvim",
-            "rcarriga/nvim-notify",
         }
     },
 
