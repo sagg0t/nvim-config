@@ -14,8 +14,18 @@ return {
     {
         "lukas-reineke/indent-blankline.nvim",
         dependencies = { "nvim-treesitter/nvim-treesitter" },
+        main = "ibl",
         opts = {
-            show_current_context = true
+            indent = {
+                char = {
+                    "│",
+                    -- "┃"
+                },
+            },
+            scope = {
+                show_start = false,
+                show_end = false,
+            }
         }
     },
 
@@ -51,13 +61,15 @@ return {
                 bottom_search = false,
                 command_palette = true,
                 long_message_to_split = true,
-                lsp_doc_border = true,
             },
             views = {
                 mini = {
                     timeout = 5000
                 }
-            }
+            },
+            popupmenu = {
+                enabled = false,
+            },
             -- routes = {
             --     {
             --         filter = {
