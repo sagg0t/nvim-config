@@ -92,6 +92,4 @@ return {
             }
         }
     },
-
-    require("plugins.lsp.lspsaga"),
 }

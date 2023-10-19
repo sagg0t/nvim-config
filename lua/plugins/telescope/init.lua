@@ -90,6 +90,7 @@ return {
             telescope.load_extension("dap")
             telescope.load_extension("media_files")
             telescope.load_extension("noice")
+            telescope.load_extension("ui-select")
         end
     },
 
@@ -111,6 +112,11 @@ return {
 
     {
         "nvim-telescope/telescope-dap.nvim",
+        dependencies = { "nvim-telescope/telescope.nvim" }
+    },
+
+    {
+        "nvim-telescope/telescope-ui-select.nvim",
         dependencies = { "nvim-telescope/telescope.nvim" }
     }
 

@@ -24,31 +24,15 @@ return {
     on_attach = function(_client, bufnr, ...)
         local opts = { buffer = bufnr }
         vim.keymap.set("n", "<space>lD", vim.lsp.buf.declaration, opts)
-        vim.keymap.set("n",
-                       "<space>ld",
-                       -- vim.lsp.buf.definition
-                       "<cmd>Lspsaga goto_definition<CR>",
-                       opts)
-        vim.keymap.set("n",
-                       "<space>lh",
-                       -- vim.lsp.buf.hover,
-                       "<cmd>Lspsaga hover_doc<CR>",
-                       opts)
+        vim.keymap.set("n", "<space>ld", vim.lsp.buf.definition, opts)
+        vim.keymap.set("n", "<space>lh", vim.lsp.buf.hover, opts)
         vim.keymap.set("n", "<space>li", vim.lsp.buf.implementation, opts)
         vim.keymap.set("n", "<space>ls", vim.lsp.buf.signature_help, opts)
         vim.keymap.set("n", "<space>lr", vim.lsp.buf.rename, opts)
-        vim.keymap.set("n",
-                       "<space>le",
-                       -- vim.diagnostic.open_float,
-                       "<cmd>Lspsaga show_line_diagnostics<CR>",
-                       opts)
-        vim.keymap.set("n",
-                       "<space>la",
-                       -- vim.lsp.buf.code_action
-                       "<cmd>Lspsaga code_action<CR>",
-                       opts)
-        -- vim.keymap.set("n", "<space>lS", require("telescope.builtin").lsp_document_symbols)
-        vim.keymap.set("n", "<space>lS", "<CMD>Neotree document_symbols<CR>")
+        vim.keymap.set("n", "<space>lR", vim.lsp.buf.references, opts)
+        vim.keymap.set("n", "<space>le", vim.diagnostic.open_float, opts)
+        vim.keymap.set("n", "<space>la", vim.lsp.buf.code_action, opts)
+        vim.keymap.set("n", "<space>lS", require("telescope.builtin").lsp_document_symbols)
         vim.keymap.set("n", "<space>q", "<cmd>TroubleToggle workspace_diagnostics<CR>", opts)
         vim.keymap.set("n", "<space>lf", vim.lsp.buf.format, opts)
 
