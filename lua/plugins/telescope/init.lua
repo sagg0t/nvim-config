@@ -1,11 +1,14 @@
+local cwd = vim.fn.getcwd()
+local kb_opts = { cwd = cwd }
+
 return {
     {
         "nvim-telescope/telescope.nvim",
         lazy = true,
         cmd = "Telescope",
         keys = {
-            { "<Leader>ff", "<CMD>Telescope find_files<CR>" },
-            { "<Leader>ft", "<CMD>Telescope live_grep<CR>" },
+            { "<Leader>ff", function() require("telescope.builtin").find_files(kb_opts) end },
+            { "<Leader>ft", function() require("telescope.builtin").live_grep(kb_opts) end},
             { "<Leader>fs", "<CMD>Telescope lsp_document_symbols<CR>" },
             { "<Leader>fo", "<CMD>Telescope oldfiles<CR>" },
             { "<Leader>fh", "<CMD>Telescope help_tags<CR>" },
