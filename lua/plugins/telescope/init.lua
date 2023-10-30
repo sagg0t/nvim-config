@@ -10,6 +10,7 @@ return {
             { "<Leader>ff", function() require("telescope.builtin").find_files(kb_opts) end },
             { "<Leader>ft", function() require("telescope.builtin").live_grep(kb_opts) end},
             { "<Leader>fs", "<CMD>Telescope lsp_document_symbols<CR>" },
+            { "<Leader>fb", "<CMD>Telescope buffers<CR>" },
             { "<Leader>fo", "<CMD>Telescope oldfiles<CR>" },
             { "<Leader>fh", "<CMD>Telescope help_tags<CR>" },
             { "<Leader>fk", "<CMD>Telescope keymaps<CR>" },
