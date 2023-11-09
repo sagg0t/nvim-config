@@ -1,5 +1,9 @@
 local cwd = vim.fn.getcwd()
-local kb_opts = { cwd = cwd }
+local telescope_ctx = { cwd = cwd }
+
+local function set_cwd(path)
+    telescope_ctx.cwd = path
+end
 
 return {
     {
@@ -7,8 +11,8 @@ return {
         lazy = true,
         cmd = "Telescope",
         keys = {
-            { "<Leader>ff", function() require("telescope.builtin").find_files(kb_opts) end },
-            { "<Leader>ft", function() require("telescope.builtin").live_grep(kb_opts) end},
+            { "<Leader>ff", function() require("telescope.builtin").find_files(telescope_ctx) end },
+            { "<Leader>ft", function() require("telescope.builtin").live_grep(telescope_ctx) end },
             { "<Leader>fs", "<CMD>Telescope lsp_document_symbols<CR>" },
             { "<Leader>fb", "<CMD>Telescope buffers<CR>" },
             { "<Leader>fo", "<CMD>Telescope oldfiles<CR>" },
@@ -19,7 +23,7 @@ return {
             { "<Leader>f?", "<CMD>Telescope search_history<CR>" },
             { "<Leader>f;", "<CMD>Telescope command_history<CR>" },
             { "<Leader>fc", "<CMD>Telescope commands<CR>" },
-            { "<Leader>fm", "<CMD>Telescope noice<CR>" }
+            { "<Leader>fw", function() require("telescope").extensions.git_worktree.git_worktrees() end },
         },
         dependencies = {
             { "nvim-lua/popup.nvim" },
@@ -79,9 +83,6 @@ return {
                     override_generic_sorter = true,
                     override_file_sorter = true
                 },
-                fzf_writer = {
-                    use_highlighter = true
-                },
             }
         },
         config = function(_, opts)
@@ -93,8 +94,16 @@ return {
             telescope.load_extension("fzf")
             telescope.load_extension("dap")
             telescope.load_extension("media_files")
-            telescope.load_extension("noice")
+            telescope.load_extension("git_worktree")
             telescope.load_extension("ui-select")
+
+            local Worktree = require("git-worktree")
+            Worktree.on_tree_change(function(op, metadata)
+                if op == Worktree.Operations.Switch then
+                    set_cwd(metadata.path)
+                    print("Switched from " .. metadata.prev_path .. " to " .. metadata.path)
+                end
+            end)
         end
     },
 
@@ -106,11 +115,6 @@ return {
     {
         "nvim-telescope/telescope-fzf-native.nvim",
         build = "make",
-        dependencies = { "nvim-telescope/telescope.nvim" }
-    },
-
-    {
-        "nvim-telescope/telescope-fzf-writer.nvim",
         dependencies = { "nvim-telescope/telescope.nvim" }
     },
 

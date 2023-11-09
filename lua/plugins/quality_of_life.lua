@@ -1,29 +1,27 @@
 return {
     {
-        "RRethy/nvim-treesitter-endwise",
-        dependencies = { "nvim-treesitter/nvim-treesitter" }
+        "kylechui/nvim-surround",
+        opts = {}
     },
 
     {
-        "rcarriga/nvim-notify",
-        enabled = false,
+        "windwp/nvim-autopairs",
+        event = "InsertEnter",
+        opts = {},
+    },
+
+    {
+        "Wansmer/treesj",
         keys = {
-            {
-                "<leader>un",
-                function()
-                    require("notify").dismiss({ silent = true, pending = true })
-                end,
-                desc = "Delete all Notifications",
-            },
+            { "gj", function() require("treesj").join() end },
+            { "gs", function() require("treesj").split() end },
+            { "gS", function() require("treesj").split({ split = { recursive = true } }) end },
         },
-        opts = {
-            timeout = 3000,
-            max_height = function()
-                return math.floor(vim.o.lines * 0.75)
-            end,
-            max_width = function()
-                return math.floor(vim.o.columns * 0.75)
-            end,
-        },
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
+        opts = { use_default_keymaps = false }
+    },
+
+    {
+        "ThePrimeagen/git-worktree.nvim",
     },
 }

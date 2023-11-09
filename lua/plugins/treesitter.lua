@@ -79,9 +79,7 @@ return {
                 -- additional_vim_regex_highlighting = false
             },
 
-            endwise = {
-                enable = true
-            }
+              endwise = { enable = true },
         },
         config = function(_, opts)
             require("nvim-treesitter.configs").setup(opts)
@@ -100,7 +98,7 @@ return {
     },
 
     {
-        "nvim-treesitter/playground",
-        dependencies = { "nvim-treesitter/nvim-treesitter" }
+        "RRethy/nvim-treesitter-endwise",
+        dependencies = "nvim-treesitter/nvim-treesitter",
     },
 }

@@ -1,12 +1,6 @@
 return {
     {
-        "SmiteshP/nvim-navic",
-        dependencies = { "neovim/nvim-lspconfig" }
-    },
-
-    {
         "hoob3rt/lualine.nvim",
-        dependencies = { "SmiteshP/nvim-navic" },
         opts = {
             options = {
                 -- theme = "sigma",
@@ -38,13 +32,8 @@ return {
         },
         config = function(_, opts)
             local lualine = require("lualine")
-            local navic = require("nvim-navic")
 
             opts.sections.lualine_c = {
-                {
-                    navic.get_location,
-                    cond = navic.is_available
-                },
                 "diagnostics"
             }
 
