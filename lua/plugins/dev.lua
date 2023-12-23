@@ -1,8 +1,8 @@
 return {
     { "folke/neodev.nvim", opts = {} },
 
-    {
-        dir = "~/devel/deezplug",
-        opts = {}
-    }
+    -- {
+    --     dir = "~/devel/deezplug",
+    --     opts = {}
+    -- }
 }

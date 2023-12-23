@@ -3,9 +3,8 @@ return {
         "hoob3rt/lualine.nvim",
         opts = {
             options = {
-                -- theme = "sigma",
+                -- theme = "rose-pine-alt",
                 section_separators = { left = "", right = "" },
-                -- disabled_filetypes = { 'NvimTree' }
                 globalstatus = true
             },
             sections = {

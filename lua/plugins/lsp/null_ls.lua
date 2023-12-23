@@ -1,8 +1,8 @@
 local fmtGroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 return {
-    -- "jose-elias-alvarez/null-ls.nvim",
-    dir = "~/devel/null-ls.nvim",
+    "jose-elias-alvarez/null-ls.nvim",
+    -- dir = "~/devel/null-ls.nvim",
     config = function()
         local null_ls = require("null-ls")
 

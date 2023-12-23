@@ -1,7 +1,7 @@
 return {
     {
-        -- "olehvolynets/sigma.nvim",
-        dir = "~/devel/sigma.nvim",
+        "olehvolynets/sigma.nvim",
+        -- dir = "~/devel/sigma.nvim",
         lazy = false,
         priority = 1000,
         enabled = false,
@@ -11,7 +11,7 @@ return {
             vim.g.sigma_dark_float = true
         end,
         config = function()
-            -- vim.cmd.colorscheme("sigma")
+            vim.cmd.colorscheme("sigma")
         end
     }
 }

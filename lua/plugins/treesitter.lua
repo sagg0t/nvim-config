@@ -23,7 +23,7 @@ return {
                 "go",
                 "gomod",
                 "gosum",
-                "gotmpl",
+                -- "gotmpl",
                 "gowork",
                 "gpg",
                 "graphql",
@@ -85,15 +85,15 @@ return {
             require("nvim-treesitter.configs").setup(opts)
 
             local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
-            parser_configs.gotmpl = {
-                install_info = {
-                    -- url = "https://github.com/olehvolynets/tree-sitter-go-template",
-                    url = "~/devel/tree-sitter-go-template",
-                    files = { "src/parser.c" },
-                },
-                filetype = "gotmpl",
-                used_by = { "gohtmltmpl", "gotexttmpl", "gotmpl", "html", "yaml", "text" }
-            }
+            -- parser_configs.gotmpl = {
+            --     install_info = {
+            --         -- url = "https://github.com/olehvolynets/tree-sitter-go-template",
+            --         url = "~/devel/tree-sitter-go-template",
+            --         files = { "src/parser.c" },
+            --     },
+            --     filetype = "gotmpl",
+            --     used_by = { "gohtmltmpl", "gotexttmpl", "gotmpl", "html", "yaml", "text" }
+            -- }
         end
     },
 
