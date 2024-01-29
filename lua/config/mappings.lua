@@ -2,14 +2,15 @@ local default_opts = { noremap = true, silent = true }
 
 vim.keymap.set("n", "<Leader>h", ":noh<CR>", default_opts)
 
-vim.keymap.set("n", "<C-b><C-b>",   ":Explore<CR>",     default_opts)
-vim.keymap.set("n", "<C-b>b",       ":Explore<CR>",     default_opts)
-vim.keymap.set("n", "<C-b><C-s>",   ":Sexplore<CR>",    default_opts)
-vim.keymap.set("n", "<C-b>s",       ":Sexplore<CR>",    default_opts)
-vim.keymap.set("n", "<C-b><C-v>",   ":Vexplore<CR>",    default_opts)
-vim.keymap.set("n", "<C-b>v",       ":Vexplore<CR>",    default_opts)
-vim.keymap.set("n", "<C-b><C-t>",   ":Texplore<CR>",    default_opts)
-vim.keymap.set("n", "<C-b>t",       ":Texplore<CR>",    default_opts)
+vim.keymap.set("n", "<C-b>", ":Explore<CR>", default_opts)
+-- vim.keymap.set("n", "<C-b><C-b>",   ":Explore<CR>",     default_opts)
+-- vim.keymap.set("n", "<C-b>b",       ":Explore<CR>",     default_opts)
+-- vim.keymap.set("n", "<C-b><C-s>",   ":Sexplore<CR>",    default_opts)
+-- vim.keymap.set("n", "<C-b>s",       ":Sexplore<CR>",    default_opts)
+-- vim.keymap.set("n", "<C-b><C-v>",   ":Vexplore<CR>",    default_opts)
+-- vim.keymap.set("n", "<C-b>v",       ":Vexplore<CR>",    default_opts)
+-- vim.keymap.set("n", "<C-b><C-t>",   ":Texplore<CR>",    default_opts)
+-- vim.keymap.set("n", "<C-b>t",       ":Texplore<CR>",    default_opts)
 
 
 vim.keymap.set("n", "<M-h>", "<<")

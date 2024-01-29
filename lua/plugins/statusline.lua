@@ -3,7 +3,8 @@ return {
         "hoob3rt/lualine.nvim",
         opts = {
             options = {
-                -- theme = "rose-pine-alt",
+                theme = "sigma",
+                component_separators = { left = '', right = ''},
                 section_separators = { left = "", right = "" },
                 globalstatus = true
             },
