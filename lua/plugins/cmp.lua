@@ -1,12 +1,3 @@
--- NOTE: highlight groups
--- CmpItemAbbr
--- CmpItemAbbrDeprecated
--- CmpItemAbbrMatch
--- CmpItemAbbrMatchFuzzy
--- CmpItemKind
--- CmpItemKind%KIND_NAME%
--- CmpItemMenu
-
 local has_words_before = function()
   unpack = unpack or table.unpack
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -33,12 +24,6 @@ return {
 
             cmp.setup({
                 sources = cmp.config.sources({
-                    -- options:
-                    --   name
-                    --   keyword_length
-                    --   priority
-                    --   max_item_count
-                    --   (more?)
                     { name = "nvim_lua" },
                     { name = "nvim_lsp" },
                     { name = "luasnip" },

@@ -3,7 +3,6 @@ return {
         "folke/tokyonight.nvim",
         dependencies = { "lukas-reineke/indent-blankline.nvim" },
         lazy = false,
-        enabled = false,
         config = function()
             vim.g.tokyonight_style = "night"
             vim.g.tokyonight_dark_sidebar = true

@@ -41,7 +41,7 @@ opt.textwidth = 105
 opt.ruler = false
 opt.foldmethod = 'indent'
 opt.foldenable = false -- unfold everything by default
--- opt.statusline = '%f\ %m%=%y\ %{&fileencoding?&fileencoding:&encoding}\ [%{&fileformat}\]\ %p%%\ %l:%c'
+opt.statusline = "%f %m%=%y %{&fileencoding?&fileencoding:&encoding} [%{&fileformat}] %p%% %l:%c"
 opt.guicursor = 'a:block-Cursor'
 opt.updatetime = 250
 opt.ttimeoutlen = 0

@@ -4,7 +4,7 @@ return {
     {
         "neovim/nvim-lspconfig",
         dependencies = {
-            "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/nvim-cmp",
             "onsails/lspkind-nvim",
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim"
