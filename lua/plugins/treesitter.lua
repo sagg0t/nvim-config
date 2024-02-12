@@ -77,7 +77,7 @@ return {
             auto_install = true,
 
             indent = {
-                enable = true,
+                enable = false,
             },
 
             highlight = {
@@ -91,7 +91,7 @@ return {
         config = function(_, opts)
             require("nvim-treesitter.configs").setup(opts)
 
-            local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
+            -- local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
             -- parser_configs.gotmpl = {
             --     install_info = {
             --         -- url = "https://github.com/olehvolynets/tree-sitter-go-template",

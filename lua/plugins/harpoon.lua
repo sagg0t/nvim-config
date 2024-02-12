@@ -10,13 +10,14 @@ return {
                 function()
                     local harpoon = require("harpoon")
                     harpoon.ui:toggle_quick_menu(harpoon:list())
-                end
+                end,
+                desc = "Harpoon list"
             },
-            { "<Leader>1", function() require("harpoon"):list():select(1) end },
-            { "<Leader>2", function() require("harpoon"):list():select(2) end },
-            { "<Leader>3", function() require("harpoon"):list():select(3) end },
-            { "<Leader>4", function() require("harpoon"):list():select(4) end },
-            { "<Leader>5", function() require("harpoon"):list():select(5) end },
+            { "<Leader>1", function() require("harpoon"):list():select(1) end, desc = "Harpoon 1-st item" },
+            { "<Leader>2", function() require("harpoon"):list():select(2) end, desc = "Harpoon 2-nd item" },
+            { "<Leader>3", function() require("harpoon"):list():select(3) end, desc = "Harpoon 3-rd item" },
+            { "<Leader>4", function() require("harpoon"):list():select(4) end, desc = "Harpoon 4-th item" },
+            { "<Leader>5", function() require("harpoon"):list():select(5) end, desc = "Harpoon 5-th item" },
         }
     }
 }
