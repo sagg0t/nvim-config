@@ -4,7 +4,13 @@ return {
         lazy = true,
         cmd = "MaximizerToggle",
         keys = {
-            { '<Leader>m', ':MaximizerToggle<CR>', noremap = true, silent = true }
+            {
+                "<Leader>m",
+                ":MaximizerToggle<CR>",
+                noremap = true,
+                silent = true,
+                desc = "Maximizer"
+            }
         }
     },
 
@@ -14,10 +20,7 @@ return {
         main = "ibl",
         opts = {
             indent = {
-                char = {
-                    "│",
-                    -- "┃"
-                },
+                char = { "│" },
             },
             scope = {
                 show_start = false,
@@ -38,7 +41,7 @@ return {
         dependencies = { "nvim-lua/plenary.nvim" },
         cmd = "TodoTrouble",
         keys = {
-            { '<Leader>fn', '<CMD>TodoTrouble<CR>', noremap = true, silent = true }
+            { "<Leader>fn", "<CMD>TodoTrouble<CR>", noremap = true, silent = true }
         },
         opts = {
             search = {

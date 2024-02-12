@@ -4,7 +4,13 @@ return {
         branch = "harpoon2",
         dependencies = { "nvim-lua/plenary.nvim" },
         keys = {
-            { "<Leader>a", function() require("harpoon"):list():append() end },
+            {
+                "<Leader>a",
+                function()
+                    require("harpoon"):list():append()
+                end,
+                desc = "Harpoon add"
+            },
             {
                 "<Leader>H",
                 function()
