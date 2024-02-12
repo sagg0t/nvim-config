@@ -1,6 +1,6 @@
 return vim.tbl_extend(
     "error",
-    -- require("plugins.lsp.server.ts"),
+    require("plugins.lsp.server.ts"),
     require("plugins.lsp.server.js"),
     require("plugins.lsp.server.go"),
     require("plugins.lsp.server.json"),
@@ -9,5 +9,6 @@ return vim.tbl_extend(
     require("plugins.lsp.server.ruby"),
     require("plugins.lsp.server.rust"),
     require("plugins.lsp.server.sql"),
-    require("plugins.lsp.server.swift")
+    require("plugins.lsp.server.swift"),
+    require("plugins.lsp.server.css")
 )
