@@ -12,7 +12,21 @@ return {
         cmd = "Telescope",
         keys = {
             { "<Leader>ff", function() require("telescope.builtin").find_files(telescope_ctx) end },
+            {
+                "<Leader>fF",
+                function()
+                    local ctx = vim.tbl_deep_extend("force", telescope_ctx, { hidden = true })
+                    require("telescope.builtin").find_files(ctx)
+                end
+            },
             { "<Leader>ft", function() require("telescope.builtin").live_grep(telescope_ctx) end },
+            {
+                "<Leader>fT",
+                function()
+                    local ctx = vim.tbl_deep_extend("force", telescope_ctx, { hidden = true })
+                    require("telescope.builtin").live_grep(ctx)
+                end
+            },
             { "<Leader>fs", "<CMD>Telescope lsp_document_symbols<CR>" },
             { "<Leader>fb", "<CMD>Telescope buffers<CR>" },
             { "<Leader>fo", "<CMD>Telescope oldfiles<CR>" },
@@ -87,12 +101,18 @@ return {
         },
         config = function(_, opts)
             local telescope = require("telescope")
+            local open_with_trouble = require("trouble.sources.telescope").open
+
+            opts.defaults.mappings = {
+                i = { ["<c-t>"] = open_with_trouble },
+                n = { ["<c-t>"] = open_with_trouble }
+            }
 
             telescope.setup(opts)
 
 
             telescope.load_extension("fzf")
-            -- telescope.load_extension("dap")
+            telescope.load_extension("dap")
             telescope.load_extension("media_files")
             telescope.load_extension("git_worktree")
             telescope.load_extension("ui-select")
