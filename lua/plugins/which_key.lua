@@ -1,3 +1,4 @@
+
 return {
     {
         "folke/which-key.nvim",
@@ -11,17 +12,7 @@ return {
 
             wk.register(
                 {
-                    l = {
-                        name = "LSP",
-                        d = "Goto definition",
-                        D = "Goto declaration",
-                        i = "Goto implementation",
-                        f = "Formating",
-                        h = "Hover/doc",
-                        s = "Signature",
-                        r = "Rename",
-                        e = "Diagnostics pop-up",
-                    },
+                    l = { name = "LSP" },
                     f = {
                         name = "Telescope",
                         f = "find file",

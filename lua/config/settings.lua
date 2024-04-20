@@ -2,6 +2,7 @@ vim.cmd "syntax enable"
 vim.cmd "filetype plugin indent on"
 
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 local opt = vim.opt
 
@@ -32,16 +33,22 @@ opt.hlsearch = true
 
 opt.showcmd = true
 
+opt.scrolloff = 10
 opt.linebreak = true
-opt.textwidth = 105
+opt.textwidth = 100
 opt.ruler = false
 opt.foldmethod = "indent"
 opt.foldenable = false -- unfold everything by default
 opt.statusline = "%f %m%=%y %{&fileencoding?&fileencoding:&encoding} [%{&fileformat}] %p%% %l:%c"
 opt.guicursor = "a:block-Cursor"
 opt.updatetime = 250
-opt.ttimeoutlen = 0
+opt.timeoutlen = 300
 
+opt.clipboard = "unnamedplus"
+opt.undofile = true
+opt.breakindent = true
+opt.ignorecase = true
+opt.smartcase = true
 
 -- opt.fillchars = {
 --     horiz     = "━",
@@ -71,6 +78,36 @@ vim.g.netrw_localmkdir = "mkdir -p"
 -- Enable recursive removal of directories in *nix systems
 -- NOTE: we use "rm" instead of "rmdir" (default) to be able to remove non-empty directories
 vim.g.netrw_localrmdir = "rm -r"
+
+local diagnostics_icons = { Error = "󰃤", Warn = "", Hint = "", Info = "󰍩" }
+for type, icon in pairs(diagnostics_icons) do
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
+
+vim.diagnostic.config({
+    virtual_text = { source = "always" },
+    float = { source = "always" },
+    underline = true,
+})
+
+local border_icons = {
+    { "╭", "FloatBorder" },
+    { "─", "FloatBorder" },
+    { "╮", "FloatBorder" },
+    { "│", "FloatBorder" },
+    { "╯", "FloatBorder" },
+    { "─", "FloatBorder" },
+    { "╰", "FloatBorder" },
+    { "│", "FloatBorder" },
+}
+-- override privew func to add borders
+local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+function vim.lsp.util.open_floating_preview(contents, syntax, preview_opts, ...)
+    preview_opts = preview_opts or {}
+    preview_opts.border = preview_opts.border or border_icons
+    return orig_util_open_floating_preview(contents, syntax, preview_opts, ...)
+end
 
 
 return {}

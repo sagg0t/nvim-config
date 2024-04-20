@@ -1,6 +1,6 @@
 local default_opts = { noremap = true, silent = true }
 
-vim.keymap.set("n", "<Leader>h", ":noh<CR>", default_opts)
+vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", default_opts)
 
 vim.keymap.set("n", "<C-b>", ":Explore<CR>", default_opts)
 -- vim.keymap.set("n", "<C-b><C-b>",   ":Explore<CR>",     default_opts)
@@ -25,5 +25,7 @@ vim.keymap.set("v", "<M-h>", "<gv")
 vim.keymap.set("v", "<M-j>", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "<M-k>", ":m '<-2<CR>gv=gv")
 vim.keymap.set("v", "<M-l>", ">gv")
+
+vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 return {}

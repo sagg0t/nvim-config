@@ -1,5 +1,0 @@
-return {
-    rust_analyzer = {
-
-    }
-}

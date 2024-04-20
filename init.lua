@@ -2,6 +2,7 @@ require("config.globals")
 require("config.settings")
 require("config.mappings")
 require("config.lazy")
+require("config.aucmds")
 
 -- vim.cmd("colorscheme rvcs")
 -- vim.cmd("colorscheme base16-classic-dark")
