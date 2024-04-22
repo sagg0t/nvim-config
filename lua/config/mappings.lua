@@ -2,16 +2,7 @@ local default_opts = { noremap = true, silent = true }
 
 vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", default_opts)
 
-vim.keymap.set("n", "<C-b>", ":Explore<CR>", default_opts)
--- vim.keymap.set("n", "<C-b><C-b>",   ":Explore<CR>",     default_opts)
--- vim.keymap.set("n", "<C-b>b",       ":Explore<CR>",     default_opts)
--- vim.keymap.set("n", "<C-b><C-s>",   ":Sexplore<CR>",    default_opts)
--- vim.keymap.set("n", "<C-b>s",       ":Sexplore<CR>",    default_opts)
--- vim.keymap.set("n", "<C-b><C-v>",   ":Vexplore<CR>",    default_opts)
--- vim.keymap.set("n", "<C-b>v",       ":Vexplore<CR>",    default_opts)
--- vim.keymap.set("n", "<C-b><C-t>",   ":Texplore<CR>",    default_opts)
--- vim.keymap.set("n", "<C-b>t",       ":Texplore<CR>",    default_opts)
-
+vim.keymap.set("n", "<C-p>", ":Explore<CR>", default_opts)
 
 vim.keymap.set("n", "<M-h>", "<<")
 vim.keymap.set("n", "<M-j>", ":m .+1<CR>==")
@@ -27,5 +18,10 @@ vim.keymap.set("v", "<M-k>", ":m '<-2<CR>gv=gv")
 vim.keymap.set("v", "<M-l>", ">gv")
 
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Goto previous [D]iagnostic' })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Goto next [D]iagnostic' })
+vim.keymap.set('n', '[c', ":cprevious<CR>", { desc = 'Goto previous quickfix' })
+vim.keymap.set('n', ']c', ":cnext<CR>", { desc = 'Goto next quickfix' })
 
 return {}
