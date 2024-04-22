@@ -1,18 +1,18 @@
-local g = vim.api.nvim_create_augroup("sagg0t", { clear = true })
-
+local yank_group = vim.api.nvim_create_augroup("sagg0t TextYankPost", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {
-    group = g,
+    group = yank_group,
     pattern = "*",
     callback = function()
         vim.highlight.on_yank({
             higroup = "IncSearch",
-            timeout = 50,
+            timeout = 69,
         })
     end,
 })
 
+local pre_write_group = vim.api.nvim_create_augroup("sagg0t BufWritePre", { clear = true })
 vim.api.nvim_create_autocmd("BufWritePre", {
-    group = g,
+    group = pre_write_group,
     command = [[%s/\s\+$//e]],
     desc = "removes trailing whitespace"
 })
