@@ -8,12 +8,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         map("<space>ld", vim.lsp.buf.definition, "Goto Definition")
         map("<space>lD", vim.lsp.buf.declaration, "Goto Declaration")
         map("<space>li", vim.lsp.buf.implementation, "Goto Implementation")
-        map("<space>lR",
-            function()
-                require("trouble").toggle({ mode = "lsp_references", focus = true })
-            end,
-            "References"
-        )
+        map("<space>lR", vim.lsp.buf.references, "References")
         map("<space>lh", vim.lsp.buf.hover, "Hover")
         map("<space>ls", vim.lsp.buf.signature_help, "Signature")
         map("<space>lr", vim.lsp.buf.rename, "Rename")
@@ -40,9 +35,6 @@ return {
 
             local servers = require("plugins.lsp.servers")
             local ensure_installed = vim.tbl_keys(servers)
-            vim.list_extend(ensure_installed, {
-                "delve"
-            })
             local caps = require("cmp_nvim_lsp").default_capabilities(
                 vim.lsp.protocol.make_client_capabilities()
             )

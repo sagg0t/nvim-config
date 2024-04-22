@@ -1,7 +1,6 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter",
-        version = false,
         build = ":TSUpdate",
         event = "BufReadPost",
         opts = {
@@ -23,7 +22,7 @@ return {
                 "go",
                 "gomod",
                 "gosum",
-                -- "gotmpl",
+                "gotmpl",
                 "gowork",
                 "gpg",
                 "graphql",
@@ -76,31 +75,21 @@ return {
             synct_install = false,
             auto_install = true,
 
-            indent = {
-                enable = false,
-            },
-
+            indent = { enable = false },
             highlight = {
                 enable = true, -- false will disable the whole extension
                 disable = {},  -- list of language that will be disabled
-                -- additional_vim_regex_highlighting = false
+                -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
+                --  If you are experiencing weird indenting issues, add the language to
+                --  the list of additional_vim_regex_highlighting and disabled languages for indent.
+                additional_vim_regex_highlighting = { 'ruby' },
             },
 
             endwise = { enable = true },
         },
         config = function(_, opts)
+            require('nvim-treesitter.install').prefer_git = true
             require("nvim-treesitter.configs").setup(opts)
-
-            -- local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
-            -- parser_configs.gotmpl = {
-            --     install_info = {
-            --         -- url = "https://github.com/olehvolynets/tree-sitter-go-template",
-            --         url = "~/devel/tree-sitter-go-template",
-            --         files = { "src/parser.c" },
-            --     },
-            --     filetype = "gotmpl",
-            --     used_by = { "gohtmltmpl", "gotexttmpl", "gotmpl", "html", "yaml", "text" }
-            -- }
         end
     },
 
