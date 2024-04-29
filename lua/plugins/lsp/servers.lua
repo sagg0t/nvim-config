@@ -45,7 +45,7 @@ return {
     tsserver = {},
     tailwindcss = {},
     jsonls = {},
-    ruby_ls = {},
+    ruby_lsp = {},
     solargraph = {},
     rust_analyzer = {},
     sqlls = {},

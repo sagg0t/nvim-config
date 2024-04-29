@@ -27,7 +27,10 @@ return {
             { "williamboman/mason.nvim", cmd = "Mason" },
             "williamboman/mason-lspconfig.nvim",
             "onsails/lspkind-nvim",
-            "j-hui/fidget.nvim",
+            {
+                "j-hui/fidget.nvim",
+                opts = {}
+            },
             { "folke/neodev.nvim", opts = {} },
         },
         config = function()
