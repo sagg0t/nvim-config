@@ -1,9 +1,6 @@
 vim.cmd "syntax enable"
 vim.cmd "filetype plugin indent on"
 
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
 local opt = vim.opt
 
 opt.backup = false
@@ -108,6 +105,3 @@ function vim.lsp.util.open_floating_preview(contents, syntax, preview_opts, ...)
     preview_opts.border = preview_opts.border or border_icons
     return orig_util_open_floating_preview(contents, syntax, preview_opts, ...)
 end
-
-
-return {}
