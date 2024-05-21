@@ -5,16 +5,16 @@ vim.api.nvim_create_autocmd("LspAttach", {
             vim.keymap.set("n", keys, func, { buffer = event.buf, desc = desc })
         end
 
-        map("<space>ld", vim.lsp.buf.definition, "Goto Definition")
-        map("<space>lD", vim.lsp.buf.declaration, "Goto Declaration")
-        map("<space>li", vim.lsp.buf.implementation, "Goto Implementation")
-        map("<space>lR", vim.lsp.buf.references, "References")
-        map("<space>ls", vim.lsp.buf.signature_help, "Signature")
-        map("<space>lr", vim.lsp.buf.rename, "Rename")
-        map("<space>le", vim.diagnostic.open_float, "Float diagnostics")
-        map("<space>la", vim.lsp.buf.code_action, "Code Actions")
-        map("<space>lS", require("telescope.builtin").lsp_document_symbols, "Document Symbols")
-        map("<space>lf", vim.lsp.buf.format, "Format")
+        map("gd", vim.lsp.buf.definition, "Goto Definition")
+        map("gD", vim.lsp.buf.declaration, "Goto Declaration")
+        map("gI", vim.lsp.buf.implementation, "Goto Implementation")
+        map("gr", vim.lsp.buf.references, "References")
+        map("<Leader>ls", vim.lsp.buf.signature_help, "Signature")
+        map("<Leader>lr", vim.lsp.buf.rename, "Rename")
+        map("<Leader>le", vim.diagnostic.open_float, "Float diagnostics")
+        map("<Leader>la", vim.lsp.buf.code_action, "Code Actions")
+        map("<Leader>lS", require("telescope.builtin").lsp_document_symbols, "Document Symbols")
+        map("<Leader>lf", vim.lsp.buf.format, "Format")
     end
 })
 
