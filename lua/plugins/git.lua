@@ -1,10 +1,5 @@
 return {
     {
-        "sindrets/diffview.nvim",
-        opts = { use_icons = false }
-    },
-
-    {
         "lewis6991/gitsigns.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
         opts = {
