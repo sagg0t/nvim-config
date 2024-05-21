@@ -40,7 +40,6 @@ return {
             { "<Leader>fw", function() require("telescope").extensions.git_worktree.git_worktrees() end },
         },
         dependencies = {
-            { "nvim-lua/popup.nvim" },
             { "nvim-lua/plenary.nvim" }
         },
         opts = {
@@ -115,7 +114,6 @@ return {
             telescope.load_extension("dap")
             telescope.load_extension("media_files")
             telescope.load_extension("git_worktree")
-            telescope.load_extension("ui-select")
 
             local Worktree = require("git-worktree")
             Worktree.on_tree_change(function(op, metadata)
@@ -142,10 +140,5 @@ return {
         "nvim-telescope/telescope-dap.nvim",
         dependencies = { "nvim-telescope/telescope.nvim" }
     },
-
-    {
-        "nvim-telescope/telescope-ui-select.nvim",
-        dependencies = { "nvim-telescope/telescope.nvim" }
-    }
 
 }
