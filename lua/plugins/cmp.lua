@@ -29,10 +29,11 @@ return {
 
                 snippet = {
                     expand = function(args)
+                        vim.print(args)
                         luasnip.lsp_expand(args.body)
                     end
                 },
-                completion = { completeopt = 'menu,menuone,noinsert' },
+                completion = { completeopt = 'menu,menuone,fuzzy,preview,noinsert' },
 
                 sorting = {
                     comparators = {

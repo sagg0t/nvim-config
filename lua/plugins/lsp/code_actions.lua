@@ -3,8 +3,7 @@ vim.cmd("messages clear")
 
 local ms = vim.lsp.protocol.Methods
 
-vim.opt.rtp:append("~/.config/nvim")
-local CodeAction = require("lua.ui.code_actions_widget")
+local CodeAction = require("ui.code_actions_widget")
 
 function vim.lsp.buf.code_action(opts)
     vim.validate({ options = { opts, 't', true } })

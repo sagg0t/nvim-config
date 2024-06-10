@@ -22,7 +22,7 @@ opt.expandtab = true          -- tab to spaces
 opt.cursorline = true
 opt.background = "dark"
 opt.termguicolors = true
-opt.colorcolumn = "80"
+opt.colorcolumn = "81"
 
 opt.showmatch = true
 opt.incsearch = true
@@ -32,12 +32,13 @@ opt.showcmd = true
 
 opt.scrolloff = 10
 opt.linebreak = true
-opt.textwidth = 100
+opt.textwidth = 80
 opt.ruler = false
 opt.foldmethod = "indent"
 opt.foldenable = false -- unfold everything by default
 opt.statusline = "%f %m%=%y %{&fileencoding?&fileencoding:&encoding} [%{&fileformat}] %p%% %l:%c"
 opt.guicursor = "a:block-Cursor"
+opt.completeopt = "menu,menuone,fuzzy,preview,noinsert"
 opt.updatetime = 250
 opt.timeoutlen = 300
 

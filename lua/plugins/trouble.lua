@@ -1,7 +1,8 @@
 return {
     {
         "folke/trouble.nvim",
-        branch = "dev",
+        enabled = false,
+        branch = "main",
         keys = {
             {
                 "<space>q",
