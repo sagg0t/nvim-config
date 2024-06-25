@@ -62,5 +62,3 @@ function vim.lsp.buf.code_action(opts)
         client.request(ms.textDocument_codeAction, params, on_result, bufnr)
     end
 end
-
-vim.keymap.set({ "n", "v" }, "<Leader>la", vim.lsp.buf.code_action)

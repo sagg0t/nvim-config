@@ -44,6 +44,7 @@ return {
             { "<Leader>fn", "<CMD>TodoTrouble<CR>", noremap = true, silent = true }
         },
         opts = {
+            signs = false,
             search = {
                 args = {
                     "--color=never",

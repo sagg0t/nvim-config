@@ -38,7 +38,7 @@ opt.foldmethod = "indent"
 opt.foldenable = false -- unfold everything by default
 opt.statusline = "%f %m%=%y %{&fileencoding?&fileencoding:&encoding} [%{&fileformat}] %p%% %l:%c"
 opt.guicursor = "a:block-Cursor"
-opt.completeopt = "menu,menuone,fuzzy,preview,noinsert"
+opt.completeopt = "menu,menuone,preview,noinsert"
 opt.updatetime = 250
 opt.timeoutlen = 300
 
@@ -67,6 +67,8 @@ vim.g.netrw_liststyle = 0
 -- vim.g.netrw_keepdir = 0 -- keep the current directory the same as the browsing directory.
 vim.g.netrw_keepdir = 1
 vim.g.netrw_list_hide = "\\(^\\|\\s\\s\\)\\zs\\.\\S\\+"
+    .. ",.\\+_templ\\.\\(go\\|txt\\)"
+    -- .. vim.fn["netrw_gitignore#Hide"]()
 -- Enable recursive copy of directories in *nix systems
 vim.g.netrw_localcopydircmd = "cp -r"
 

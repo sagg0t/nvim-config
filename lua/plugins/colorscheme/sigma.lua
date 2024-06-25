@@ -7,6 +7,7 @@ return {
         lazy = false,
         priority = 1000,
         config = function()
+            vim.cmd("hi Normal guibg=NONE")
             vim.cmd.colorscheme("sigma")
         end
     }

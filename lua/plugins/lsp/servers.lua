@@ -48,7 +48,7 @@ return {
     ruby_lsp = {},
     solargraph = {},
     rust_analyzer = {},
-    sqlls = {},
+    sqls = {},
     bashls = {},
     clangd = {},
     cmake = {},
