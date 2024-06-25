@@ -4,18 +4,20 @@ return {
         event = "InsertEnter",
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-nvim-lua",
+            {
+                "hrsh7th/cmp-nvim-lua",
+                ft = "lua"
+            },
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-cmdline",
-            "hrsh7th/cmp-nvim-lsp-signature-help",
-            "saadparwaiz1/cmp_luasnip",
+            -- "saadparwaiz1/cmp_luasnip",
+            -- "luasnip"
             "onsails/lspkind-nvim",
-            "luasnip"
         },
         config = function()
             local cmp = require("cmp")
-            local luasnip = require("luasnip")
+            -- local luasnip = require("luasnip")
             local lspkind = require("lspkind")
 
             cmp.setup({
@@ -23,16 +25,16 @@ return {
                     { name = "nvim_lsp_signature_help" },
                     { name = "nvim_lua" },
                     { name = "nvim_lsp" },
-                    { name = "luasnip" },
+                    -- { name = "luasnip" },
                     { name = "path" }
                 }, { { name = "buffer" } }),
 
-                snippet = {
-                    expand = function(args)
-                        vim.print(args)
-                        luasnip.lsp_expand(args.body)
-                    end
-                },
+                -- snippet = {
+                --     expand = function(args)
+                --         vim.print(args)
+                --         luasnip.lsp_expand(args.body)
+                --     end
+                -- },
                 completion = { completeopt = 'menu,menuone,fuzzy,preview,noinsert' },
 
                 sorting = {

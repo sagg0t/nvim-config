@@ -27,7 +27,12 @@ return {
                 "j-hui/fidget.nvim",
                 opts = {}
             },
-            { "folke/neodev.nvim", opts = {} },
+            {
+                "folke/lazydev.nvim",
+                ft = "lua",
+                opts = {},
+            },
+            -- { "folke/neodev.nvim",       opts = {} },
         },
         config = function()
             -- vim.lsp.set_log_level("trace")
@@ -60,6 +65,7 @@ return {
 
     {
         "p00f/clangd_extensions.nvim",
+        ft = { "c", "cpp", "swift", "rust" },
         name = "clangd_extensions",
         dependencies = { "hrsh7th/cmp-nvim-lsp" },
         opts = {

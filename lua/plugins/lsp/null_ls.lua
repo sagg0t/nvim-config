@@ -2,6 +2,7 @@ local fmtGroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 return {
     "nvimtools/none-ls.nvim",
+    ft = { "go", "proto" },
     config = function()
         local null_ls = require("null-ls")
 

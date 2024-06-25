@@ -1,7 +1,0 @@
--- use "~/dev/cs/roshnivim-cs"
--- use "ellisonleao/gruvbox.nvim"
--- use "RRethy/nvim-base16"
--- use "rebelot/kanagawa.nvim"
--- use "sainnhe/sonokai"
--- use "martinsione/darkplus.nvim"
--- use "B4mbus/oxocarbon-lua.nvim"

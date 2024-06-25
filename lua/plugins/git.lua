@@ -1,6 +1,8 @@
 return {
     {
         "lewis6991/gitsigns.nvim",
+        lazy = true,
+        cmd = "Gitsigns",
         dependencies = { "nvim-lua/plenary.nvim" },
         opts = {
             signcolumn = false,

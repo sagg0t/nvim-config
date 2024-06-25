@@ -1,6 +1,7 @@
 return {
     {
         "L3MON4D3/LuaSnip",
+        enabled = false,
         name = "luasnip",
         version = "2.*",
         -- dependencies = {
