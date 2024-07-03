@@ -15,6 +15,7 @@ return {
             { "<Leader>ts", function() require("neotest").summary.toggle() end, silent = false },
             { "<Leader>to", function() require("neotest").output_panel.toggle() end, silent = false }
         },
+        cmd = "Neotest",
         config = function()
             require("neotest").setup({
                 adapters = {
@@ -26,6 +27,16 @@ return {
                 },
                 discovery = {
                     enabled = false
+                },
+                icons = {
+                    failed = "",
+                    notify = "",
+                    passed = "",
+                    running = "",
+                    skipped = "",
+                    unknown = "",
+                    watching = "",
+                    running_animated = { "⠙", "⠸", "⢰", "⣠", "⣄", "⡆", "⠇", "⠋" },
                 },
             })
         end
