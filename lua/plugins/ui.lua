@@ -69,5 +69,9 @@ return {
             "HighlightColorsOff",
             "HighlightColorsToggle",
         },
+        opts = {
+            enable_tailwind = true,
+            render = "foreground"
+        }
     }
 }

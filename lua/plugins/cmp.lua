@@ -63,18 +63,27 @@ return {
                 },
 
                 formatting = {
-                    format = lspkind.cmp_format({
-                        with_text = true,
-                        maxwidth = 50,
-                        menu = {
-                            nvim_lua = "[lua]",
-                            nvim_lsp = "[LSP]",
-                            luasnip = "[snip]",
-                            path = "[path]",
-                            buffer = "[BF]",
-                            latex_symbols = "[latex]",
-                        },
-                    })
+                    format = function(entry, item)
+                        local color_item = require("nvim-highlight-colors").format(entry, { kind = item.kind })
+                        item = lspkind.cmp_format({
+                            with_text = true,
+                            maxwidth = 50,
+                            menu = {
+                                nvim_lua = "[lua]",
+                                nvim_lsp = "[LSP]",
+                                luasnip = "[snip]",
+                                path = "[path]",
+                                buffer = "[BF]",
+                                latex_symbols = "[latex]",
+                            },
+                        })(entry, item)
+
+                        if color_item.abbr_hl_group then
+                                item.kind_hl_group = color_item.abbr_hl_group
+                                item.kind = color_item.abbr
+                        end
+                        return item
+                    end
                 },
 
                 mapping = {
