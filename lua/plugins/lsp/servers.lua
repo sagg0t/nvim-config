@@ -6,7 +6,27 @@ return {
                     unusedparams = true,
                     unreachable = true,
                 },
+                codelenses = {
+                    generate = true,
+                    gc_details = true,
+                    regenerate_cgo = true,
+                    run_govulncheck = true,
+                    tidy = true,
+                    upgrade_dependency = true,
+                    vendor = true
+                },
+                hints = {
+                    assignVariableTypes = false,
+                    compositeLiteralFields = false,
+                    compositeLiteralTypes = false,
+                    constantValues = true,
+                    functionTypeParameters = true,
+                    parameterNames = false,
+                    rangeVariableTypes = false,
+                },
                 staticcheck = true,
+                semanticTokens = false,
+                usePlaceholders = false
             }
         }
     },
@@ -46,9 +66,8 @@ return {
     tailwindcss = {},
     jsonls = {},
     ruby_lsp = {},
-    solargraph = {},
+    -- solargraph = {},
     rust_analyzer = {},
-    sqls = {},
     bashls = {},
     clangd = {},
     cmake = {},
