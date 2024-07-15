@@ -39,9 +39,18 @@ return {
         "folke/todo-comments.nvim",
         lazy = false,
         dependencies = { "nvim-lua/plenary.nvim" },
-        cmd = "TodoTrouble",
+        cmd = {
+            "TodoTelescope",
+            "TodoQuickfix",
+        },
         keys = {
-            { "<Leader>fn", "<CMD>TodoTrouble<CR>", noremap = true, silent = true }
+            {
+                "<Leader>fn",
+                "<CMD>TodoTelescope<CR>",
+                noremap = true,
+                silent = true,
+                desc = "Workspace TODO comments"
+            }
         },
         opts = {
             signs = false,
