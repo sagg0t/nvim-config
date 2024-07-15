@@ -1,7 +1,7 @@
-
 return {
     {
         "folke/which-key.nvim",
+        event = "VeryLazy",
         config = function()
             vim.o.timeout = true
             vim.o.timeoutlen = 300
@@ -10,28 +10,14 @@ return {
 
             wk.setup({})
 
-            wk.register(
+            wk.add({
                 {
-                    l = { name = "LSP" },
-                    f = {
-                        name = "Telescope",
-                        f = "find file",
-                        t = "find text",
-                        s = "document symbols",
-                        o = "recently opened files",
-                        h = "vim help",
-                        k = "keymaps",
-                        O = "vim options",
-                        ["/"] = "current buffer fuzzy search",
-                        ["?"] = "search history",
-                        [";"] = "command-line history",
-                        c = "execute command",
-                    }
-                },
-                {
-                    prefix = "<space>"
+                    mode = "n",
+                    { "<Leader>f",  group = "find" },
+                    { "<Leader>l",  group = "LSP" },
+                    { "<Leader>t",  group = "test" },
                 }
-            )
+            })
         end,
     }
 }

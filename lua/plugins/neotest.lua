@@ -9,11 +9,36 @@ return {
             "nvim-neotest/neotest-go"
         },
         keys = {
-            { "<Leader>tn", function() require("neotest").run.run() end, silent = false },
-            { "<Leader>tf", function() require("neotest").run.run(vim.fn.expand("%")) end, silent = false },
-            { "<Leader>ta", function() require("neotest").run.attach() end, silent = false },
-            { "<Leader>ts", function() require("neotest").summary.toggle() end, silent = false },
-            { "<Leader>to", function() require("neotest").output_panel.toggle() end, silent = false }
+            {
+                "<Leader>tn",
+                function() require("neotest").run.run() end,
+                silent = false,
+                desc = "nearest"
+            },
+            {
+                "<Leader>tf",
+                function() require("neotest").run.run(vim.fn.expand("%")) end,
+                silent = false,
+                desc = "file"
+            },
+            {
+                "<Leader>ta",
+                function() require("neotest").run.attach() end,
+                silent = false,
+                desc = "all"
+            },
+            {
+                "<Leader>ts",
+                function() require("neotest").summary.toggle() end,
+                silent = false,
+                desc = "summary"
+            },
+            {
+                "<Leader>to",
+                function() require("neotest").output_panel.toggle() end,
+                silent = false,
+                desc = "output pannel"
+            }
         },
         cmd = "Neotest",
         config = function()

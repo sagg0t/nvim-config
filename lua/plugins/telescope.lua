@@ -11,33 +11,89 @@ return {
         lazy = true,
         cmd = "Telescope",
         keys = {
-            { "<Leader>ff", function() require("telescope.builtin").find_files(telescope_ctx) end },
+            {
+                "<Leader>ff",
+                function() require("telescope.builtin").find_files(telescope_ctx) end,
+                desc = "files"
+            },
             {
                 "<Leader>fF",
                 function()
                     local ctx = vim.tbl_deep_extend("force", telescope_ctx, { hidden = true })
                     require("telescope.builtin").find_files(ctx)
-                end
+                end,
+                desc = "files (with hidden)"
             },
-            { "<Leader>ft", function() require("telescope.builtin").live_grep(telescope_ctx) end },
+            {
+                "<Leader>ft",
+                function() require("telescope.builtin").live_grep(telescope_ctx) end,
+                desc = "text"
+            },
             {
                 "<Leader>fT",
                 function()
                     local ctx = vim.tbl_deep_extend("force", telescope_ctx, { hidden = true })
                     require("telescope.builtin").live_grep(ctx)
-                end
+                end,
+                desc = "text (with hidden)"
             },
-            { "<Leader>fs", "<CMD>Telescope lsp_document_symbols<CR>" },
-            { "<Leader>fb", "<CMD>Telescope buffers<CR>" },
-            { "<Leader>fo", "<CMD>Telescope oldfiles<CR>" },
-            { "<Leader>fh", "<CMD>Telescope help_tags<CR>" },
-            { "<Leader>fk", "<CMD>Telescope keymaps<CR>" },
-            { "<Leader>fO", "<CMD>Telescope vim_options<CR>" },
-            { "<Leader>f/", "<CMD>Telescope current_buffer_fuzzy_find<CR>" },
-            { "<Leader>f?", "<CMD>Telescope search_history<CR>" },
-            { "<Leader>f;", "<CMD>Telescope command_history<CR>" },
-            { "<Leader>fc", "<CMD>Telescope commands<CR>" },
-            { "<Leader>fw", function() require("telescope").extensions.git_worktree.git_worktrees() end },
+            {
+                "<Leader>fs",
+                "<CMD>Telescope lsp_document_symbols<CR>",
+                desc = "document symbols"
+            },
+            {
+                "<Leader>fb",
+                "<CMD>Telescope buffers<CR>",
+                desc = "buffers"
+            },
+            {
+                "<Leader>fo",
+                "<CMD>Telescope oldfiles<CR>",
+                desc = "oldfiles"
+            },
+            {
+                "<Leader>fh",
+                "<CMD>Telescope help_tags<CR>",
+                desc = "vim help"
+            },
+            {
+                "<Leader>fk",
+                "<CMD>Telescope keymaps<CR>",
+                desc = "keymaps"
+            },
+            {
+                "<Leader>fO",
+                "<CMD>Telescope vim_options<CR>",
+                desc = "vim options"
+            },
+            {
+                "<Leader>f/",
+                "<CMD>Telescope current_buffer_fuzzy_find<CR>",
+                desc = "buf fuzzy find"
+            },
+            {
+                "<Leader>f?",
+                "<CMD>Telescope search_history<CR>",
+                desc = "search history"
+            },
+            {
+                "<Leader>f;",
+                "<CMD>Telescope command_history<CR>",
+                desc = "command history"
+            },
+            {
+                "<Leader>fc",
+                "<CMD>Telescope commands<CR>",
+                desc = "commands"
+            },
+            {
+                "<Leader>fw",
+                function()
+                    require("telescope").extensions.git_worktree.git_worktrees()
+                end,
+                desc = "Git worktree"
+            },
         },
         dependencies = {
             { "nvim-lua/plenary.nvim" }
