@@ -14,6 +14,7 @@ return {
             -- "saadparwaiz1/cmp_luasnip",
             -- "luasnip"
             "onsails/lspkind-nvim",
+            "kristijanhusak/vim-dadbod-completion",
         },
         config = function()
             local cmp = require("cmp")
@@ -22,11 +23,9 @@ return {
 
             cmp.setup({
                 sources = cmp.config.sources({
-                    { name = "nvim_lsp_signature_help" },
-                    { name = "nvim_lua" },
                     { name = "nvim_lsp" },
                     -- { name = "luasnip" },
-                    { name = "path" }
+                    { name = "path" },
                 }, { { name = "buffer" } }),
 
                 -- snippet = {
@@ -49,11 +48,7 @@ return {
                             entry1_under = entry1_under or 0
                             entry2_under = entry2_under or 0
 
-                            if entry1_under > entry2_under then
-                                return false
-                            elseif entry1_under < entry2_under then
-                                return true
-                            end
+                            return entry1_under < entry2_under
                         end,
 
                         cmp.config.compare.kind,
@@ -110,6 +105,18 @@ return {
             cmp.setup.cmdline({ "/", "?" }, {
                 mapping = cmp.mapping.preset.cmdline(),
                 sources = { { name = 'buffer' } }
+            })
+
+            cmp.setup.filetype({ "sql", "mysql", "plsql" }, {
+                sources = {
+                    { name = 'vim-dadbod-completion' },
+                }
+            })
+
+            cmp.setup.filetype({ "lua" }, {
+                sources = {
+                    { name = "nvim_lua" },
+                }
             })
         end
     },
