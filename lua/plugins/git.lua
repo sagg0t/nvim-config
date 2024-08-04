@@ -10,6 +10,7 @@ return {
             vim.keymap.set('n', '<leader>gh', function() require("gitsigns").stage_hunk() end),
             vim.keymap.set('n', '<leader>gH', function() require("gitsigns").undo_stage_hunk() end),
             vim.keymap.set('n', '<leader>gd', function() require("gitsigns").diffthis() end),
+            vim.keymap.set('n', '<leader>gst', function() require("gitsigns").toggle_signs() end),
         },
         opts = {
             signcolumn = false,
@@ -18,6 +19,7 @@ return {
                 delay = 1000,
                 virt_text_pos = 'eol'
             },
+            current_line_blame_formatter = "<author>, <author_time:%R>",
         }
     }
 }
