@@ -13,7 +13,7 @@ return {
                 null_ls.builtins.code_actions.refactoring,
 
                 null_ls.builtins.diagnostics.buf,
-                null_ls.builtins.diagnostics.staticcheck,
+                -- null_ls.builtins.diagnostics.staticcheck,
 
                 null_ls.builtins.formatting.gofumpt,
                 null_ls.builtins.formatting.goimports_reviser,

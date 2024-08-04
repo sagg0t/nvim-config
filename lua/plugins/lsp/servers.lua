@@ -60,7 +60,7 @@ return {
         },
     },
 
-    golangci_lint_ls = {},
+    -- golangci_lint_ls = {},
     eslint = {},
     tsserver = {},
     tailwindcss = {},
