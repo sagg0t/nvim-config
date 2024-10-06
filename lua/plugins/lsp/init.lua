@@ -32,7 +32,6 @@ return {
                 ft = "lua",
                 opts = {},
             },
-            -- { "folke/neodev.nvim",       opts = {} },
         },
         config = function()
             -- vim.lsp.set_log_level("trace")

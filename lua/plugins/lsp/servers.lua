@@ -70,8 +70,21 @@ return {
     rust_analyzer = {},
     bashls = {},
     clangd = {},
-    cmake = {},
-    neocmake = {},
+    neocmake = {
+        root_dir = function(fname)
+            return require("lspconfig").util.find_git_ancestor(fname)
+        end,
+        single_file_support = true,
+        init_options = {
+            format = {
+                enable = true
+            },
+            lint = {
+                enable = true
+            },
+            scan_cmake_in_package = true
+        }
+    },
     terraformls = {},
 
     cssls = {
@@ -91,11 +104,12 @@ return {
                         atDirectives = {
                             {
                                 name = "@apply",
-                                description = "Use the `@apply` directive to inline any existing utility classes into your own custom CSS. This is useful when you find a common utility pattern in your HTML that you’d like to extract to a new component.",
+                                description =
+                                "Use the `@apply` directive to inline any existing utility classes into your own custom CSS. This is useful when you find a common utility pattern in your HTML that you’d like to extract to a new component.",
                                 references = {
                                     {
-                                      name = "Tailwind Documentation",
-                                      url = "https://tailwindcss.com/docs/functions-and-directives#apply"
+                                        name = "Tailwind Documentation",
+                                        url = "https://tailwindcss.com/docs/functions-and-directives#apply"
                                     }
                                 }
                             }

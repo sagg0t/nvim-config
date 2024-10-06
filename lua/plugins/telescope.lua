@@ -156,19 +156,11 @@ return {
         },
         config = function(_, opts)
             local telescope = require("telescope")
-            -- local open_with_trouble = require("trouble.sources.telescope").open
-
-            -- opts.defaults.mappings = {
-            --     i = { ["<c-t>"] = open_with_trouble },
-            --     n = { ["<c-t>"] = open_with_trouble }
-            -- }
 
             telescope.setup(opts)
 
-
             telescope.load_extension("fzf")
             telescope.load_extension("dap")
-            telescope.load_extension("media_files")
             telescope.load_extension("git_worktree")
 
             local Worktree = require("git-worktree")
@@ -182,12 +174,8 @@ return {
     },
 
     {
-        "nvim-telescope/telescope-media-files.nvim",
-        dependencies = { "nvim-telescope/telescope.nvim" }
-    },
-
-    {
         "nvim-telescope/telescope-fzf-native.nvim",
+        lazy = true,
         build = "make",
         dependencies = { "nvim-telescope/telescope.nvim" }
     },

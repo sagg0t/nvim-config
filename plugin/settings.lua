@@ -79,7 +79,8 @@ vim.g.netrw_localmkdir = "mkdir -p"
 -- NOTE: we use "rm" instead of "rmdir" (default) to be able to remove non-empty directories
 vim.g.netrw_localrmdir = "rm -r"
 
-local diagnostics_icons = { Error = "󰃤", Warn = "", Hint = "", Info = "󰍩" }
+-- local diagnostics_icons = { Error = "󰃤", Warn = "", Info = "󰍩", Hint = "" }
+local diagnostics_icons = { Error = "󰅚", Warn = "󰀪", Info = "󰋽", Hint = "󰌶" }
 for type, icon in pairs(diagnostics_icons) do
     local hl = "DiagnosticSign" .. type
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })

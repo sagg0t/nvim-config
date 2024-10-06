@@ -16,6 +16,8 @@ return {
         config = function()
             vim.cmd.colorscheme("sigma")
             vim.cmd("hi Normal guibg=NONE")
+            vim.cmd("hi Visual guibg=#424556")
+            vim.cmd("hi VisualNOS guibg=#424556")
         end
     },
 

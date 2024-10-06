@@ -18,8 +18,3 @@ vim.keymap.set("v", "<M-k>", ":m '<-2<CR>gv=gv")
 vim.keymap.set("v", "<M-l>", ">gv")
 
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
-
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Goto previous [D]iagnostic' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Goto next [D]iagnostic' })
-vim.keymap.set('n', '[c', ":cprevious<CR>", { desc = 'Goto previous quickfix' })
-vim.keymap.set('n', ']c', ":cnext<CR>", { desc = 'Goto next quickfix' })

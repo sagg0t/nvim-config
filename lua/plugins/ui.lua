@@ -1,7 +1,7 @@
 return {
     {
         "szw/vim-maximizer",
-        lazy = true,
+        lazy = true ,
         cmd = "MaximizerToggle",
         keys = {
             {
@@ -15,18 +15,10 @@ return {
     },
 
     {
-        "lukas-reineke/indent-blankline.nvim",
-        dependencies = { "nvim-treesitter/nvim-treesitter" },
-        main = "ibl",
-        opts = {
-            indent = {
-                char = { "│" },
-            },
-            scope = {
-                show_start = false,
-                show_end = false,
-            }
-        }
+        "nvimdev/indentmini.nvim",
+        config = function()
+            require("indentmini").setup({})
+        end
     },
 
     {
@@ -68,7 +60,6 @@ return {
             }
         }
     },
-
 
     {
         "brenoprata10/nvim-highlight-colors",

@@ -84,17 +84,10 @@ return {
                 --  the list of additional_vim_regex_highlighting and disabled languages for indent.
                 additional_vim_regex_highlighting = { 'ruby' },
             },
-
-            endwise = { enable = true },
         },
         config = function(_, opts)
             require('nvim-treesitter.install').prefer_git = true
             require("nvim-treesitter.configs").setup(opts)
         end
-    },
-
-    {
-        "RRethy/nvim-treesitter-endwise",
-        dependencies = "nvim-treesitter/nvim-treesitter",
     },
 }
