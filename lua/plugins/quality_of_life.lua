@@ -12,6 +12,7 @@ return {
 
     {
         "Wansmer/treesj",
+        lazy = true,
         keys = {
             { "gj", function() require("treesj").join() end },
             { "gs", function() require("treesj").split() end },

@@ -142,6 +142,7 @@ return {
 
     {
         "leoluz/nvim-dap-go",
+        fg = "go",
         dependencies = {
             "mfussenegger/nvim-dap",
         },
