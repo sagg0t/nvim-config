@@ -27,7 +27,7 @@ require("lazy").setup({
         version = false,
     },
     install = { colorscheme = { "sigma", "habamax" } },
-    checker = { enabled = true },
+    checker = { enabled = true, frequency = 3600 * 6 },
     change_detection = { notify = false },
 })
 
