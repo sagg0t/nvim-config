@@ -60,13 +60,44 @@ return {
         },
     },
 
-    -- golangci_lint_ls = {},
     eslint = {},
-    tsserver = {},
-    tailwindcss = {},
+    ts_ls = {},
     jsonls = {},
-    ruby_lsp = {},
-    -- solargraph = {},
+    ruby_lsp = {
+        init_options = {
+            featuresConfiguration = {
+                inlayHint = {
+                    enableAll = true
+                }
+            },
+            experimentalFeaturesEnabled = true,
+            formatter = "rubocop",
+            linters = { "rubocop" },
+            indexing = {
+                excludedGems = {
+                    "brakeman",
+                    "bundler-audit",
+                    "cssbundling-rails",
+                    "erb_lint",
+                    "jsbundling-rails",
+                    "listen",
+                    "propshaft",
+                    "reek",
+                    "rubocop-performance",
+                    "rubocop-rails",
+                    "rubocop-rspec",
+                    "rubocop-thread_safety",
+                    "standardrb",
+                    "stimulus-rails",
+                    "tailwindcss-rails",
+                    "test-prof",
+                    "web-console",
+                    "standard",
+                    "standardrb",
+                }
+            }
+        }
+    },
     rust_analyzer = {},
     bashls = {},
     clangd = {},
@@ -87,6 +118,24 @@ return {
     },
     terraformls = {},
 
+    tailwindcss = {
+        filetypes = { "aspnetcorerazor", "astro", "astro-markdown", "blade", "clojure", "django-html", "htmldjango", "edge", "eelixir", "elixir", "ejs", "erb", "eruby", "gohtml", "gohtmltmpl", "haml", "handlebars", "hbs", "html", "htmlangular", "html-eex", "heex", "jade", "leaf", "liquid", "markdown", "mdx", "mustache", "njk", "nunjucks", "php", "razor", "slim", "twig", "css", "less", "postcss", "sass", "scss", "stylus", "sugarss", "javascript", "javascriptreact", "reason", "rescript", "typescript", "typescriptreact", "vue", "svelte", "templ", "ruby" },
+        settings = {
+            tailwindCSS = {
+                includeLanguages = {
+                    ruby = "html"
+                },
+                emmetCompletions = true,
+                experimental = {
+                    classRegex = {
+                        "['\"]([^'\"]*)['\"]",
+                        "%[wW]\\[\\s*([^'\"\\[\\]]*)\\s*\\]"
+                    },
+                    -- configFile = "config/tailwind.config.js"
+                }
+            }
+        }
+    },
     cssls = {
         settings = {
             css = {
