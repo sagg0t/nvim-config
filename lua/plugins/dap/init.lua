@@ -16,6 +16,7 @@
 return {
     {
         "mfussenegger/nvim-dap",
+        ft = { "go", "ruby" },
         keys = {
             {
                 "<F1>",
@@ -141,8 +142,15 @@ return {
     },
 
     {
+        "suketa/nvim-dap-ruby",
+        config = function()
+            require("dap-ruby").setup()
+        end
+    },
+
+    {
         "leoluz/nvim-dap-go",
-        fg = "go",
+        ft = "go",
         dependencies = {
             "mfussenegger/nvim-dap",
         },

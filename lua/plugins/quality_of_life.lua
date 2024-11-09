@@ -14,9 +14,8 @@ return {
         "Wansmer/treesj",
         lazy = true,
         keys = {
-            { "gj", function() require("treesj").join() end },
-            { "gs", function() require("treesj").split() end },
-            { "gS", function() require("treesj").split({ split = { recursive = true } }) end },
+            { "gs", function() require("treesj").toggle() end },
+            { "gS", function() require("treesj").toggle({ split = { recursive = true } }) end },
         },
         dependencies = { "nvim-treesitter/nvim-treesitter" },
         opts = {
@@ -27,5 +26,6 @@ return {
 
     {
         "ThePrimeagen/git-worktree.nvim",
+        lazy = true
     },
 }

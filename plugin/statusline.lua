@@ -11,7 +11,7 @@ local components = {
     " ",
     sources.diagnostic(),
     '%=',
-    sources.progress(),
+    -- sources.progress(),
     sources.filetype(),
     sources.encoding(),
     ' %P %l:%c  ',

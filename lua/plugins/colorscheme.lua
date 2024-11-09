@@ -18,6 +18,7 @@ return {
             vim.cmd("hi Normal guibg=NONE")
             vim.cmd("hi Visual guibg=#424556")
             vim.cmd("hi VisualNOS guibg=#424556")
+            vim.cmd("hi link @lsp.typemod.variable.default_library @variable.builtin")
         end
     },
 

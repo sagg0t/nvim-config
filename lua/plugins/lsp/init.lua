@@ -19,7 +19,6 @@ return {
     {
         "neovim/nvim-lspconfig",
         dependencies = {
-            "hrsh7th/nvim-cmp",
             { "williamboman/mason.nvim", cmd = "Mason" },
             "williamboman/mason-lspconfig.nvim",
             "onsails/lspkind-nvim",
@@ -29,7 +28,7 @@ return {
             },
             {
                 "folke/lazydev.nvim",
-                ft = "lua",
+                ft = { "lua" },
                 opts = {},
             },
         },
@@ -38,9 +37,7 @@ return {
 
             local servers = require("plugins.lsp.servers")
             local ensure_installed = vim.tbl_keys(servers)
-            local caps = require("cmp_nvim_lsp").default_capabilities(
-                vim.lsp.protocol.make_client_capabilities()
-            )
+            local caps = vim.lsp.protocol.make_client_capabilities()
             -- caps.textDocument.foldingRange = {
             --     dynamicRegistration = false,
             --     lineFoldingOnly = true
@@ -68,12 +65,13 @@ return {
         "p00f/clangd_extensions.nvim",
         ft = { "c", "cpp", "swift", "rust" },
         name = "clangd_extensions",
-        dependencies = { "hrsh7th/cmp-nvim-lsp" },
+        -- dependencies = { "hrsh7th/cmp-nvim-lsp" },
         opts = {
             server = {
-                capabilities = require("cmp_nvim_lsp").default_capabilities(
-                    vim.lsp.protocol.make_client_capabilities()
-                )
+                -- capabilities = require("cmp_nvim_lsp").default_capabilities(
+                --     vim.lsp.protocol.make_client_capabilities()
+                -- )
+                capabilities = vim.lsp.protocol.make_client_capabilities()
             }
         }
     },

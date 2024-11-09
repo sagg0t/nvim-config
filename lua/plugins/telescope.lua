@@ -160,7 +160,7 @@ return {
             telescope.setup(opts)
 
             telescope.load_extension("fzf")
-            telescope.load_extension("dap")
+            -- telescope.load_extension("dap")
             telescope.load_extension("git_worktree")
 
             local Worktree = require("git-worktree")
@@ -180,9 +180,8 @@ return {
         dependencies = { "nvim-telescope/telescope.nvim" }
     },
 
-    {
-        "nvim-telescope/telescope-dap.nvim",
-        dependencies = { "nvim-telescope/telescope.nvim" }
-    },
-
+    -- {
+    --     "nvim-telescope/telescope-dap.nvim",
+    --     dependencies = { "nvim-telescope/telescope.nvim" }
+    -- },
 }

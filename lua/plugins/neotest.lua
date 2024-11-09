@@ -4,7 +4,6 @@ return {
         lazy = true,
         dependencies = {
             "nvim-lua/plenary.nvim",
-            "antoinemadec/FixCursorHold.nvim",
             "olimorris/neotest-rspec",
             "nvim-neotest/neotest-go"
         },
@@ -14,6 +13,12 @@ return {
                 function() require("neotest").run.run() end,
                 silent = false,
                 desc = "nearest"
+            },
+            {
+                "<Leader>tN",
+                function() require("neotest").run.run({ strategy = "dap" }) end,
+                silent = false,
+                desc = "nearest [DAP]"
             },
             {
                 "<Leader>tf",

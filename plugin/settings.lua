@@ -38,7 +38,7 @@ opt.foldmethod = "indent"
 opt.foldenable = false -- unfold everything by default
 opt.statusline = "%f %m%=%y %{&fileencoding?&fileencoding:&encoding} [%{&fileformat}] %p%% %l:%c"
 opt.guicursor = "a:block-Cursor"
-opt.completeopt = "menu,menuone,preview,noinsert"
+opt.completeopt = "menu,menuone,fuzzy,preview,noinsert"
 opt.updatetime = 250
 opt.timeoutlen = 300
 

@@ -64,6 +64,7 @@ return {
     ts_ls = {},
     jsonls = {},
     ruby_lsp = {
+        filetypes = { "ruby", "eruby" },
         init_options = {
             featuresConfiguration = {
                 inlayHint = {
@@ -131,7 +132,9 @@ return {
                         "['\"]([^'\"]*)['\"]",
                         "%[wW]\\[\\s*([^'\"\\[\\]]*)\\s*\\]"
                     },
-                    -- configFile = "config/tailwind.config.js"
+                    configFile = {
+                        ["config/tailwind.config.js"] = "app/{components,views}/**/*"
+                    }
                 }
             }
         }
