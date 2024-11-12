@@ -21,6 +21,7 @@ return {
         dependencies = {
             { "williamboman/mason.nvim", cmd = "Mason" },
             "williamboman/mason-lspconfig.nvim",
+            "saghen/blink.cmp",
             "onsails/lspkind-nvim",
             {
                 "j-hui/fidget.nvim",
@@ -38,6 +39,7 @@ return {
             local servers = require("plugins.lsp.servers")
             local ensure_installed = vim.tbl_keys(servers)
             local caps = vim.lsp.protocol.make_client_capabilities()
+            caps = require("blink.cmp").get_lsp_capabilities(caps)
             -- caps.textDocument.foldingRange = {
             --     dynamicRegistration = false,
             --     lineFoldingOnly = true
