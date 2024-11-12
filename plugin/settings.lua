@@ -66,8 +66,8 @@ vim.g.netrw_liststyle = 0
 -- dir.
 -- vim.g.netrw_keepdir = 0 -- keep the current directory the same as the browsing directory.
 vim.g.netrw_keepdir = 1
-vim.g.netrw_list_hide = "\\(^\\|\\s\\s\\)\\zs\\.\\S\\+"
-    .. ",.\\+_templ\\.\\(go\\|txt\\)"
+-- vim.g.netrw_list_hide = "\\(^\\|\\s\\s\\)\\zs\\.\\S\\+"
+--     .. ",.\\+_templ\\.\\(go\\|txt\\)"
     -- .. vim.fn["netrw_gitignore#Hide"]()
 -- Enable recursive copy of directories in *nix systems
 vim.g.netrw_localcopydircmd = "cp -r"
