@@ -2,7 +2,7 @@ return {
     {
         "saghen/blink.cmp",
         lazy = false, -- lazy loading handled internally
-        dependencies = "rafamadriz/friendly-snippets",
+        -- dependencies = "rafamadriz/friendly-snippets",
         build = "cargo build --release",
 
         opts = {
@@ -21,7 +21,7 @@ return {
             },
 
             fuzzy = {
-                use_fecency = false
+                use_fecency = false,
             },
 
             keymap = "super-tab",
