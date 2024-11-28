@@ -24,7 +24,7 @@ return {
                 use_fecency = false,
             },
 
-            keymap = "super-tab",
+            keymap = { preset = "default" },
 
             windows = {
                 autocomplete = {
