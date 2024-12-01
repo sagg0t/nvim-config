@@ -61,8 +61,7 @@ opt.smartcase = true
 
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 30
-vim.g.netrw_liststyle = 1
-vim.g.netrw_sort_by = "extern"
+-- vim.g.netrw_liststyle = 1
 -- Needed to be able to move files. Otherwise when not in the directory where vim was opened, can"t move
 -- files. Maybe it tries to run the command with paths relevant to the current netrw dir, but in the root
 -- dir.

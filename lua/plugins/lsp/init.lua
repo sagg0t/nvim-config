@@ -20,7 +20,6 @@ return {
         "neovim/nvim-lspconfig",
         dependencies = {
             { "williamboman/mason.nvim", cmd = "Mason" },
-            "williamboman/mason-lspconfig.nvim",
             "saghen/blink.cmp",
             "onsails/lspkind-nvim",
             {
@@ -29,7 +28,7 @@ return {
             },
             {
                 "folke/lazydev.nvim",
-                ft = { "lua" },
+                ft = "lua",
                 opts = {},
             },
         },
@@ -37,7 +36,6 @@ return {
             -- vim.lsp.set_log_level("trace")
 
             local servers = require("plugins.lsp.servers")
-            local ensure_installed = vim.tbl_keys(servers)
             local caps = vim.lsp.protocol.make_client_capabilities()
             caps = require("blink.cmp").get_lsp_capabilities(caps)
             -- caps.textDocument.foldingRange = {
@@ -46,16 +44,17 @@ return {
             -- }
 
             require("mason").setup()
-            require("mason-lspconfig").setup({
-                ensure_installed = ensure_installed,
-                handlers = {
-                    function(server_name)
-                        local server = servers[server_name] or {}
-                        server.capabilities = vim.tbl_deep_extend("force", {}, caps, server.capabilities or {})
-                        require("lspconfig")[server_name].setup(server)
-                    end
-                },
-            })
+
+            for server, options in pairs(servers) do
+                options.capabilities = vim.tbl_deep_extend(
+                    "force",
+                    {},
+                    caps,
+                    server.capabilities or {}
+                )
+
+                require("lspconfig")[server].setup(options)
+            end
 
             vim.lsp.inlay_hint.enable(true)
         end
@@ -67,13 +66,12 @@ return {
         "p00f/clangd_extensions.nvim",
         ft = { "c", "cpp", "swift", "rust" },
         name = "clangd_extensions",
-        -- dependencies = { "hrsh7th/cmp-nvim-lsp" },
+        dependencies = { "saghen/blink.cmp" },
         opts = {
             server = {
-                -- capabilities = require("cmp_nvim_lsp").default_capabilities(
-                --     vim.lsp.protocol.make_client_capabilities()
-                -- )
-                capabilities = vim.lsp.protocol.make_client_capabilities()
+                capabilities = require("blink.cmp").get_lsp_capabilities(
+                    vim.lsp.protocol.make_client_capabilities()
+                )
             }
         }
     },

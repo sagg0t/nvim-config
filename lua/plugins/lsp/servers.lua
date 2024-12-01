@@ -1,10 +1,59 @@
 return {
+    bashls = {},
+
+    clangd = {},
+
+    cssls = {
+        settings = {
+            css = {
+                validate = true,
+                trace = {
+                    server = "verbose"
+                },
+                lint = {
+                    unknownAtRules = "ignore"
+                },
+                -- customData = {"/Users/sagg0t/devel/aisha/tailwind.json"}
+                customData = {
+                    {
+                        version = 1.1,
+                        atDirectives = {
+                            {
+                                name = "@apply",
+                                description =
+                                "Use the `@apply` directive to inline any existing utility classes into your own custom CSS. This is useful when you find a common utility pattern in your HTML that you’d like to extract to a new component.",
+                                references = {
+                                    {
+                                        name = "Tailwind Documentation",
+                                        url = "https://tailwindcss.com/docs/functions-and-directives#apply"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+
+    dockerls = {},
+
+    eslint = {},
+
     gopls = {
         settings = {
             gopls = {
+                templateExtensions = { "hmtl", "tmpl" },
+                gofumpt = true,
+                staticcheck = true,
+                semanticTokens = false,
+                usePlaceholders = true,
+                vulncheck = "Imports",
                 analyses = {
                     unusedparams = true,
+                    unusedvariable = true,
                     unreachable = true,
+                    useany = true,
                 },
                 codelenses = {
                     generate = true,
@@ -24,12 +73,13 @@ return {
                     parameterNames = false,
                     rangeVariableTypes = false,
                 },
-                staticcheck = true,
-                semanticTokens = false,
-                usePlaceholders = false
             }
         }
     },
+
+    htmx = {},
+
+    jsonls = {},
 
     lua_ls = {
         settings = {
@@ -60,9 +110,22 @@ return {
         },
     },
 
-    eslint = {},
-    ts_ls = {},
-    jsonls = {},
+    neocmake = {
+        root_dir = function(fname)
+            return require("lspconfig").util.find_git_ancestor(fname)
+        end,
+        single_file_support = true,
+        init_options = {
+            format = {
+                enable = true
+            },
+            lint = {
+                enable = true
+            },
+            scan_cmake_in_package = true
+        }
+    },
+
     ruby_lsp = {
         filetypes = { "ruby", "eruby" },
         init_options = {
@@ -99,28 +162,11 @@ return {
             }
         }
     },
+
     rust_analyzer = {},
-    bashls = {},
-    clangd = {},
-    neocmake = {
-        root_dir = function(fname)
-            return require("lspconfig").util.find_git_ancestor(fname)
-        end,
-        single_file_support = true,
-        init_options = {
-            format = {
-                enable = true
-            },
-            lint = {
-                enable = true
-            },
-            scan_cmake_in_package = true
-        }
-    },
-    terraformls = {},
 
     tailwindcss = {
-        filetypes = { "aspnetcorerazor", "astro", "astro-markdown", "blade", "clojure", "django-html", "htmldjango", "edge", "eelixir", "elixir", "ejs", "erb", "eruby", "gohtml", "gohtmltmpl", "haml", "handlebars", "hbs", "html", "htmlangular", "html-eex", "heex", "jade", "leaf", "liquid", "markdown", "mdx", "mustache", "njk", "nunjucks", "php", "razor", "slim", "twig", "css", "less", "postcss", "sass", "scss", "stylus", "sugarss", "javascript", "javascriptreact", "reason", "rescript", "typescript", "typescriptreact", "vue", "svelte", "templ", "ruby" },
+        filetypes = { "aspnetcorerazor", "astro", "astro-markdown", "blade", "clojure", "django-html", "htmldjango", "edge", "eelixir", "elixir", "ejs", "erb", "eruby", "gohtml", "gohtmltmpl", "haml", "handlebars", "hbs", "html", "html-eex", "heex", "jade", "leaf", "liquid", "markdown", "mdx", "mustache", "njk", "nunjucks", "php", "razor", "slim", "twig", "css", "less", "postcss", "sass", "scss", "stylus", "sugarss", "javascript", "javascriptreact", "reason", "rescript", "typescript", "typescriptreact", "vue", "svelte", "templ", "ruby" },
         settings = {
             tailwindCSS = {
                 includeLanguages = {
@@ -132,43 +178,20 @@ return {
                         "['\"]([^'\"]*)['\"]",
                         "%[wW]\\[\\s*([^'\"\\[\\]]*)\\s*\\]"
                     },
-                    configFile = {
-                        ["config/tailwind.config.js"] = "app/{components,views}/**/*"
-                    }
+                    -- configFile = {
+                    -- ["config/tailwind.config.js"] = "app/{components,views}/**/*"
+                    -- }
                 }
             }
         }
     },
-    cssls = {
-        settings = {
-            css = {
-                validate = true,
-                trace = {
-                    server = "verbose"
-                },
-                lint = {
-                    unknownAtRules = "ignore"
-                },
-                -- customData = {"/Users/sagg0t/devel/aisha/tailwind.json"}
-                customData = {
-                    {
-                        version = 1.1,
-                        atDirectives = {
-                            {
-                                name = "@apply",
-                                description =
-                                "Use the `@apply` directive to inline any existing utility classes into your own custom CSS. This is useful when you find a common utility pattern in your HTML that you’d like to extract to a new component.",
-                                references = {
-                                    {
-                                        name = "Tailwind Documentation",
-                                        url = "https://tailwindcss.com/docs/functions-and-directives#apply"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+
+    terraformls = {},
+
+    ts_ls = {},
+
+    zls = {
+        cmd = { "zls" },
+        on_new_config = function(new_config, new_root_dir) end,
+    },
 }
