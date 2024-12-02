@@ -38,10 +38,6 @@ return {
             local servers = require("plugins.lsp.servers")
             local caps = vim.lsp.protocol.make_client_capabilities()
             caps = require("blink.cmp").get_lsp_capabilities(caps)
-            -- caps.textDocument.foldingRange = {
-            --     dynamicRegistration = false,
-            --     lineFoldingOnly = true
-            -- }
 
             require("mason").setup()
 

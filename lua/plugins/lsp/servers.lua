@@ -178,9 +178,7 @@ return {
                         "['\"]([^'\"]*)['\"]",
                         "%[wW]\\[\\s*([^'\"\\[\\]]*)\\s*\\]"
                     },
-                    -- configFile = {
-                    -- ["config/tailwind.config.js"] = "app/{components,views}/**/*"
-                    -- }
+                    configFile = "config/tailwind.config.js"
                 }
             }
         }
