@@ -1,0 +1,46 @@
+{
+    "Insert frozen literal string": {
+        "prefix": "frozen",
+        "body": ["# frozen_string_literal: true", "", "", ""]
+    },
+    "Class definition": {
+        "prefix": "class",
+        "body": ["class ${1:ClassName}", "\t$0", "end"]
+    },
+    "Module definition": {
+        "prefix": "mod",
+        "body": ["module ${1:ModuleName}", "\t$0", "end"]
+    },
+    "method definition": {
+        "prefix": "def",
+        "body": ["def ${1:method_name}", "\t$0", "end"]
+    },
+    "initialize method definition": {
+        "prefix": "init",
+        "body": ["def initialize(${1:args})", "\t$0", "end"]
+    },
+    "Insert describe": {
+        "prefix": "desc",
+        "body": ["describe ${1:subject} do", "\t$0", "end"]
+    },
+    "Insert context block": {
+        "prefix": "cont",
+        "body": ["context \"${1:message}\" do", "\t$0", "end"]
+    },
+    "Insert it block": {
+        "prefix": "it",
+        "body": ["it \"${1:spec_name}\" do", "\t$0", "end"]
+    },
+    "Insert before block": {
+        "prefix": "bef",
+        "body": ["before do", "\t$0", "end"]
+    },
+    "Insert let": {
+        "prefix": "let",
+        "body": "let(:${1:object}) { $0 }"
+    },
+    "Insert let!": {
+        "prefix": "let!",
+        "body": "let!(:${1:object}) { $0 }"
+    }
+}

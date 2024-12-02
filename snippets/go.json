@@ -1,17 +1,17 @@
 {
     "if err != nil": {
         "prefix": "ir",
-        "body": "if err != nil {\n\treturn ${1:err}\n}",
+        "body": "if err != nil {\n\treturn ${0:err}\n}",
         "description": "Snippet for if err != nil"
     },
     "fmt.Println": {
         "prefix": "fp",
-        "body": "fmt.Println(\"$1\")",
+        "body": "fmt.Println($0)",
         "description": "Snippet for fmt.Println()"
     },
     "fmt.Printf": {
         "prefix": "ff",
-        "body": "fmt.Printf(\"$1\", ${2:var})",
+        "body": "fmt.Printf(\"$1\", ${0:var})",
         "description": "Snippet for fmt.Printf()"
     },
     "if statement": {
