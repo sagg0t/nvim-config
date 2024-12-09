@@ -21,12 +21,14 @@ opt.expandtab = true          -- tab to spaces
 
 opt.cursorline = true
 opt.background = "dark"
+opt.winblend = 0
 opt.termguicolors = true
 opt.colorcolumn = "81"
 
 opt.showmatch = true
 opt.incsearch = true
 opt.hlsearch = true
+opt.more = false
 
 opt.showcmd = true
 
@@ -41,7 +43,7 @@ opt.statusline = "%f %m%=%y %{&fileencoding?&fileencoding:&encoding} [%{&filefor
 opt.guicursor = "a:block-Cursor"
 opt.completeopt = "menu,menuone,fuzzy,preview,noinsert"
 opt.updatetime = 250
-opt.timeoutlen = 300
+opt.timeoutlen = 500
 
 opt.clipboard = "unnamedplus"
 opt.undofile = true
