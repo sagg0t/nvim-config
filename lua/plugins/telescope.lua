@@ -108,7 +108,6 @@ return {
                 prompt_prefix = " ",
                 selection_caret = " ",
                 entry_prefix = "  ",
-                winblend = 0,
                 selection_strategy = "reset",
                 sorting_strategy = "ascending",
                 -- layout_strategy = "horizontal",
@@ -119,29 +118,31 @@ return {
 
             pickers = {
                 live_grep = {
-                    layout_strategy = "center",
-                    prompt_title = "",
-                    results_title = "",
-                    preview_title = "",
-                    layout_config = {
-                        width = function(_, max_columns, _)
-                            return math.min(max_columns - 3, 80)
-                        end,
-                    }
+                    theme = "ivy"
+                    -- layout_strategy = "center",
+                    -- prompt_title = "",
+                    -- results_title = "",
+                    -- preview_title = "",
+                    -- layout_config = {
+                    --     width = function(_, max_columns, _)
+                    --         return math.min(max_columns - 3, 80)
+                    --     end,
+                    -- }
                 },
                 find_files = {
-                    layout_strategy = "center",
-                    prompt_title = "",
-                    results_title = "",
-                    preview_title = "",
-                    layout_config = {
-                        width = function(_, max_columns, _)
-                            return math.min(max_columns - 3, 70)
-                        end,
-                        height = function(_, _, max_lines)
-                            return math.min(max_lines - 4, 25)
-                        end,
-                    },
+                    theme = "ivy"
+                    -- layout_strategy = "center",
+                    -- prompt_title = "",
+                    -- results_title = "",
+                    -- preview_title = "",
+                    -- layout_config = {
+                    --     width = function(_, max_columns, _)
+                    --         return math.min(max_columns - 3, 70)
+                    --     end,
+                    --     height = function(_, _, max_lines)
+                    --         return math.min(max_lines - 4, 25)
+                    --     end,
+                    -- },
                 },
             },
 
