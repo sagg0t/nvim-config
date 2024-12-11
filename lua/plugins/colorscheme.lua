@@ -19,6 +19,8 @@ return {
             vim.cmd("hi Visual guibg=#424556")
             vim.cmd("hi VisualNOS guibg=#424556")
             vim.cmd("hi link @lsp.typemod.variable.default_library @variable.builtin")
+            vim.cmd("hi IndentLine guifg=#373C45")
+            vim.cmd("hi IndentLineCurrent guifg=#dc3c70")
         end
     },
 

@@ -16,11 +16,8 @@ return {
 
     {
         "nvimdev/indentmini.nvim",
-        config = function()
-            vim.cmd.highlight("IndentLine guifg=#373C45")
-            vim.cmd.highlight("IndentLineCurrent guifg=#dc3c70")
-            require("indentmini").setup({})
-        end
+        event = "VeryLazy",
+        opts = {}
     },
 
     {

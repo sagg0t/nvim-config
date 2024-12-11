@@ -81,6 +81,7 @@ return {
 
     {
         "rcarriga/nvim-dap-ui",
+        ft = { "go", "ruby" },
         dependencies = {
             "nvim-neotest/nvim-nio",
             "mfussenegger/nvim-dap"
@@ -143,6 +144,8 @@ return {
 
     {
         "suketa/nvim-dap-ruby",
+        ft = "ruby",
+        dependencies = { "mfussenegger/nvim-dap" },
         config = function()
             require("dap-ruby").setup()
         end
@@ -151,9 +154,7 @@ return {
     {
         "leoluz/nvim-dap-go",
         ft = "go",
-        dependencies = {
-            "mfussenegger/nvim-dap",
-        },
+        dependencies = { "mfussenegger/nvim-dap" },
         config = function()
             require("dap-go").setup({ port = 5000 })
             require("dap.ext.vscode").load_launchjs(vim.fn.getcwd() .. "/.launch.json", {})
