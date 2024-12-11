@@ -27,14 +27,15 @@ return {
             keymap = { preset = "default" },
 
             sources = {
-                completion = {
-                    enabled_providers = { "lsp", "path", "snippets", "buffer", "lazydev" },
-                },
+                default = { "lsp", "path", "snippets", "buffer", "lazydev" },
                 providers = {
                     snippets = { score_offset = -3 },
                     buffer = { score_offset = -4 },
-                    lsp = { fallback_for = { "lazydev" } },
-                    lazydev = { name = "LazyDev", module = "lazydev.integrations.blink" },
+                    lazydev = {
+                        name = "LazyDev",
+                        module = "lazydev.integrations.blink",
+                        fallbacks = "lsp"
+                    },
                 }
             },
 
