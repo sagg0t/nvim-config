@@ -38,24 +38,19 @@ return {
                 desc = "text (with hidden)"
             },
             {
-                "<Leader>fs",
-                "<CMD>Telescope lsp_document_symbols<CR>",
-                desc = "document symbols"
-            },
-            {
                 "<Leader>fb",
                 "<CMD>Telescope buffers<CR>",
                 desc = "buffers"
             },
             {
-                "<Leader>fo",
-                "<CMD>Telescope oldfiles<CR>",
-                desc = "oldfiles"
-            },
-            {
                 "<Leader>fh",
                 "<CMD>Telescope help_tags<CR>",
                 desc = "vim help"
+            },
+            {
+                "<Leader>fH",
+                "<CMD>Telescope highlights<CR>",
+                desc = "vim highlights"
             },
             {
                 "<Leader>fk",
