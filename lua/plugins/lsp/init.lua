@@ -13,6 +13,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         map("gd", vim.lsp.buf.definition, "Goto Definition")
         map("gD", vim.lsp.buf.declaration, "Goto Declaration")
         map("gO", require("telescope.builtin").lsp_document_symbols, "Document Symbols")
+        map("<leader>lf", vim.lsp.buf.format, "Format document")
 
         if client.supports_method("textDocumet/formatting", 0) then
             vim.api.nvim_create_autocmd("BufWritePre", {
@@ -29,12 +30,11 @@ return {
     {
         "neovim/nvim-lspconfig",
         dependencies = {
-            { "williamboman/mason.nvim", cmd = "Mason" },
             "saghen/blink.cmp",
             "onsails/lspkind-nvim",
             {
                 "j-hui/fidget.nvim",
-                opts = {}
+                opts = {},
             },
             {
                 "folke/lazydev.nvim",
@@ -48,8 +48,6 @@ return {
             local servers = require("plugins.lsp.servers")
             local caps = vim.lsp.protocol.make_client_capabilities()
             caps = require("blink.cmp").get_lsp_capabilities(caps)
-
-            require("mason").setup()
 
             for server, options in pairs(servers) do
                 options.capabilities = vim.tbl_deep_extend(
