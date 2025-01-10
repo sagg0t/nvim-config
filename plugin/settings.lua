@@ -11,13 +11,13 @@ opt.hidden = true
 
 opt.number = true
 opt.relativenumber = true
-opt.signcolumn = "yes"        -- always have signcolumn shown to not shift buffer text
+opt.signcolumn = "yes" -- always have signcolumn shown to not shift buffer text
 
 opt.smartindent = true
-opt.shiftwidth = 4            -- number of spaces when shift indenting
-opt.tabstop = 4               -- number of visual spaces per tab
-opt.softtabstop = 4           -- number of spaces in tab when editing
-opt.expandtab = true          -- tab to spaces
+opt.shiftwidth = 4   -- number of spaces when shift indenting
+opt.tabstop = 4      -- number of visual spaces per tab
+opt.softtabstop = 4  -- number of spaces in tab when editing
+opt.expandtab = true -- tab to spaces
 
 opt.cursorline = true
 opt.background = "dark"
@@ -28,7 +28,7 @@ opt.colorcolumn = "81"
 opt.showmatch = true
 opt.incsearch = true
 opt.hlsearch = true
-opt.more = false
+-- opt.more = false
 
 opt.showcmd = true
 
@@ -71,7 +71,7 @@ vim.g.netrw_winsize = 30
 vim.g.netrw_keepdir = 1
 vim.g.netrw_list_hide = "\\(^\\|\\s\\s\\)\\zs\\.\\S\\+"
 --     .. ",.\\+_templ\\.\\(go\\|txt\\)"
-    -- .. vim.fn["netrw_gitignore#Hide"]()
+-- .. vim.fn["netrw_gitignore#Hide"]()
 -- Enable recursive copy of directories in *nix systems
 vim.g.netrw_localcopydircmd = "cp -r"
 
