@@ -5,9 +5,9 @@ return {
         build = "cargo build --release",
 
         opts = {
-            fuzzy = { use_fecency = false },
+            fuzzy = { use_frecency = false },
             keymap = { preset = "default" },
-            signature = { enabled = true },
+            signature = { enabled = false },
 
             completion = {
                 keyword = {
@@ -26,8 +26,17 @@ return {
                 },
 
                 menu = {
+                    auto_show = true,
                     draw = {
-                        columns = { { "kind_icon" }, { "label" } }
+                        columns = { { "kind_icon" }, { "label" } },
+                        padding = { 0, 1 },
+                        components = {
+                            kind_icon = {
+                                text = function(ctx)
+                                    return " " .. ctx.kind_icon .. ctx.icon_gap .. " "
+                                end
+                            }
+                        }
                     }
                     -- draw = function(ctx)
                     --     return {
