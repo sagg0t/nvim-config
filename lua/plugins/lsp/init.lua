@@ -28,40 +28,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 return {
     {
-        "neovim/nvim-lspconfig",
-        dependencies = {
-            "saghen/blink.cmp",
-            "onsails/lspkind-nvim",
-            {
-                "j-hui/fidget.nvim",
-                opts = {},
-            },
-            {
-                "folke/lazydev.nvim",
-                ft = "lua",
-                opts = {},
-            },
-        },
-        config = function()
-            -- vim.lsp.set_log_level("trace")
+        "j-hui/fidget.nvim",
+        opts = {},
+    },
 
-            local servers = require("plugins.lsp.servers")
-            local caps = vim.lsp.protocol.make_client_capabilities()
-            caps = require("blink.cmp").get_lsp_capabilities(caps)
-
-            for server, options in pairs(servers) do
-                options.capabilities = vim.tbl_deep_extend(
-                    "force",
-                    {},
-                    caps,
-                    server.capabilities or {}
-                )
-
-                require("lspconfig")[server].setup(options)
-            end
-
-            vim.lsp.inlay_hint.enable(true)
-        end
+    {
+        "folke/lazydev.nvim",
+        lazy = true,
+        ft = "lua",
+        opts = {},
     },
 
     require("plugins.lsp.null_ls"),
