@@ -34,9 +34,13 @@ return {
 
     {
         "folke/lazydev.nvim",
-        lazy = true,
         ft = "lua",
-        opts = {},
+        opts = {
+            library = {
+                { path = "dap",         mods = { "dap", "dapui" } },
+                { path = "nvim-dap-ui", mods = { "dap", "dapui" } },
+            }
+        },
     },
 
     require("plugins.lsp.null_ls"),
