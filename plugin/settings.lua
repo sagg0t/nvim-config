@@ -6,6 +6,7 @@ local opt = vim.opt
 opt.backup = false
 opt.writebackup = false
 opt.swapfile = false
+opt.exrc = true
 opt.laststatus = 3
 opt.hidden = true
 
