@@ -1,5 +1,5 @@
-vim.cmd("fclose")
-vim.cmd("messages clear")
+-- vim.cmd("fclose")
+-- vim.cmd("messages clear")
 
 local ms = vim.lsp.protocol.Methods
 
@@ -35,7 +35,7 @@ local function range_from_selection(bufnr, mode)
     }
 end
 
-function vim.lsp.buf.code_action(opts)
+local function code_action(opts)
     vim.validate({ options = { opts, 't', true } })
     opts = opts or {}
 
@@ -93,3 +93,5 @@ function vim.lsp.buf.code_action(opts)
         client.request(ms.textDocument_codeAction, params, on_result, bufnr)
     end
 end
+
+return code_action
