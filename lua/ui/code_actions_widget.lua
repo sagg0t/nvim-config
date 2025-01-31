@@ -139,7 +139,7 @@ function CodeActionsWidget:apply_action(action, client, ctx)
     local a_cmd = action.command
     if a_cmd then
         local command = type(a_cmd) == 'table' and a_cmd or action
-        client:_exec_cmd(command, ctx)
+        client:exec_cmd(command, ctx)
     end
 end
 
