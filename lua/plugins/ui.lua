@@ -1,7 +1,7 @@
 return {
     {
         "szw/vim-maximizer",
-        lazy = true ,
+        lazy = true,
         cmd = "MaximizerToggle",
         keys = {
             {
