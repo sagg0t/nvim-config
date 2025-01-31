@@ -61,6 +61,8 @@ return {
                     --     }
                     -- end
                 },
+
+                ghost_text = { enabled = true },
             },
 
             sources = {
