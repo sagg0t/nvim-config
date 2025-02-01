@@ -91,8 +91,9 @@ for type, icon in pairs(diagnostics_icons) do
 end
 
 vim.diagnostic.config({
-    virtual_text = { source = "always" },
-    float = { source = "always" },
+    virtual_lines = true,
+    -- virtual_text = { source = "if_many" },
+    float = { source = true },
     underline = true,
 })
 
