@@ -1,8 +1,10 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter",
+        version = false,
         build = ":TSUpdate",
-        event = "VeryLazy",
+        event = { "VeryLazy" },
+        cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
         opts = {
             ensure_installed = {
                 "bash",
