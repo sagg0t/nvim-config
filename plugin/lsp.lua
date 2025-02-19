@@ -1,5 +1,8 @@
-local code_action = require("override.code_action")
-vim.lsp.buf.code_action = code_action
+local code_action_override = require("override.code_action")
+-- local diagnostic_override = require("override.diagnostic")
+
+vim.lsp.buf.code_action = code_action_override
+-- vim.diagnostic.handlers.virtual_text = diagnostic_override.handlers.virtual_text
 
 local caps = vim.lsp.protocol.make_client_capabilities()
 caps = require("blink.cmp").get_lsp_capabilities(caps)
@@ -45,7 +48,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         map("gd", vim.lsp.buf.definition, "Goto Definition")
         map("gD", vim.lsp.buf.declaration, "Goto Declaration")
-        map("gO", require("telescope.builtin").lsp_document_symbols, "Document Symbols")
+        map("gO", function() require("fzf-lua").lsp_document_symbols() end, "Document Symbols")
         map("<leader>lf", vim.lsp.buf.format, "Format document")
 
         if client.supports_method("textDocument/formatting", 0) then

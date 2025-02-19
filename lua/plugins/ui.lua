@@ -31,13 +31,13 @@ return {
         lazy = false,
         dependencies = { "nvim-lua/plenary.nvim" },
         cmd = {
-            "TodoTelescope",
             "TodoQuickfix",
+            "TodoFzfLua"
         },
         keys = {
             {
                 "<Leader>fn",
-                "<CMD>TodoTelescope<CR>",
+                "<CMD>TodoFzfLua<CR>",
                 noremap = true,
                 silent = true,
                 desc = "Workspace TODO comments"

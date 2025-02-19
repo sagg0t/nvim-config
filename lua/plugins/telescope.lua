@@ -1,3 +1,5 @@
+if true then return {} end
+
 local cwd = vim.fn.getcwd()
 local telescope_ctx = { cwd = cwd }
 
@@ -8,6 +10,7 @@ end
 return {
     {
         "nvim-telescope/telescope.nvim",
+        enabled = false,
         lazy = true,
         cmd = "Telescope",
         keys = {
@@ -170,13 +173,9 @@ return {
 
     {
         "nvim-telescope/telescope-fzf-native.nvim",
+        enabled = false,
         lazy = true,
         build = "make",
         dependencies = { "nvim-telescope/telescope.nvim" }
     },
-
-    -- {
-    --     "nvim-telescope/telescope-dap.nvim",
-    --     dependencies = { "nvim-telescope/telescope.nvim" }
-    -- },
 }
