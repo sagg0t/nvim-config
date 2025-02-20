@@ -17,6 +17,7 @@ return {
     {
         "nvimdev/indentmini.nvim",
         event = "VeryLazy",
+        commit = "f0839ba",
         opts = {}
     },
 
