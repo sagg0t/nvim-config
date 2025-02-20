@@ -11,7 +11,7 @@ return {
             { "<Leader>ft", function() fzf().grep_project() end,    desc = "text" },
             { "<Leader>fb", function() fzf().buffers() end,         desc = "buffers" },
             { "<Leader>fh", function() fzf().helptags() end,        desc = "help tags" },
-            { "<Leader>fH", function() fzf().highlihgts() end,      desc = "highlight groups" },
+            { "<Leader>fH", function() fzf().highlights() end,      desc = "highlight groups" },
             { "<Leader>fk", function() fzf().keymaps() end,         desc = "keymaps" },
             { "<Leader>fO", function() fzf().nvim_options() end,    desc = "vim options" },
             { "<Leader>f/", function() fzf().lines() end,           desc = "buf fuzzy find" },
