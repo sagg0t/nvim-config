@@ -76,6 +76,24 @@ return {
             },
         },
         config = function()
+            local dap = require("dap")
+            local default_presets = require("plugins.dap.presets")
+
+            vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'DapBreakpoint' })
+            vim.fn.sign_define('DapBreakpointCondition', { text = '', texthl = 'DapBreakpoint' })
+            vim.fn.sign_define('DapBreakpointRejected', { text = '󰯆', texthl = 'DapBreakpoint' })
+            vim.fn.sign_define('DapLogPoint', { text = '󱂅', texthl = 'DapLogPoint' })
+            vim.fn.sign_define('DapStopped', { text = '', texthl = 'DapStopped', numhl = 'DapStopped' })
+
+            -- dap.set_log_level("TRACE")
+
+            for ft, presets in pairs(default_presets) do
+                vim.validate("DAP adapter", presets.adapter, { "table", "function" })
+                vim.validate("DAP configurations", presets.default_configurations, "table")
+
+                dap.adapters[ft] = presets.adapter
+                dap.configurations[ft] = presets.default_configurations
+            end
         end
     },
 
@@ -89,45 +107,32 @@ return {
         config = function()
             local dap, dapui = require("dap"), require("dapui")
 
-            vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'DapBreakpoint' })
-            vim.fn.sign_define('DapBreakpointCondition', { text = '', texthl = 'DapBreakpoint' })
-            vim.fn.sign_define('DapBreakpointRejected', { text = '󰯆', texthl = 'DapBreakpoint' })
-            vim.fn.sign_define('DapLogPoint', { text = '󱂅', texthl = 'DapLogPoint' })
-            vim.fn.sign_define('DapStopped', { text = '', texthl = 'DapStopped', numhl = 'DapStopped' })
-
             dapui.setup({
                 icons = {
                     collapsed = "",
                     current_frame = "",
                     expanded = ""
                 },
-                layouts = { {
-                    elements = { {
-                        id = "scopes",
-                        size = 0.25
-                    }, {
-                        id = "breakpoints",
-                        size = 0.25
-                    }, {
-                        id = "stacks",
-                        size = 0.25
-                    }, {
-                        id = "watches",
-                        size = 0.25
-                    } },
-                    position = "left",
-                    size = 40
-                }, {
-                    elements = { {
-                        id = "repl",
-                        size = 0.5
-                    }, {
-                        id = "console",
-                        size = 0.5
-                    } },
-                    position = "bottom",
-                    size = 10
-                } },
+                layouts = {
+                    {
+                        elements = {
+                            { id = "scopes",      size = 0.25 },
+                            { id = "breakpoints", size = 0.25 },
+                            { id = "stacks",      size = 0.25 },
+                            { id = "watches",     size = 0.25 }
+                        },
+                        position = "left",
+                        size = 40
+                    },
+                    {
+                        elements = {
+                            { id = "repl",    size = 0.5 },
+                            { id = "console", size = 0.5 }
+                        },
+                        position = "bottom",
+                        size = 10,
+                    }
+                },
             })
 
             dap.listeners.after.event_initialized["dapui_config"] = function()
@@ -141,23 +146,4 @@ return {
             end
         end
     },
-
-    {
-        "suketa/nvim-dap-ruby",
-        ft = "ruby",
-        dependencies = { "mfussenegger/nvim-dap" },
-        config = function()
-            require("dap-ruby").setup()
-        end
-    },
-
-    {
-        "leoluz/nvim-dap-go",
-        ft = "go",
-        dependencies = { "mfussenegger/nvim-dap" },
-        config = function()
-            require("dap-go").setup({ port = 5000 })
-            require("dap.ext.vscode").load_launchjs(vim.fn.getcwd() .. "/.launch.json", {})
-        end
-    }
 }
