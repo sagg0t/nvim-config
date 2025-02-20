@@ -10,7 +10,12 @@ return {
         opts = {
             fuzzy = { use_frecency = false },
             keymap = { preset = "default" },
-            signature = { enabled = false },
+            signature = {
+                enabled = false,
+                window = {
+                    show_documentation = true
+                }
+            },
 
             completion = {
                 keyword = {
