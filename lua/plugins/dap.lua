@@ -85,7 +85,7 @@ return {
             vim.fn.sign_define('DapLogPoint', { text = '󱂅', texthl = 'DapLogPoint' })
             vim.fn.sign_define('DapStopped', { text = '', texthl = 'DapStopped', numhl = 'DapStopped' })
 
-            -- dap.set_log_level("TRACE")
+            dap.set_log_level("TRACE")
 
             for ft, presets in pairs(default_presets) do
                 vim.validate("DAP adapter", presets.adapter, { "table", "function" })
