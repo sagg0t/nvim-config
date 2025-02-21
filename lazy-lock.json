@@ -1,5 +1,5 @@
 {
-  "blink.cmp": { "branch": "main", "commit": "9446f5003c62143a83bdb6ecc9b659259db300c3" },
+  "blink.cmp": { "branch": "main", "commit": "79aa4e575607568c8ac2a7c699b3593694fc0939" },
   "clangd_extensions": { "branch": "main", "commit": "db28f29be928d18cbfb86fbfb9f83f584f658feb" },
   "cloak.nvim": { "branch": "main", "commit": "648aca6d33ec011dc3166e7af3b38820d01a71e4" },
   "fidget.nvim": { "branch": "main", "commit": "d9ba6b7bfe29b3119a610892af67602641da778e" },
@@ -23,7 +23,7 @@
   "nvim-highlight-colors": { "branch": "main", "commit": "a770df5fbd98abbb0fc1a95d9a3f2bb1e51e3e2c" },
   "nvim-nio": { "branch": "master", "commit": "21f5324bfac14e22ba26553caf69ec76ae8a7662" },
   "nvim-surround": { "branch": "main", "commit": "ae298105122c87bbe0a36b1ad20b06d417c0433e" },
-  "nvim-treesitter": { "branch": "master", "commit": "bf18d4dc8d9a7a61e855190bc154df12d6536741" },
+  "nvim-treesitter": { "branch": "master", "commit": "4cf2da5c3a2dfd22e72713c66203d21883b149fd" },
   "nvim-web-devicons": { "branch": "master", "commit": "1020869742ecb191f260818234517f4a1515cfe8" },
   "plenary.nvim": { "branch": "master", "commit": "857c5ac632080dba10aae49dba902ce3abf91b35" },
   "todo-comments.nvim": { "branch": "main", "commit": "304a8d204ee787d2544d8bc23cd38d2f929e7cc5" },
