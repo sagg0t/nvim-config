@@ -36,7 +36,7 @@ local function range_from_selection(bufnr, mode)
 end
 
 local function code_action(opts)
-    vim.validate({ options = { opts, 't', true } })
+    vim.validate("opts", opts, "table", true)
     opts = opts or {}
 
     local bufnr = vim.api.nvim_get_current_buf()
@@ -45,7 +45,7 @@ local function code_action(opts)
         context.triggerKind = vim.lsp.protocol.CodeActionTriggerKind.Invoked
     end
     if not context.diagnostics then
-        context.diagnostics = vim.lsp.diagnostic.get_line_diagnostics(bufnr)
+        context.diagnostics = vim.diagnostic.get(bufnr)
     end
 
     local clients = vim.lsp.get_clients({ bufnr = bufnr, method = ms.textDocument_codeAction })
@@ -86,7 +86,7 @@ local function code_action(opts)
                 client.offset_encoding
             )
         else
-            params = vim.lsp.util.make_range_params(win)
+            params = vim.lsp.util.make_range_params(win, client.offset_encoding)
         end
         params.context = context
 
