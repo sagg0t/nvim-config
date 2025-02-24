@@ -10,8 +10,8 @@ return {
             }
         },
         experimentalFeaturesEnabled = true,
-        formatter = "rubocop",
-        linters = { "rubocop" },
+        formatter = "rubocop_internal",
+        linters = { "rubocop_internal" },
         indexing = {
             excludedGems = {
                 "brakeman",
