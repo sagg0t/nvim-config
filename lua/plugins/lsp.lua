@@ -1,11 +1,14 @@
 return {
     {
         "j-hui/fidget.nvim",
+        lazy = true,
+        event = "LspProgress",
         opts = {},
     },
 
     {
         "folke/lazydev.nvim",
+        lazy = true,
         ft = "lua",
         opts = {
             library = {
@@ -17,6 +20,7 @@ return {
 
     {
         "p00f/clangd_extensions.nvim",
+        lazy = true,
         ft = { "c", "cpp", "swift", "rust" },
         name = "clangd_extensions",
         dependencies = { "saghen/blink.cmp" },
@@ -31,7 +35,8 @@ return {
 
     {
         "nvimtools/none-ls.nvim",
-        ft = { "go", "proto" },
+        lazy = true,
+        ft = { "go" },
         config = function()
             local null_ls = require("null-ls")
 
