@@ -51,7 +51,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         map("gO", function() require("fzf-lua").lsp_document_symbols() end, "Document Symbols")
         map("<leader>lf", vim.lsp.buf.format, "Format document")
 
-        if client.supports_method("textDocument/formatting", 0) then
+        if client:supports_method("textDocument/formatting", 0) then
             vim.api.nvim_create_autocmd("BufWritePre", {
                 group = pre_write_group,
                 buffer = event.buf,
@@ -61,7 +61,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
             })
         end
 
-        if client.supports_method("textDocument/foldingRange", 0) then
+        if client:supports_method("textDocument/foldingRange", 0) then
             local win = vim.api.nvim_get_current_win()
             vim.wo[win][0].foldmethod = "expr"
             vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
