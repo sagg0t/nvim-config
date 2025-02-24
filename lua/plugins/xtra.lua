@@ -17,7 +17,6 @@ return {
     {
         "nvimdev/indentmini.nvim",
         event = "VeryLazy",
-        dir = "~/devel/indentmini.nvim",
         opts = {}
     },
 
