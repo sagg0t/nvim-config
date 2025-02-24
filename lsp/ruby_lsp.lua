@@ -25,6 +25,7 @@ return {
                 "rubocop-performance",
                 "rubocop-rails",
                 "rubocop-rspec",
+                "rubocop-rspec_rails",
                 "rubocop-thread_safety",
                 "standardrb",
                 "stimulus-rails",
@@ -33,6 +34,9 @@ return {
                 "web-console",
                 "standard",
                 "standardrb",
+                "standardrb-rails",
+                "standardrb-performance",
+                "standardrb-custom",
             }
         }
     }
