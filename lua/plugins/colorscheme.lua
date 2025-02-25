@@ -9,6 +9,7 @@
 return {
     {
         "olehvolynets/sigma.nvim",
+        -- enabled = false,
         dir = "~/devel/sigma.nvim",
         name = "sigma",
         lazy = false,
@@ -17,6 +18,16 @@ return {
             vim.cmd.colorscheme("sigma")
         end
     },
+
+    -- {
+    --     "sagg0t/zenburn.nvim",
+    --     lazy = false,
+    --     priority = 1000,
+    --     dir = "~/devel/zenburn.nvim",
+    --     config = function()
+    --         vim.cmd.colorscheme("zenburn")
+    --     end
+    -- }
 
     -- {
     --     "folke/tokyonight.nvim",
