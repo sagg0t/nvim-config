@@ -12,6 +12,15 @@ return {
         experimentalFeaturesEnabled = true,
         formatter = "rubocop_internal",
         linters = { "rubocop_internal" },
+        addonSettings = {
+            ["Standard Ruby"] = {
+                enabled = false,
+            },
+
+            RuboCop = {
+                enabled = false
+            },
+        },
         indexing = {
             excludedGems = {
                 "brakeman",
