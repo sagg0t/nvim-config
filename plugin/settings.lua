@@ -24,7 +24,8 @@ opt.cursorline = true
 opt.background = "dark"
 opt.winblend = 0
 opt.termguicolors = true
-opt.colorcolumn = "81"
+-- opt.colorcolumn = 81
+opt.colorcolumn = "101"
 
 opt.showmatch = true
 opt.incsearch = true
@@ -38,8 +39,9 @@ opt.scrolloff = 10
 -- opt.textwidth = 80
 opt.wrap = false
 opt.ruler = false
-opt.foldmethod = "indent"
 opt.foldenable = false -- unfold everything by default
+opt.foldmethod = "expr"
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 opt.statusline = "%f %m%=%y %{&fileencoding?&fileencoding:&encoding} [%{&fileformat}] %p%% %l:%c"
 opt.guicursor = "a:block-Cursor"
 opt.completeopt = "menu,menuone,fuzzy,preview,noinsert"
