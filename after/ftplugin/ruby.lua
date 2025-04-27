@@ -4,66 +4,52 @@ set.shiftwidth = 2
 set.tabstop = 2
 set.softtabstop = 2
 
-vim.api.nvim_buf_create_user_command(
-    0,
-    "ShowRubyDeps",
-    function(opts)
-        local client = vim.lsp.get_clients({ name = "ruby_lsp" })[1]
-        if client == nil then
-            print("No RubyLSP running...")
-            return
-        end
+local ruby_lsp_attach_group = vim.api.nvim_create_augroup("sagg0t Ruby LspAttach", { clear = true })
 
-        local pickers = require "telescope.pickers"
-        local finders = require "telescope.finders"
-        local conf = require("telescope.config").values
+vim.api.nvim_create_autocmd("LspAttach", {
+    group = ruby_lsp_attach_group,
+    callback = function(event)
+        local client = vim.lsp.get_client_by_id(event.data.client_id)
+        if (not client) or (client.name ~= "ruby_lsp") then return end
 
-        local params = vim.lsp.util.make_text_document_params()
-        local showAll = opts.args == "all"
+        local registered_commands = vim.api.nvim_get_commands({ builtin = false })
+        if not registered_commands["Gems"] then
+            vim.api.nvim_create_user_command(
+                "Gems",
+                function()
+                    local params = vim.lsp.util.make_text_document_params()
 
-        client.request("rubyLsp/workspace/dependencies", params, function(error, resultDeps)
-            if error then
-                print("Error showing deps: " .. error)
-                return
-            end
+                    client.request("rubyLsp/workspace/dependencies", params, function(error, gems)
+                        if error then
+                            print("Error showing deps: " .. error)
+                            return
+                        end
 
-            local results = {}
-            for _, item in ipairs(resultDeps) do
-                if showAll or item.dependency then
-                    table.insert(results, item)
-                end
-            end
+                        -- item format {
+                        --   dependency = false, -- direct or indirect dependency
+                        --   name = "rake",
+                        --   path = "<path to gem>
+                        --   version = "13.2.1"
+                        -- }
 
-            pickers.new({}, {
-                prompt_title = "Dependencies",
-                finder = finders.new_table({
-                    results = results,
-                    entry_maker = function(entry)
-                        return {
-                            value = entry,
-                            display = function(item)
-                                local indirect
-                                if item.value.dependency then
-                                    indirect = ""
-                                else
-                                    indirect = " (indirect)"
+                        vim.ui.select(
+                            gems,
+                            {
+                                prompt = "Select a gem:",
+                                format_item = function(item)
+                                    return string.format("%s (%s)", item.name, item.version)
                                 end
+                            },
+                            function(selection)
+                                if not selection then return end
 
-                                return string.format("%s %s%s", item.value.name, item.value.version, indirect)
-                            end,
-                            ordinal = entry.name,
-                            path = entry.path
-                        }
-                    end
-                }),
-                sorter = conf.generic_sorter({})
-            }):find()
-        end, 0)
-    end,
-    {
-        nargs = "?",
-        complete = function()
-            return { "all" }
-        end,
-    }
-)
+                                vim.cmd(string.format("split %s", selection.path))
+                            end
+                        )
+                    end)
+                end,
+                {}
+            )
+        end
+    end
+})

@@ -2,7 +2,8 @@ return {
     {
         "saghen/blink.cmp",
         lazy = false, -- lazy loading handled internally
-        build = "cargo build --release",
+        -- build = "cargo build --release",
+        build = "nix run .#build-plugin",
         dependencies = {
             "onsails/lspkind-nvim",
         },
