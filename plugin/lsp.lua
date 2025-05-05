@@ -66,5 +66,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
             vim.wo[win][0].foldmethod = "expr"
             vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
         end
+
+        if client:supports_method('textDocument/documentColor') then
+            vim.lsp.document_color.enable(true, event.buf)
+        end
     end
 })
