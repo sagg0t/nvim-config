@@ -20,6 +20,10 @@ return {
             RuboCop = {
                 enabled = false
             },
+
+            ["Ruby LSP Rails"] = {
+                enablePendingMigrationsPrompt = false,
+            },
         },
         indexing = {
             excludedGems = {
