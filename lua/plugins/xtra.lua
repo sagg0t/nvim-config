@@ -28,7 +28,8 @@ return {
 
     {
         "folke/todo-comments.nvim",
-        lazy = false,
+        lazy = true,
+        event = "VeryLazy",
         dependencies = { "nvim-lua/plenary.nvim" },
         cmd = {
             "TodoQuickfix",
@@ -62,6 +63,8 @@ return {
 
     {
         "kylechui/nvim-surround",
+        lazy = true,
+        event = "VeryLazy",
         opts = {}
     },
 

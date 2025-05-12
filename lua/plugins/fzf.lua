@@ -5,6 +5,7 @@ return {
         "ibhagwan/fzf-lua",
         lazy = true,
         dependencies = { "nvim-tree/nvim-web-devicons" },
+        event = "VeryLazy",
         cmd = "FzfLua",
         keys = {
             { "<Leader>ff", function() fzf().files() end,           desc = "files" },
