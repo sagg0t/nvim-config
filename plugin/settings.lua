@@ -33,6 +33,7 @@ opt.hlsearch = true
 -- opt.more = false
 
 opt.showcmd = true
+opt.showbreak = "+++ "
 
 opt.scrolloff = 10
 -- opt.linebreak = true
