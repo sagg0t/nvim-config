@@ -6,6 +6,7 @@ vim.diagnostic.config({
         end
     },
     virtual_text = {
+        current_line = false,
         source = "if_many",
         format = function(d)
             --     local lnum = vim.api.nvim_win_get_cursor(0)[1] - 1
