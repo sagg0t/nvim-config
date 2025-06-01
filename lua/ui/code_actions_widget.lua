@@ -51,8 +51,21 @@ function CodeActionsWidget:run()
         return
     end
 
-    self:create_buf()
-    self:create_win()
+    if #self.choices < 10 then
+        vim.ui.select(
+            self.choices,
+            {
+                format_item = function(action)
+                    return action.action.title:gsub('\r\n', '\\r\\n'):gsub('\n', '\\n')
+                        .. " (" .. vim.lsp.get_client_by_id(action.ctx.client_id).name .. ")"
+                end,
+            },
+            function(choice) self:on_user_choice(choice) end
+        )
+    else
+        self:create_buf()
+        self:create_win()
+    end
 end
 
 function CodeActionsWidget:create_buf()
