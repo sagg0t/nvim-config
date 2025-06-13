@@ -34,6 +34,10 @@ return {
     },
 
     {
+        "neovim/nvim-lspconfig",
+    },
+
+    {
         "nvimtools/none-ls.nvim",
         lazy = true,
         ft = { "go" },
