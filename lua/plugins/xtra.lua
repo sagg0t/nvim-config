@@ -87,9 +87,4 @@ return {
             max_join_length = 1000
         }
     },
-
-    {
-        "ThePrimeagen/git-worktree.nvim",
-        lazy = true
-    },
 }
