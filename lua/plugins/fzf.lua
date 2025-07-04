@@ -1,5 +1,7 @@
 local function fzf() return require("fzf-lua") end
 
+if true then return {} end
+
 return {
     {
         "ibhagwan/fzf-lua",
