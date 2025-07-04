@@ -44,6 +44,7 @@ return {
             }
         }
     },
+
     ruby = {
         adapter = function(callback, client_config)
             vim.validate("dap host", client_config.host, "string", true)
@@ -120,6 +121,7 @@ return {
             }
         }
     },
+
     zig = {
         adapter = {
             type = "server",

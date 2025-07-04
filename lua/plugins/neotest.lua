@@ -6,7 +6,7 @@ return {
             "nvim-neotest/nvim-nio",
             "nvim-lua/plenary.nvim",
             "olimorris/neotest-rspec",
-            "nvim-neotest/neotest-go"
+            "fredrikaverpil/neotest-golang"
         },
         keys = {
             {
@@ -17,7 +17,7 @@ return {
             },
             {
                 "<Leader>tN",
-                function() require("neotest").run.run({ strategy = "dap" }) end,
+                function() require("neotest").run.run({ suite = false, strategy = "dap" }) end,
                 silent = false,
                 desc = "nearest [DAP]"
             },
@@ -47,29 +47,23 @@ return {
             }
         },
         cmd = "Neotest",
-        config = function()
-            require("neotest").setup({
-                adapters = {
-                    require("neotest-rspec"),
-                    require("neotest-go")
-                },
-                output = {
-                    open_on_run = true
-                },
-                discovery = {
-                    enabled = false
-                },
-                icons = {
-                    failed = "",
-                    notify = "",
-                    passed = "",
-                    running = "",
-                    skipped = "",
-                    unknown = "",
-                    watching = "",
-                    running_animated = { "⠙", "⠸", "⢰", "⣠", "⣄", "⡆", "⠇", "⠋" },
-                },
-            })
-        end
+        opts = {
+            adapters = {
+                function(...) return require("neotest-rspec")(...) end,
+                function(...) return require("neotest-golang")(...) end,
+            },
+            output = { open_on_run = true },
+            discovery = { enabled = false },
+            icons = {
+                failed = "",
+                notify = "",
+                passed = "",
+                running = "",
+                skipped = "",
+                unknown = "",
+                watching = "",
+                running_animated = { "⠙", "⠸", "⢰", "⣠", "⣄", "⡆", "⠇", "⠋" },
+            },
+        }
     }
 }
