@@ -51,7 +51,7 @@ function CodeActionsWidget:run()
         return
     end
 
-    if #self.choices < 10 then
+    if #self.choices > 10 then
         vim.ui.select(
             self.choices,
             {
