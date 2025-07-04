@@ -25,9 +25,6 @@ return {
                 enabled = true,
                 layout = {
                     preset = "ivy_split",
-                    -- layout = {
-                    --     height = 0.5
-                    -- }
                 }
             }
         }
