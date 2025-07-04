@@ -18,6 +18,7 @@ vim.lsp.enable({
     "dockerls",
     "eslint",
     "gopls",
+    "html",
     "htmx",
     "jsonls",
     "lua_ls",
