@@ -13,6 +13,8 @@ return {
             local supported_fts = ts.get_available()
             local ft_group = vim.api.nvim_create_augroup("sagg0t FileType", { clear = true })
 
+            -- Lua is built in.
+            -- Doesn't work for: markdown, embeded template, gotmpl
             vim.api.nvim_create_autocmd("FileType", {
                 group = ft_group,
                 pattern = supported_fts,
