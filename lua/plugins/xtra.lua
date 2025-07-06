@@ -31,14 +31,11 @@ return {
         lazy = true,
         event = "VeryLazy",
         dependencies = { "nvim-lua/plenary.nvim" },
-        cmd = {
-            "TodoQuickfix",
-            "TodoFzfLua"
-        },
+        cmd = { "TodoQuickfix" },
         keys = {
             {
                 "<Leader>fn",
-                "<CMD>TodoFzfLua<CR>",
+                function() Snacks.picker.todo_comments() end,
                 noremap = true,
                 silent = true,
                 desc = "Workspace TODO comments"
