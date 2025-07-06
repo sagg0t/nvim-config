@@ -22,6 +22,11 @@ return {
         opts = {
             picker = {
                 enabled = true,
+                prompt = " ",
+                -- from telescope config selection_caret = " ",
+                matcher = {
+                    frecency = true,
+                },
                 layout = {
                     preset = "ivy_split",
                 }
