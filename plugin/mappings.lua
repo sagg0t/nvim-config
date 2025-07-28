@@ -20,14 +20,3 @@ map("v", "<M-k>", ":m '<-2<CR>gv=gv")
 map("v", "<M-l>", ">gv")
 
 map("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
-
-map(
-    "n",
-    "gK",
-    function()
-        vim.diagnostic.config({
-            virtual_lines = not vim.diagnostic.config().virtual_lines,
-        })
-    end,
-    { desc = "Toggle diagnostic display mode" }
-)
