@@ -1,8 +1,6 @@
 ---@type table<string, vim.lsp.Config>
 return {
-    cmd = { "gopls" },
     filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
-    root_markers = { "go.mod" },
     settings = {
         gopls = {
             templateExtensions = { "hmtl", "tmpl" },
