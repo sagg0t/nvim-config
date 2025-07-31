@@ -43,7 +43,14 @@ return {
         },
         opts = {
             signs = false,
+            highlight = {
+                multiline = false,
+                keyword = "fg",
+                after = "", -- "fg" or "bg" or empty
+                pattern = [[.*<(KEYWORDS)(\(\.*\))?\s*]], -- pattern or table of patterns, used for highlighting (vim regex)
+            },
             search = {
+                pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
                 args = {
                     "--color=never",
                     "--no-heading",
@@ -53,7 +60,7 @@ return {
                     "--glob=!node_modules",
                     "--glob=!vendor/bundle",
                     "--glob=!.git",
-                }
+                },
             }
         }
     },
