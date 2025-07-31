@@ -1,5 +1,5 @@
 local opt = vim.opt_local
 
-opt.signcolumn = false
+opt.signcolumn = "no"
 opt.number = false
 opt.relativenumber = false
