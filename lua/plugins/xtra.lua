@@ -47,7 +47,7 @@ return {
                 multiline = false,
                 keyword = "fg",
                 after = "", -- "fg" or "bg" or empty
-                pattern = [[.*<(KEYWORDS)(\(\.*\))?\s*]], -- pattern or table of patterns, used for highlighting (vim regex)
+                pattern = [[.*<(KEYWORDS)(\(\.\*\))?\s*]], -- pattern or table of patterns, used for highlighting (vim regex)
             },
             search = {
                 pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
