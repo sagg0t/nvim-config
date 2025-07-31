@@ -10,9 +10,9 @@ opt.exrc = true
 opt.laststatus = 3
 opt.hidden = true
 
-opt.number = true
-opt.relativenumber = true
-opt.signcolumn = "yes" -- always have signcolumn shown to not shift buffer text
+opt.number = false
+opt.relativenumber = false
+opt.signcolumn = "no" -- always have signcolumn shown to not shift buffer text
 
 opt.smartindent = true
 opt.shiftwidth = 4   -- number of spaces when shift indenting
@@ -45,7 +45,7 @@ opt.foldmethod = "expr"
 opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 opt.statusline = "%f %m%=%y %{&fileencoding?&fileencoding:&encoding} [%{&fileformat}] %p%% %l:%c"
 opt.guicursor = "a:block-Cursor"
-opt.completeopt = "menu,menuone,fuzzy,preview,noinsert"
+opt.completeopt = "menu,menuone,fuzzy,popup,noinsert"
 opt.updatetime = 250
 opt.timeoutlen = 500
 
