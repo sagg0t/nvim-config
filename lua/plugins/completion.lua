@@ -2,8 +2,9 @@ return {
     {
         "saghen/blink.cmp",
         lazy = false, -- lazy loading handled internally
+        version = "1.*",
         -- build = "cargo build --release",
-        build = "nix run .#build-plugin",
+        -- build = "nix run .#build-plugin --accept-flake-config",
         dependencies = {
             "onsails/lspkind-nvim",
         },
@@ -12,7 +13,7 @@ return {
             fuzzy = { use_frecency = false },
             keymap = { preset = "default" },
             signature = {
-                enabled = false,
+                enabled = true,
                 window = {
                     show_documentation = true
                 }
@@ -72,16 +73,9 @@ return {
             },
 
             sources = {
-                default = { "lsp", "path", "snippets", "buffer", "lazydev" },
-                per_filetype = { "lazydev", "lua" },
                 providers = {
                     snippets = { score_offset = -3 },
                     buffer = { score_offset = -4 },
-                    lazydev = {
-                        name = "LazyDev",
-                        module = "lazydev.integrations.blink",
-                        fallbacks = { "lsp" }
-                    },
                 }
             },
 

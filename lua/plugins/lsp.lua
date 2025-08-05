@@ -7,18 +7,6 @@ return {
     },
 
     {
-        "folke/lazydev.nvim",
-        lazy = true,
-        ft = "lua",
-        opts = {
-            library = {
-                { path = "dap",         mods = { "dap", "dapui" } },
-                { path = "nvim-dap-ui", mods = { "dap", "dapui" } },
-            }
-        },
-    },
-
-    {
         "p00f/clangd_extensions.nvim",
         lazy = true,
         ft = { "c", "cpp", "swift", "rust" },
@@ -33,9 +21,7 @@ return {
         }
     },
 
-    {
-        "neovim/nvim-lspconfig",
-    },
+    { "neovim/nvim-lspconfig" },
 
     {
         "nvimtools/none-ls.nvim",
