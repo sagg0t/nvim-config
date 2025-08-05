@@ -125,8 +125,10 @@ function CodeActionsWidget:create_win()
 end
 
 function CodeActionsWidget:close_win()
-    vim.api.nvim_win_close(self.win, true)
-    vim.api.nvim_buf_delete(self.bufnr, { force = true })
+    if self.win then
+        vim.api.nvim_win_close(self.win, true)
+        vim.api.nvim_buf_delete(self.bufnr, { force = true })
+    end
 end
 
 function CodeActionsWidget:handle_cursor_move()
