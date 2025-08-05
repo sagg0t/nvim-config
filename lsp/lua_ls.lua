@@ -1,33 +1,37 @@
----@type table<string, vim.lsp.Config>
+---@type vim.lsp.Config
 return {
-    cmd = { "lua-language-server" },
-    filetypes = { "lua" },
-    root_markers = {
-        ".git/",
-        ".luarc.json",
-        ".luarc.jsonc",
-        ".luacheckrc",
-        ".stylua.toml",
-        "stylua.toml",
-        "selene.toml",
-        "selene.yml",
-    },
     settings = {
         Lua = {
-            runtime = { version = "LuaJIT" },
+            runtime = {
+              version = "LuaJIT",
+              -- Tell the language server how to find Lua modules same way as Neovim
+              -- (see `:h lua-module-load`)
+              path = { "lua/?.lua", "lua/?/init.lua" },
+            },
+            -- Make the server aware of Neovim runtime files
+            workspace = {
+              checkThirdParty = false,
+              -- library = {
+              --   vim.env.VIMRUNTIME
+              --   -- Depending on the usage, you might want to add additional paths
+              --   -- here.
+              --   -- "${3rd}/luv/library"
+              --   -- "${3rd}/busted/library"
+              -- }
+              -- Or pull in all of "runtimepath".
+              -- NOTE: this is a lot slower and will cause issues when working on
+              -- your own configuration.
+              -- See https://github.com/neovim/nvim-lspconfig/issues/3189
+              library = {
+                vim.api.nvim_get_runtime_file("", true),
+              }
+            },
             diagnostics = {
                 -- Get the language server to recognize the `vim` global
                 globals = { "vim", "Snacks" },
             },
-            workspace = {
-                -- Make the server aware of Neovim runtime files
-                library = vim.api.nvim_get_runtime_file("", true),
-                checkThirdParty = false,
-            },
             -- Do not send telemetry data containing a randomized but unique identifier
-            telemetry = {
-                enable = false,
-            },
+            telemetry = { enable = false },
         },
     },
 }
