@@ -19,15 +19,14 @@ vim.lsp.enable({
     "eslint",
     "gopls",
     "html",
-    "htmx",
+    -- "htmx",
     "jsonls",
     "lua_ls",
     "neocmake",
     "pyright",
-    "ruby_lsp",
+    -- "ruby_lsp",
     "rust_analyzer",
     "tailwindcss",
-    "terraformls",
     "ts_ls",
     "zls",
 })
@@ -50,7 +49,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         map("gd", vim.lsp.buf.definition, "Goto Definition")
         map("gD", vim.lsp.buf.declaration, "Goto Declaration")
-        map("gO", function() require("fzf-lua").lsp_document_symbols() end, "Document Symbols")
         map("<leader>lf", vim.lsp.buf.format, "Format document")
 
         -- if client:supports_method("textDocument/formatting", 0) then
@@ -72,5 +70,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
         if client:supports_method("textDocument/documentColor") then
             vim.lsp.document_color.enable(true, event.buf, { style = "virtual" })
         end
+
+        -- if client:supports_method("textDocument/completion") then
+        --     vim.lsp.completion.enable(true, event.data.client_id, event.buf, { autotrigger = true })
+        -- end
     end
 })
