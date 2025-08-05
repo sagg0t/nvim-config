@@ -1,5 +1,5 @@
 local api = vim.api
-local ns = api.nvim_create_namespace("saggot.task-runner.history-preview")
+local ns = api.nvim_create_namespace("sagg0t.task-runner.history-preview")
 
 --- @param entries HistoryEntry[]
 --- @return string[]
@@ -135,8 +135,8 @@ function HistoryPreview:update_index(history)
     end
 
     if #history.entries == 0 then
-        self:index_buf_atomic_write({"Nothing has been run so far"})
-        api.nvim_buf_set_extmark(self.index_buf, ns, 0, 0, {line_hl_group = "DiagnosticVirtualTextWarn"})
+        self:index_buf_atomic_write({ "Nothing has been run so far" })
+        api.nvim_buf_set_extmark(self.index_buf, ns, 0, 0, { line_hl_group = "DiagnosticVirtualTextWarn" })
         return
     end
 
@@ -153,16 +153,16 @@ function HistoryPreview:update_index(history)
             hl_group = "DiagnosticVirtualTextOk"
         end
 
-        api.nvim_buf_set_extmark(self.index_buf, ns, ln - 1, 0, {line_hl_group = hl_group})
+        api.nvim_buf_set_extmark(self.index_buf, ns, ln - 1, 0, { line_hl_group = hl_group })
     end
 
     self:reattach_output_pane_close_cb()
 end
 
 function HistoryPreview:index_buf_atomic_write(lines)
-    api.nvim_set_option_value("modifiable", true, {buf = self.index_buf})
+    api.nvim_set_option_value("modifiable", true, { buf = self.index_buf })
     api.nvim_buf_set_lines(self.index_buf, 0, -1, false, lines)
-    api.nvim_set_option_value("modifiable", false, {buf = self.index_buf})
+    api.nvim_set_option_value("modifiable", false, { buf = self.index_buf })
 end
 
 function HistoryPreview:attach_history_nav_cb(cb)
