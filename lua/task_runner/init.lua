@@ -92,7 +92,7 @@ function TaskRunner:run(cmd)
     api.nvim_win_set_buf(self.output.win_id, buf)
     self:attach_win_close_cb(buf)
 
-    local push_out = vim.schedule_wrap(function(err, data)
+    local push_out = function(err, data)
         if err then
             vim.notify("[task runner] output error: " .. err, vim.log.levels.ERROR)
             return
@@ -108,7 +108,7 @@ function TaskRunner:run(cmd)
                 lc = lc - 1
             end
         end
-    end)
+    end
 
     local on_exit = vim.schedule_wrap(function(res)
         api.nvim_buf_set_lines(buf, lc, -1, false, {"", string.format("Exit %s", format_exit_code(res.code))})
@@ -123,7 +123,11 @@ function TaskRunner:run(cmd)
         end
     end)
 
-    vim.system(cmd, {text = false, stdout = push_out, stderr = push_out}, on_exit)
+    vim.system(cmd, {
+        text = false,
+        stdout = vim.schedule_wrap(push_out),
+        stderr = vim.schedule_wrap(push_out),
+    }, on_exit)
 end
 
 function TaskRunner:attach_win_close_cb(buf)
