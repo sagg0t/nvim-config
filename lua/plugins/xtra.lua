@@ -16,6 +16,7 @@ return {
 
     {
         "nvimdev/indentmini.nvim",
+        enabled = false,
         event = "VeryLazy",
         opts = {}
     },
