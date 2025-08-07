@@ -6,21 +6,6 @@ return {
         opts = {},
     },
 
-    {
-        "p00f/clangd_extensions.nvim",
-        lazy = true,
-        ft = { "c", "cpp", "swift", "rust" },
-        name = "clangd_extensions",
-        dependencies = { "saghen/blink.cmp" },
-        opts = {
-            server = {
-                capabilities = require("blink.cmp").get_lsp_capabilities(
-                    vim.lsp.protocol.make_client_capabilities()
-                )
-            }
-        }
-    },
-
     { "neovim/nvim-lspconfig" },
 
     {

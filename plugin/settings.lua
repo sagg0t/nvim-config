@@ -33,7 +33,7 @@ opt.hlsearch = true
 -- opt.more = false
 
 opt.showcmd = true
-opt.showbreak = "+++ "
+opt.showbreak = "==> "
 
 opt.scrolloff = 10
 -- opt.linebreak = true
@@ -45,9 +45,10 @@ opt.foldmethod = "expr"
 opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 opt.statusline = "%f %m%=%y %{&fileencoding?&fileencoding:&encoding} [%{&fileformat}] %p%% %l:%c"
 opt.guicursor = "a:block-Cursor"
-opt.completeopt = "menu,menuone,fuzzy,popup,noinsert"
 opt.updatetime = 250
 opt.timeoutlen = 500
+
+opt.completeopt = "menu,menuone,fuzzy,popup,noinsert"
 
 opt.clipboard = "unnamedplus"
 opt.undofile = true
@@ -85,21 +86,3 @@ vim.g.netrw_localmkdir = "mkdir -p"
 -- Enable recursive removal of directories in *nix systems
 -- NOTE: we use "rm" instead of "rmdir" (default) to be able to remove non-empty directories
 vim.g.netrw_localrmdir = "rm -r"
-
-local border_icons = {
-    { "╭", "FloatBorder" },
-    { "─", "FloatBorder" },
-    { "╮", "FloatBorder" },
-    { "│", "FloatBorder" },
-    { "╯", "FloatBorder" },
-    { "─", "FloatBorder" },
-    { "╰", "FloatBorder" },
-    { "│", "FloatBorder" },
-}
--- override privew func to add borders
-local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
-function vim.lsp.util.open_floating_preview(contents, syntax, preview_opts, ...)
-    preview_opts = preview_opts or {}
-    preview_opts.border = preview_opts.border or border_icons
-    return orig_util_open_floating_preview(contents, syntax, preview_opts, ...)
-end
