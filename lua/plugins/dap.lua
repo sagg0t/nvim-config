@@ -1,105 +1,102 @@
--- vim.keymap.set({'n', 'v'}, '<Leader>dh', function()
---   require('dap.ui.widgets').hover()
+-- vim.keymap.set({"n", "v"}, "<Leader>dh", function()
+--   require("dap.ui.widgets").hover()
 -- end)
--- vim.keymap.set({'n', 'v'}, '<Leader>dp', function()
---   require('dap.ui.widgets').preview()
+-- vim.keymap.set({"n", "v"}, "<Leader>dp", function()
+--   require("dap.ui.widgets").preview()
 -- end)
--- vim.keymap.set('n', '<Leader>df', function()
---   local widgets = require('dap.ui.widgets')
+-- vim.keymap.set("n", "<Leader>df", function()
+--   local widgets = require("dap.ui.widgets")
 --   widgets.centered_float(widgets.frames)
 -- end)
--- vim.keymap.set('n', '<Leader>ds', function()
---   local widgets = require('dap.ui.widgets')
+-- vim.keymap.set("n", "<Leader>ds", function()
+--   local widgets = require("dap.ui.widgets")
 --   widgets.centered_float(widgets.scopes)
 -- end)
+
+local adapters = require("lua.plugins.dap.adapters")
+local configurations = require("lua.plugins.dap.configurations")
 
 return {
     {
         "mfussenegger/nvim-dap",
-        ft = { "go", "ruby" },
+        ft = vim.tbl_keys(configurations),
         keys = {
             {
                 "<F1>",
-                function() require('dap').step_over() end,
+                function() require("dap").step_over() end,
                 silent = true,
                 noremap = true,
                 desc = "Debug step over"
             },
             {
                 "<F2>",
-                function() require('dap').step_into() end,
+                function() require("dap").step_into() end,
                 silent = true,
                 noremap = true,
                 desc = "Debug step into"
             },
             {
                 "<F3>",
-                function() require('dap').step_out() end,
+                function() require("dap").step_out() end,
                 silent = true,
                 noremap = true,
                 desc = "Debug step out"
             },
             {
                 "<F4>",
-                function() require('dap').continue() end,
+                function() require("dap").continue() end,
                 silent = true,
                 noremap = true,
                 desc = "Start/resume a debug session"
             },
             {
                 "<F5>",
-                function() require('dap').toggle_breakpoint() end,
+                function() require("dap").toggle_breakpoint() end,
                 silent = true,
                 noremap = true,
                 desc = "Insert a debug breakpoint"
             },
             {
                 "<F6>",
-                function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end,
+                function() require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: ")) end,
                 silent = true,
                 noremap = true,
                 desc = "Insert a with log"
             },
             {
                 "<F7>",
-                function() require('dap').repl.open() end,
+                function() require("dap").repl.open() end,
                 silent = true,
                 noremap = true,
                 desc = "Open a debug REPL"
             },
             {
                 "<F8>",
-                function() require('dap').run_last() end,
+                function() require("dap").run_last() end,
                 silent = true,
                 noremap = true,
-                desc = "???"
+                desc = "Run last DAP thing"
             },
         },
         config = function()
             local dap = require("dap")
-            local default_presets = require("plugins.dap.presets")
 
-            vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'DapBreakpoint' })
-            vim.fn.sign_define('DapBreakpointCondition', { text = '', texthl = 'DapBreakpoint' })
-            vim.fn.sign_define('DapBreakpointRejected', { text = '󰯆', texthl = 'DapBreakpoint' })
-            vim.fn.sign_define('DapLogPoint', { text = '󱂅', texthl = 'DapLogPoint' })
-            vim.fn.sign_define('DapStopped', { text = '', texthl = 'DapStopped', numhl = 'DapStopped' })
+            vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DapBreakpoint" })
+            vim.fn.sign_define("DapBreakpointCondition", { text = "", texthl = "DapBreakpoint" })
+            vim.fn.sign_define("DapBreakpointRejected", { text = "󰯆", texthl = "DapBreakpoint" })
+            vim.fn.sign_define("DapLogPoint", { text = "󱂅", texthl = "DapLogPoint" })
+            vim.fn.sign_define("DapStopped", { text = "", texthl = "DapStopped", numhl = "DapStopped" })
 
             dap.set_log_level("TRACE")
 
-            for ft, presets in pairs(default_presets) do
-                vim.validate("DAP adapter", presets.adapter, { "table", "function" })
-                vim.validate("DAP configurations", presets.default_configurations, "table")
-
-                dap.adapters[ft] = presets.adapter
-                dap.configurations[ft] = presets.default_configurations
-            end
+            dap.adapters = adapters
+            dap.configurations = configurations
         end
     },
 
     {
         "rcarriga/nvim-dap-ui",
-        ft = { "go", "ruby" },
+        ft = vim.tbl_keys(configurations),
         dependencies = {
             "nvim-neotest/nvim-nio",
             "mfussenegger/nvim-dap"
