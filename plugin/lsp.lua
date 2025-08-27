@@ -36,6 +36,7 @@ vim.lsp.enable({
     -- "htmx",
     "jsonls",
     "lua_ls",
+    "ols",
     "neocmake",
     "pyright",
     -- "ruby_lsp",
@@ -45,7 +46,7 @@ vim.lsp.enable({
     "zls",
 })
 
--- vim.lsp.set_log_level("trace")
+-- vim.lsp.log.set_level("trace")
 vim.lsp.inlay_hint.enable(true)
 
 local pre_write_group = vim.api.nvim_create_augroup("sagg0t BufWritePre", { clear = true })

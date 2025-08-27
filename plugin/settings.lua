@@ -12,7 +12,7 @@ opt.hidden = true
 
 opt.number = false
 opt.relativenumber = false
-opt.signcolumn = "no" -- always have signcolumn shown to not shift buffer text
+opt.signcolumn = "auto"
 
 opt.smartindent = true
 opt.shiftwidth = 4   -- number of spaces when shift indenting
