@@ -30,5 +30,3 @@ require("lazy").setup({
     checker = { enabled = false },
     change_detection = { notify = false },
 })
-
--- vim.api.nvim_set_keymap('n', '<Leader>dl', ":lua require('config.dbg.ruby').launch()<CR>", {})
