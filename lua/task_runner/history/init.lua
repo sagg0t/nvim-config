@@ -38,7 +38,7 @@ function History:push(entry)
     table.insert(self.entries, 1, entry)
 end
 
-function History:update_entry_code(id, code)
+function History:update_exit_code(id, code)
     for _, t in ipairs(self.entries) do
         if t.ID == id then
             t.code = code

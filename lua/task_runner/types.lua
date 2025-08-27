@@ -1,0 +1,3 @@
+--- @class OutStream
+--- @field file string?
+--- @field only boolean?

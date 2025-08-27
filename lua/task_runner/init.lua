@@ -4,22 +4,26 @@ local api = vim.api
 local History = require("task_runner.history")
 --- @type HistoryPreview
 local HistoryPreview = require("task_runner.history.preview")
+--- @type FnWrapper
+local FnWrapper = require("task_runner.fn_wrapper")
+--- @type Run
+local Run = require("task_runner.run")
+
+
+--- @class Command: string[]
+--- @field title string?
+--- @field stdin (string|string[]|{file: string}|fun(): string)?
+--- @field stdout OutStream?
+--- @field stderr (OutStream|"stdout")?
 
 
 --- @class Task
---- @field cmd string[]
+--- @field title string?
+--- @field cmd (Command|FnWrapper)[]
 --- @field key string
-
-
---- @param code number
---- @return string
-local function format_exit_code(code)
-    if code == 0 then
-        return string.format("\x1b[32m%d\x1b[0m", code) -- green
-    else
-        return string.format("\x1b[31m%d\x1b[0m", code) -- red
-    end
-end
+--- @field cwd string?
+--- @field env table<string,string|number>?
+--- @field timeout number?
 
 
 --- @class Output
@@ -27,57 +31,80 @@ end
 --- @field close_cb number?
 
 
+--- @class Config
+--- @field history_size number?
+--- @field keymap table<string, string>?
+
+
+--- @type Config
+local default_config = {
+    history_size = 20,
+    keymap = {
+        toggle_history = "<Leader>rh",
+        toggle_output = "<Leader>ro",
+    }
+}
+
 
 --- @class TaskRunner
---- @field _run_couner number
---- @field tasks Task[]
---- @field history History
 ---
+--- @field config Config
+---
+--- @field tasks Task[]
+--- @field _run_couner number
 --- @field output Output
+---
+--- @field history History
 --- @field history_preview HistoryPreview
 local TaskRunner = {}
 TaskRunner.__index = TaskRunner
 
+
+--- @param config Config?
 --- @return TaskRunner
-function TaskRunner.new()
+function TaskRunner.new(config)
     local self = setmetatable({}, TaskRunner)
+
+    config = config or {}
+    self.config = vim.tbl_extend("force", {}, default_config, config)
 
     self.tasks = {}
     self._run_couner = 0
-    self.history = History.new(20)
     self.output = {
         win_id = nil,
         close_cb = nil
     }
+
+    self.history = History.new(self.config.history_size)
     self.history_preview = HistoryPreview.new()
+
+    if self.config.keymap then
+        if self.config.keymap.toggle_output then
+            vim.keymap.set("n",
+                self.config.keymap.toggle_output,
+                function() self:toggle_output() end)
+        end
+
+        if self.config.keymap.toggle_history then
+            vim.keymap.set("n",
+                self.config.keymap.toggle_history,
+                function() self:toggle_history() end)
+        end
+    end
 
     return self
 end
 
---- @param cmd string[]
-function TaskRunner:run(cmd)
+--- @param task Task
+function TaskRunner:run(task)
     local buf = api.nvim_create_buf(false, true)
-    if buf == 0 then
-        vim.notify("[task runner] failed to create buf", vim.log.levels.ERROR)
-        return
-    end
+    assert(buf ~= 0, "[task runner] failed to create buf")
+
+    local chan_id = api.nvim_open_term(buf, {})
+    assert(chan_id ~= 0, "[task runner] failed to create term")
 
     local run_idx = self:_run_index()
     api.nvim_buf_set_name(buf, "Task output " .. tostring(run_idx))
-
-    local cmd_formatted = table.concat(cmd, " ")
-
-    self.history:push({ID = run_idx, cmd = cmd_formatted, buf = buf})
-    self:update_history_preview()
-
-    local greeting = {
-        string.format("[%d] %s", run_idx, cmd_formatted),
-        "",
-    }
-
-    local lc = 0 -- line count
-    api.nvim_buf_set_lines(buf, lc, -1, false, greeting)
-    lc = lc + #greeting
 
     if not self.output.win_id then
         local origin_win = api.nvim_get_current_win()
@@ -92,42 +119,17 @@ function TaskRunner:run(cmd)
     api.nvim_win_set_buf(self.output.win_id, buf)
     self:attach_win_close_cb(buf)
 
-    local push_out = function(err, data)
-        if err then
-            vim.notify("[task runner] output error: " .. err, vim.log.levels.ERROR)
-            return
-        end
+    local run = Run.new(run_idx, chan_id,
+        buf, self.output.win_id, task,
+        function(code)
+            self.history:update_exit_code(run_idx, code)
+            self:update_history_preview()
+        end)
 
-        if data then
-            local lines = vim.split(data, "\n", {trimempty=true})
+    self.history:push({ID = run_idx, cmd = task.title, buf = buf})
+    self:update_history_preview()
 
-            api.nvim_buf_set_lines(buf, lc, -1, false, lines)
-            lc = lc + #lines
-
-            if not vim.endswith(data, "\n") then
-                lc = lc - 1
-            end
-        end
-    end
-
-    local on_exit = vim.schedule_wrap(function(res)
-        api.nvim_buf_set_lines(buf, lc, -1, false, {"", string.format("Exit %s", format_exit_code(res.code))})
-        lc = lc + 1
-
-        self.history:update_entry_code(run_idx, res.code)
-        self:update_history_preview()
-        local chan_id = api.nvim_open_term(buf, {})
-        if chan_id == 0 then
-            vim.notify("[task runner] failed to create term", vim.log.levels.ERROR)
-            return
-        end
-    end)
-
-    vim.system(cmd, {
-        text = false,
-        stdout = vim.schedule_wrap(push_out),
-        stderr = vim.schedule_wrap(push_out),
-    }, on_exit)
+    run:go()
 end
 
 function TaskRunner:attach_win_close_cb(buf)
@@ -147,15 +149,23 @@ end
 
 function TaskRunner:toggle_output()
     if self.output.win_id then
-        api.nvim_win_close(self.output.win_id, true)
-        self.output.win_id = nil
+        self:close_output()
     else
-        if #self.history.entries > 0 then
-            self:create_output_win()
-            api.nvim_win_set_buf(self.output.win_id, self.history.entries[1].buf)
-        else
-            vim.notify("[task runner] no output")
-        end
+        self:open_output()
+    end
+end
+
+function TaskRunner:close_output()
+    api.nvim_win_close(self.output.win_id, true)
+    self.output.win_id = nil
+end
+
+function TaskRunner:open_output()
+    if #self.history.entries > 0 then
+        self:create_output_win()
+        api.nvim_win_set_buf(self.output.win_id, self.history.entries[1].buf)
+    else
+        vim.notify("[task runner] no output")
     end
 end
 
@@ -170,16 +180,39 @@ function TaskRunner:toggle_history()
     self.history_preview:toggle(self.history)
 end
 
---- @param task Task
+--- @class TaskRequest: Task
+--- @field cmd (string|Command|FnWrapper|function)[]
+---
+--- @param task TaskRequest
 function TaskRunner:add(task)
     vim.validate("cmd", task.cmd, "table")
     vim.validate("key", task.key, "string")
 
-    self.tasks[#self.tasks + 1] = task
+    if type(task.cmd[1]) == "string" then
+        task.cmd = { task.cmd --[[@as Command]] } -- wrap single command tasks
+    end
 
-    vim.keymap.set("n", task.key, function()
-        self:run(task.cmd)
-    end)
+    for idx, cmd in ipairs(task.cmd) do
+        if type(cmd) == "table" then
+            cmd.title = cmd.title or table.concat(cmd, " "):gsub("\x1b%[[%d;]*m", "")
+        elseif type(cmd) == "function" then
+            task.cmd[idx] = FnWrapper.new(cmd)
+        else
+            error("[task runner] unsupported task type: " .. type(cmd) .. ". Only supports list of shell commands (string[]) or functions")
+        end
+    end
+
+    if not task.title then
+        local titles = vim.tbl_map(function(cmd)
+            return cmd.title
+        end, task.cmd)
+
+        task.title = table.concat(titles, " && ")
+    end
+
+    table.insert(self.tasks, task)
+
+    vim.keymap.set("n", task.key, function() self:run(task) end)
 end
 
 function TaskRunner:update_history_preview()
@@ -202,5 +235,26 @@ end
 function TaskRunner:inspect()
     vim.print(self)
 end
+
+local runner = TaskRunner.new()
+
+runner:add({
+    cmd = {
+        function() print("test") end,
+        {"sleep", "2"},
+        {
+            "echo",
+            "\x1b[31masldkfj\x1b[0m",
+            stdout = {
+                file = "test_out.txt"
+            }
+        },
+        {"sleep", "1"},
+        {"printf", "\x1b[31masldkfj\x1b[0m"},
+        function() vim.notify("from task: askldjflaskdfj") end
+    },
+    key = "<Leader>r1",
+})
+vim.keymap.set("n", "<Leader>ri", function() runner:inspect() end)
 
 return TaskRunner
