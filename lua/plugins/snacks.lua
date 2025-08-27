@@ -4,7 +4,11 @@ return {
         priority = 1000,
         lazy = false,
         keys = {
-            { "<Leader>ff", function() Snacks.picker.files() end,           desc = "Find files" },
+            {
+                "<Leader>ff",
+                function() Snacks.picker.files({ hidden = true}) end,
+                desc = "Find files",
+            },
             { "<Leader>ft", function() Snacks.picker.grep() end,            desc = "Grep" },
             { "<Leader>fb", function() Snacks.picker.buffers() end,         desc = "buffers" },
             { "<Leader>fh", function() Snacks.picker.help() end,            desc = "help tags" },
