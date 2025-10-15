@@ -4,7 +4,7 @@ set.shiftwidth = 2
 set.tabstop = 2
 set.softtabstop = 2
 
-local ruby_lsp_attach_group = vim.api.nvim_create_augroup("sagg0t Ruby LspAttach", { clear = true })
+local ruby_lsp_attach_group = vim.api.nvim_create_augroup("sagg0t.LspAttach.ruby", { clear = true })
 
 vim.api.nvim_create_autocmd("LspAttach", {
     group = ruby_lsp_attach_group,

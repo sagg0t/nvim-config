@@ -236,25 +236,25 @@ function TaskRunner:inspect()
     vim.print(self)
 end
 
-local runner = TaskRunner.new()
-
-runner:add({
-    cmd = {
-        function() print("test") end,
-        {"sleep", "2"},
-        {
-            "echo",
-            "\x1b[31masldkfj\x1b[0m",
-            stdout = {
-                file = "test_out.txt"
-            }
-        },
-        {"sleep", "1"},
-        {"printf", "\x1b[31masldkfj\x1b[0m"},
-        function() vim.notify("from task: askldjflaskdfj") end
-    },
-    key = "<Leader>r1",
-})
-vim.keymap.set("n", "<Leader>ri", function() runner:inspect() end)
+-- local runner = TaskRunner.new()
+--
+-- runner:add({
+--     cmd = {
+--         function() print("test") end,
+--         {"sleep", "2"},
+--         {
+--             "echo",
+--             "\x1b[31masldkfj\x1b[0m",
+--             stdout = {
+--                 file = "test_out.txt"
+--             }
+--         },
+--         {"sleep", "1"},
+--         {"printf", "\x1b[31masldkfj\x1b[0m"},
+--         function() vim.notify("from task: askldjflaskdfj") end
+--     },
+--     key = "<Leader>r1",
+-- })
+-- vim.keymap.set("n", "<Leader>ri", function() runner:inspect() end)
 
 return TaskRunner

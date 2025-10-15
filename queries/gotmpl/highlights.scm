@@ -47,7 +47,7 @@
 [
     "if"
     "else"
-    "else if"
+    ; "else if"
     "with"
 ] @conditional
 

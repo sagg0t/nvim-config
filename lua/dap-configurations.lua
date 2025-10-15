@@ -23,29 +23,29 @@ return {
         },
     },
 
-    go = {
-        {
-            type = "delve",
-            name = "Debug Go",
-            request = "launch",
-            program = vim.fn.getcwd
-        },
-        {
-            type = "delve",
-            name = "Debug Go test",
-            request = "launch",
-            mode = "test",
-            program = "${file}"
-        },
-        {
-            type = "delve",
-            name = "Attach Go",
-            request = "attach",
-            processId = function()
-                return require("dap.utils").pick_process()
-            end
-        }
-    },
+    -- go = {
+    --     {
+    --         type = "delve",
+    --         name = "Debug Go",
+    --         request = "launch",
+    --         program = "./tmp/bin/" .. vim.fs.basename(vim.uv.cwd())
+    --     },
+    --     {
+    --         type = "delve",
+    --         name = "Debug Go test",
+    --         request = "launch",
+    --         mode = "test",
+    --         program = "${file}"
+    --     },
+    --     {
+    --         type = "delve",
+    --         name = "Attach Go",
+    --         request = "attach",
+    --         processId = function()
+    --             return require("dap.utils").pick_process()
+    --         end
+    --     }
+    -- },
 
     ruby = {
         {

@@ -13,6 +13,8 @@ local FnWrapper = require("task_runner.fn_wrapper")
 --- @field chan_id number
 --- @field task Task
 --- @field callback function
+--- @field processes vim.SystemObj
+--- @field interrupted boolean
 local Run = {}
 Run.__index = Run
 
@@ -26,12 +28,50 @@ function Run.new(run_idx, chan_id, buf, output_win, task, callback)
     self.task = task
     self.output_win = output_win
     self.callback = callback
+    self.processes = {}
+    self.interrupted = false
+
+    vim.keymap.set("n", "K", function()
+        local choice = vim.fn.confirm("Kill the process?", "&No\n&yes")
+        if choice ~= 2 then return end
+
+        self.interrupted = true
+        self:_write(color.red("\n[INTERRUPT]\n", { bold = true }))
+
+        vim.keymap.del("n", "K", { buffer = buf })
+
+        local contains_running = vim.tbl_contains(self.processes, function(p)
+            return not p:is_closing()
+        end, { predicate = true })
+
+        if not contains_running then return end
+
+        for _, proc in ipairs(self.processes) do
+            if not proc:is_closing() then
+                proc:kill(15) -- SIGTERM
+            end
+        end
+
+        local timer = vim.uv.new_timer()
+        assert(timer:start(5000, 0, function()
+            timer:stop()
+            timer:close()
+
+            for _, proc in ipairs(self.processes) do
+                if not proc:is_closing() then
+                    proc:kill(9) -- SIGKILL
+                end
+            end
+        end))
+    end, { buffer = buf })
 
     return self
 end
 
 --- @param cmd_idx number?
 function Run:go(cmd_idx)
+    if self.interrupted then return end
+
     cmd_idx = cmd_idx or 1
     if cmd_idx > #self.task.cmd then
         self.callback(0) -- successful completion of all commands
@@ -57,11 +97,20 @@ function Run:go(cmd_idx)
     local function on_exit(res)
         local end_time = vim.uv.hrtime()
 
-        self:_write(string.format(
-            "\n\n\x1b[1;37mEND\x1b[0m [Process exited %s] - %f sec\n\n",
+        local footer = {"", ""}
+
+        if res.signal > 0 then
+            table.insert(footer, color.yellow("Received signal: " .. tostring(res.signal), { bold = true }))
+            table.insert(footer, "")
+        end
+
+        table.insert(footer, string.format(
+            "\x1b[1;37mEND\x1b[0m [Process exited %s] - %f sec\n\n",
             res.code == 0 and color.green(res.code) or color.red(res.code),
             (end_time - start_time) / 1000000000
         ))
+
+        self:_write(table.concat(footer, "\n"))
 
         if res.code ~= 0 then
             self.callback(res.code)
@@ -71,7 +120,7 @@ function Run:go(cmd_idx)
         return self:go(cmd_idx + 1)
     end
 
-    vim.system(cmd, {
+    local sys_obj = vim.system(cmd, {
         stdin = stdio.stdin,
         stdout = vim.schedule_wrap(stdio.stdout),
         stderr = vim.schedule_wrap(stdio.stderr),
@@ -79,6 +128,8 @@ function Run:go(cmd_idx)
         env = self.task.env,
         timeout = self.task.timeout
     }, vim.schedule_wrap(on_exit))
+
+    table.insert(self.processes, sys_obj)
 end
 
 function Run:_write(s)

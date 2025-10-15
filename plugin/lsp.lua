@@ -1,3 +1,8 @@
+vim.pack.add({
+    "https://github.com/neovim/nvim-lspconfig",
+    "https://github.com/j-hui/fidget.nvim",
+})
+
 local protocol = vim.lsp.protocol
 local ms = protocol.Methods
 
@@ -15,6 +20,7 @@ local border_icons = {
     { "╰", "FloatBorder" },
     { "│", "FloatBorder" },
 }
+
 -- override privew func to add borders
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
 function vim.lsp.util.open_floating_preview(contents, syntax, preview_opts, ...)
@@ -29,7 +35,7 @@ vim.lsp.enable({
     "bashls",
     "clangd",
     "cssls",
-    "dockerls",
+    -- "dockerls",
     "eslint",
     "gopls",
     "html",
@@ -40,7 +46,7 @@ vim.lsp.enable({
     "neocmake",
     "pyright",
     -- "ruby_lsp",
-    "rust_analyzer",
+    -- "rust_analyzer",
     "tailwindcss",
     "ts_ls",
     "zls",
@@ -49,8 +55,7 @@ vim.lsp.enable({
 -- vim.lsp.log.set_level("trace")
 vim.lsp.inlay_hint.enable(true)
 
-local pre_write_group = vim.api.nvim_create_augroup("sagg0t BufWritePre", { clear = true })
-local lsp_attach_group = vim.api.nvim_create_augroup("sagg0t LspAttach", { clear = true })
+local lsp_attach_group = vim.api.nvim_create_augroup("sagg0t.LspAttach", { clear = true })
 local completion_group = vim.api.nvim_create_augroup("sagg0t.completion", { clear = true })
 
 local kind_icons = {
@@ -174,3 +179,36 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end
     end
 })
+
+vim.api.nvim_create_autocmd({ "LspProgress" }, {
+    callback = function()
+        require("fidget").setup({})
+    end,
+    once = true,
+})
+
+vim.api.nvim_create_user_command(
+    "LspLog",
+    function(opts)
+        local logfile = vim.lsp.log.get_filename()
+
+        if opts.args == "clear" then
+            local success, error = os.remove(logfile)
+
+            if success then
+                vim.notify("LspLog: LSP log file deleted")
+            else
+                vim.notify(error, vim.log.levels.ERROR)
+            end
+        elseif opts.args == "" then
+            vim.cmd("tabnew " .. logfile)
+        else
+            vim.notify("LspLog: unknow arg - " .. opts.args)
+        end
+    end,
+    {
+        nargs = "?",
+        desc = "Opens LSP logfile in a new tab",
+        complete = function() return { "clear" } end,
+    }
+)
