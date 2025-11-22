@@ -1,14 +1,21 @@
 local c = require("sigma.colors")
 
 return {
-    htmlTag = { fg = c.invisibleGrey },
+    htmlTag = { fg = c.comment },
     htmlEndTag = { link = "htmlTag" },
-    htmlTagName = { fg = c.darkBlue },
-    htmlArg = { fg = c.pinkWarm },
+    htmlTagName = { fg = c.tag },
+    htmlArg = { fg = c.propertyAlt },
 
     rubyInstanceVariable = { link = "@variable.member.ruby" },
     rubyKeywordAsMethod = { link = "@function.method" },
     rubySymbol = { link = "@string.special.symbol" },
 
     erubyDelimiter = { link = "htmlTag" },
+
+    qfLineNr = { fg = c.number },
+    qfText = { fg = c.fg },
+    qfSeparator1 = { link = "Comment" },
+    qfSeparator2 = { link = "Comment" },
+
+    logBrackets = { link = "Operator" },
 }

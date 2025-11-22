@@ -1,5 +1,4 @@
 local c = require("sigma.colors")
-local u = require("sigma.util")
 
 return {
     -- Used as the base highlight group. Other Diagnostic highlights link to this by default
@@ -9,11 +8,11 @@ return {
     DiagnosticHint             = { fg = c.severity.hint },
     DiagnosticOk               = { fg = c.severity.ok },
 
-    DiagnosticVirtualTextError = { fg = c.severity.error, bg = u.darken(c.severity.error, 0.1) },
-    DiagnosticVirtualTextWarn  = { fg = c.severity.warning, bg = u.darken(c.severity.warning, 0.1) },
-    DiagnosticVirtualTextInfo  = { fg = c.severity.info, bg = u.darken(c.severity.info, 0.1) },
-    DiagnosticVirtualTextHint  = { fg = c.severity.hint, bg = u.darken(c.severity.hint, 0.1) },
-    DiagnosticVirtualTextOk    = { fg = c.severity.ok, bg = u.darken(c.severity.ok, 0.1) },
+    DiagnosticVirtualTextError = { fg = c.severity.error, bg = c.severity.bg.error },
+    DiagnosticVirtualTextWarn  = { fg = c.severity.warning, bg = c.severity.bg.warning },
+    DiagnosticVirtualTextInfo  = { fg = c.severity.info, bg = c.severity.bg.info },
+    DiagnosticVirtualTextHint  = { fg = c.severity.hint, bg = c.severity.bg.hint },
+    DiagnosticVirtualTextOk    = { fg = c.severity.ok, bg = c.severity.bg.ok },
 
     DiagnosticUnderlineError   = { sp = c.severity.error, undercurl = true },
     DiagnosticUnderlineWarn    = { sp = c.severity.warning, undercurl = true },

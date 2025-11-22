@@ -1,25 +1,25 @@
 local c = require("sigma.colors")
 
 return {
-    NeotestPassed = { fg = c.green },
+    NeotestPassed = { fg = c.search },
     NeotestFailed = { fg = c.severity.error },
-    NeotestRunning = { fg = c.lightYellow },
+    NeotestRunning = { fg = c.string },
 
-    NeotestAdapterName = { fg = c.pinkNeon },
-    NeotestTarget = { fg = c.pinkNeon },
-    NeotestDir = { fg = c.lightCyan },
-    NeotestFile = { fg = c.bleachedCyan },
-    NeotestTest = { fg = c.lightYellow },
+    NeotestAdapterName = { fg = c.keyword },
+    NeotestTarget = { fg = c.keyword },
+    NeotestDir = { fg = c.proc },
+    NeotestFile = { fg = c.operator },
+    NeotestTest = { fg = c.string },
 
     -- NeotestFocused = {},
-    NeotestMarked = { fg = c.orange },
-    NeotestSkipped = { fg = c.blueIce },
+    NeotestMarked = { fg = c.stringSpecial },
+    NeotestSkipped = { fg = c.type },
 
     -- NeotestBorder = {},
     NeotestExpandMarker = { link = "Operator" },
     NeotestIndent = { link = "Operator" },
-    NeotestNamespace = { fg = c.lightPurple },
+    NeotestNamespace = { fg = c.boolean },
     -- NeotestWinSelect = {},
-    NeotestUnknown = { fg = c.invisibleGrey },
-    NeotestWatching = { fg = c.lightBlue }
+    NeotestUnknown = { fg = c.comment },
+    NeotestWatching = { fg = c.property }
 }

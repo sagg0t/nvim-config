@@ -9,7 +9,7 @@ return {
     ["@lsp.kind.enumMember"] = { link = "@lsp.type.enumMember" },
     ["@lsp.kind.event"] = { link = "@lsp.type.event" },
     ["@lsp.kind.field"] = { link = "@lsp.type.property" },
-    ["@lsp.kind.file"] = { fg = c.bg, bg = c.orange },
+    ["@lsp.kind.file"] = { fg = c.bg, bg = c.stringSpecial },
     ["@lsp.kind.folder"] = { link = "@lsp.kind.file" },
     ["@lsp.kind.function"] = { link = "@lsp.type.function" },
     ["@lsp.kind.interface"] = { link = "@lsp.type.interface" },
