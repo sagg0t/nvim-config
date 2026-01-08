@@ -83,9 +83,9 @@ return {
 
     TabLine = { fg = c.overlay.fg, bg = c.overlay.bg },
     TabLineFill = { bg = c.overlay.bg },
-    TabLineSel = { fg = c.overlay.bg, bg = c.overlay.accentDark },
+    TabLineSel = { fg = c.fg, bg = c.overlay.accentDark },
 
-    Title = { fg = c.string },
+    Title = { fg = c.module },
 
     Visual = { bg = c.selection },
     VisualNOS = { bg = c.selection },
@@ -111,13 +111,13 @@ return {
     Identifier = { fg = c.fg },
     Function = { fg = c.proc },
 
-    Statement = { fg = c.keyword, bold = true },
+    Statement = { fg = c.keyword },
     Keyword = { link = "Statement" },
-    Conditional = { link = "Statement" },
-    Repeat = { link = "Statement" },
+    Conditional = { fg = c.keyword, bold = true },
+    Repeat = { fg = c.keyword, bold = true },
     Label = { fg = c.keyword, underline = true },
     Operator = { fg = c.operator },
-    Exception = { fg = c.keyword, italic = true },
+    Exception = { link = "Statement" },
 
     PreProc = { fg = c.number },
     Include = { fg = c.number, bold = true },

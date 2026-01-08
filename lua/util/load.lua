@@ -20,13 +20,14 @@ local function command(name, cb)
     end, {})
 end
 
-local ui_enter_g = vim.api.nvim_create_augroup("sagg0t.UIEnter", { clear = true })
+local lazy_load_g = vim.api.nvim_create_augroup("sagg0t.VimEnter", { clear = true })
 local function on_ui_enter(cb)
-    vim.api.nvim_create_autocmd("UIEnter", {
-        group = ui_enter_g,
+    vim.api.nvim_create_autocmd("VimEnter", {
+        group = lazy_load_g,
         callback = function()
             cb()
-        end
+        end,
+        once = true
     })
 end
 

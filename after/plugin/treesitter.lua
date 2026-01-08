@@ -8,17 +8,36 @@ vim.pack.add({
 local cmd_group = vim.api.nvim_create_augroup("sagg0t.treesitter", { clear = true })
 local ts = require("nvim-treesitter")
 
+--- @type table<string, string> -- <ft, lang> 
+local ft_map = {
+    env = "bash",
+    gitconfig = "git_config",
+}
+
+for ft, lang in pairs(ft_map) do
+    vim.treesitter.language.register(lang, ft)
+end
+
+local supported_fts = vim.iter({
+    ts.get_available(),
+    vim.tbl_keys(ft_map),
+}):flatten():totable()
+
 -- Lua is built in.
 -- Doesn't work for: markdown, embeded template, gotmpl
 vim.api.nvim_create_autocmd("FileType", {
     group = cmd_group,
-    pattern = ts.get_available(),
+    pattern = supported_fts,
     callback = function(evt)
-        local ok, _ = pcall(vim.treesitter.start, evt.buf)
-        if not ok then
-            vim.notify("TS parser for " .. evt.match .. " is missing, installing...", vim.log.levels.INFO)
-            ts.install(evt.match):wait(120000)
-            pcall(vim.treesitter.start, evt.buf)
+        if vim.bo[evt.buf].filetype ~= "bigfile" then
+            local ok, _ = pcall(vim.treesitter.start, evt.buf)
+            if not ok then
+                vim.notify("TS parser for " .. evt.match .. " is missing, installing...", vim.log.levels.INFO)
+                local lang = ft_map[evt.match] or evt.match
+                vim.print(("ft: %s, lang: %s"):format(evt.match, lang))
+                ts.install(lang):wait(120000)
+                pcall(vim.treesitter.start, evt.buf)
+            end
         end
     end
 })
@@ -26,8 +45,8 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd({ "PackChanged" }, {
     group = cmd_group,
     callback = function(evt)
-        if evt.spec.name == "nvim-treesitter" and
-            (evt.kind == "install" or evt.kind == "update") then
+        if (evt.kind == "install" or evt.kind == "update") and
+            evt.spec.name == "nvim-treesitter" then
             vim.cmd("TSUpdate")
         end
     end

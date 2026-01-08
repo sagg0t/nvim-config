@@ -1,12 +1,12 @@
 ---@type table<string, vim.lsp.Config>
 return {
-    filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
+    filetypes = { "go", "gomod", "gosum", "gowork", "gotmpl" },
     settings = {
         gopls = {
-            templateExtensions = { "hmtl", "tmpl" },
+            templateExtensions = { "html", "tmpl" },
             gofumpt = true,
             staticcheck = true,
-            semanticTokens = false,
+            semanticTokens = true,
             usePlaceholders = true,
             vulncheck = "Imports",
             analyses = {

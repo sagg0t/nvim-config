@@ -46,4 +46,10 @@ return {
     DapUIUnavailable             = { link = "UNSET" },
     DapUIWinSelect               = { fg = c.overlay.accentDark },
     DapUIEndofBuffer             = { link = "EndofBuffer" },
+
+    -- dap.nvim
+    DAPBreakpointFocused         = { fg = c.severity.hint },
+    DAPBreakpointLineFocused     = { bg = u.darken(c.boolean, 0.45), underline = true, sp = c.boolean },
+    DAPBreakpointRejected        = { fg = c.severity.error },
+    DAPBreakpointLineRejected    = { underdashed = true, sp = c.severity.error },
 }

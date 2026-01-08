@@ -1,3 +1,16 @@
+local signs = {
+    [vim.diagnostic.severity.ERROR] = "󰅚",
+    [vim.diagnostic.severity.WARN] = "󰀪",
+    [vim.diagnostic.severity.INFO] = "󰋽",
+    [vim.diagnostic.severity.HINT] = "󰌶"
+}
+local hl_map = {
+  [vim.diagnostic.severity.ERROR] = 'DiagnosticSignError',
+  [vim.diagnostic.severity.WARN] = 'DiagnosticSignWarn',
+  [vim.diagnostic.severity.INFO] = 'DiagnosticSignInfo',
+  [vim.diagnostic.severity.HINT] = 'DiagnosticSignHint',
+}
+
 vim.diagnostic.config({
     virtual_lines = {
         current_line = true,
@@ -18,6 +31,20 @@ vim.diagnostic.config({
     float = { source = true },
     underline = true,
     signs = false,
+    status = {
+        format = function(counts)
+            local items = {}
+            for level, _ in ipairs(vim.diagnostic.severity) do
+                local count = counts[level]
+                if count then
+                    local hl = hl_map[level]
+                    table.insert(items, ("%%#%s#%s %s"):format(hl, signs[level], count))
+                end
+            end
+
+            return table.concat(items, " ")
+        end
+    },
     -- signs = {
     --     text = {
     --         [vim.diagnostic.severity.ERROR] = "󰅚",

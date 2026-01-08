@@ -1,12 +1,12 @@
-vim.cmd "syntax enable"
-vim.cmd "filetype plugin indent on"
-
 local opt = vim.opt
+
+vim.cmd.syntax("enable")
+vim.cmd.filetype("plugin indent on")
 
 opt.backup = false
 opt.writebackup = false
 opt.swapfile = false
-opt.exrc = true
+-- opt.exrc = true
 opt.laststatus = 3
 opt.hidden = true
 
@@ -24,8 +24,7 @@ opt.cursorline = true
 opt.background = "dark"
 opt.winblend = 0
 opt.termguicolors = true
--- opt.colorcolumn = 81
-opt.colorcolumn = "101"
+-- opt.colorcolumn = "101"
 
 opt.showmatch = true
 opt.incsearch = true
@@ -33,7 +32,7 @@ opt.hlsearch = true
 -- opt.more = false
 
 opt.showcmd = true
-opt.showbreak = "==> "
+opt.showbreak = "++"
 
 opt.scrolloff = 10
 -- opt.linebreak = true
@@ -43,12 +42,14 @@ opt.ruler = false
 opt.foldenable = false -- unfold everything by default
 opt.foldmethod = "expr"
 opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-opt.statusline = "%f %m%=%y %{&fileencoding?&fileencoding:&encoding} [%{&fileformat}] %p%% %l:%c"
+-- see: plugin/statusline.lua
+-- opt.statusline = "%f %m%=%y %{&fileencoding?&fileencoding:&encoding} [%{&fileformat}] %p%% %l:%c"
 opt.guicursor = "a:block-Cursor"
 opt.updatetime = 250
 opt.timeoutlen = 500
 
 opt.completeopt = "menu,menuone,fuzzy,popup,noinsert"
+opt.pumheight = 20
 
 opt.clipboard = "unnamedplus"
 opt.undofile = true
@@ -58,7 +59,9 @@ opt.smartcase = true
 
 vim.cmd.colorscheme("sigma")
 
--- opt.fillchars = {
+opt.winborder = "rounded"
+opt.fillchars = {
+    eob = " ",
 --     horiz     = "━",
 --     horizup   = "┻",
 --     horizdown = "┳",
@@ -66,4 +69,4 @@ vim.cmd.colorscheme("sigma")
 --     vertleft  = "┫",
 --     vertright = "┣",
 --     verthoriz = "╋",
--- }
+}

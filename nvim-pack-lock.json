@@ -5,16 +5,16 @@
       "src": "https://github.com/laytan/cloak.nvim"
     },
     "fidget.nvim": {
-      "rev": "3f54759",
+      "rev": "64463022a1f2ff1318ab22a2ea4125ed9313a483",
       "src": "https://github.com/j-hui/fidget.nvim"
     },
     "harpoon": {
-      "rev": "ed1f853",
+      "rev": "87b1a35",
       "src": "https://github.com/ThePrimeagen/harpoon",
       "version": "'harpoon2'"
     },
     "mason.nvim": {
-      "rev": "ad7146a",
+      "rev": "44d1e90e1f66e077268191e3ee9d2ac97cc18e65",
       "src": "https://github.com/williamboman/mason.nvim"
     },
     "neogen": {
@@ -22,20 +22,16 @@
       "src": "https://github.com/danymat/neogen"
     },
     "neotest": {
-      "rev": "7166dc3",
+      "rev": "deadfb1",
       "src": "https://github.com/nvim-neotest/neotest"
     },
     "neotest-golang": {
-      "rev": "e207f66",
+      "rev": "53f06063780b0b244583d3d32b138fc2df21e162",
       "src": "https://github.com/fredrikaverpil/neotest-golang"
     },
     "nvim-autopairs": {
-      "rev": "7a2c97c",
+      "rev": "c2a0dd0d931d0fb07665e1fedb1ea688da3b80b4",
       "src": "https://github.com/windwp/nvim-autopairs"
-    },
-    "nvim-dap": {
-      "rev": "6782b09",
-      "src": "https://github.com/mfussenegger/nvim-dap"
     },
     "nvim-dap-go": {
       "rev": "b442115",
@@ -46,7 +42,7 @@
       "src": "https://github.com/rcarriga/nvim-dap-ui"
     },
     "nvim-lspconfig": {
-      "rev": "ac98db2",
+      "rev": "5a82e10b2df0ed31bec642c1c0344baee7c458b6",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-nio": {
@@ -54,16 +50,16 @@
       "src": "https://github.com/nvim-neotest/nvim-nio"
     },
     "nvim-surround": {
-      "rev": "75de178",
+      "rev": "1098d7b3c34adcfa7feb3289ee434529abd4afd1",
       "src": "https://github.com/kylechui/nvim-surround"
     },
     "nvim-treesitter": {
-      "rev": "0606c7a9",
+      "rev": "2ba5ec184609a96b513bf4c53a20512d64e27f39",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
     "nvim-web-devicons": {
-      "rev": "b8221e4",
+      "rev": "6788013bb9cb784e606ada44206b0e755e4323d7",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "plenary.nvim": {
@@ -75,15 +71,15 @@
       "src": "https://github.com/olehvolynets/sigma.nvim"
     },
     "snacks.nvim": {
-      "rev": "454ba02",
+      "rev": "fe7cfe9800a182274d0f868a74b7263b8c0c020b",
       "src": "https://github.com/folke/snacks.nvim"
     },
     "todo-comments.nvim": {
-      "rev": "19d461d",
+      "rev": "31e3c38",
       "src": "https://github.com/folke/todo-comments.nvim"
     },
     "treesj": {
-      "rev": "4770492",
+      "rev": "186084dee5e9c8eec40f6e39481c723dd567cb05",
       "src": "https://github.com/Wansmer/treesj"
     },
     "vim-maximizer": {

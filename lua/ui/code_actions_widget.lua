@@ -1,6 +1,5 @@
 local ms = vim.lsp.protocol.Methods
 
-
 local function get_action_index()
     local cur_text = vim.api.nvim_get_current_line()
     local num = cur_text:match('%[(%d+)%]%s+%S')

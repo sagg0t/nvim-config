@@ -1,9 +1,10 @@
 return {
-    fg = "#d4d8c0", -- fg
-    bg = "#1a1a1a", -- bg
+    fg = "#d4d8c0",
+    bg = "#1a1a1a",
 
-    selection = "#424556", -- selection
-    invisible = "#373c45", -- greyMid
+    selection = "#424556",
+    invisible = "#373c45",
+    muted = "#555961",
 
     overlay = {
         fg = "#747578",
@@ -27,7 +28,7 @@ return {
     constant = "#87af5f", -- olive
     property =  "#7aaeb8", -- lightBlue
     propertyAlt =  "#d16d9e", -- pinkWarm
-    attribue =  "#d16d9e", -- pinkWarm TODO:
+    attribue =  "#d16d9e", -- pinkWarm TODO
     module = "#af8700", -- goldenrod
     proc =  "#33998a", -- lightCyan
     tag = "#569cd6", -- darkBlue

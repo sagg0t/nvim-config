@@ -1,4 +1,4 @@
-require("snippet").add("go", {
+require("snippet").set("go", {
     {
         prefix = "ir",
         body = {
@@ -27,19 +27,27 @@ require("snippet").add("go", {
         },
     },
     {
-        prefix = "funct",
+        prefix = { "tf", "tfu", "tfun" },
         body = {
             "func Test$1(t *testing.T) {",
-            "\t\0",
+            "\t$0",
             "}"
         }
     },
     {
-        prefix = "trun",
+        prefix = {"tr", "tru", "trun"},
         body = {
             "t.Run(\"$1\", func(t *testing.T) {",
-            "\t\0",
+            "\t$0",
             "})"
+        }
+    },
+    {
+        prefix = { "im", "imp", "impo" },
+        body = {
+            "import (",
+            "\t\"${1:package}\"",
+            ")"
         }
     },
 })

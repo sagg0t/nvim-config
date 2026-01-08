@@ -107,10 +107,11 @@ function TaskRunner:run(task)
     api.nvim_buf_set_name(buf, "Task output " .. tostring(run_idx))
 
     if not self.output.win_id then
-        local origin_win = api.nvim_get_current_win()
-        vim.cmd("botright vsplit")
-        self.output.win_id = api.nvim_get_current_win()
-        api.nvim_set_current_win(origin_win)
+        self.output.win_id = api.nvim_open_win(buf, false, {
+            split = "right",
+            win = -1,
+            style = "minimal",
+        })
     else
         -- output.win_id & output.close_cb are set/cleared together
         api.nvim_del_autocmd(self.output.close_cb)

@@ -22,5 +22,7 @@ map("v", "<M-l>", ">gv")
 
 map("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
-map("c", "<C-h>", "<S-Left>", { desc = "move left by word in command mode" })
-map("c", "<C-l>", "<S-Right>", { desc = "move right by word in command mode" })
+map("c", "<C-h>", "<Left>", { desc = "move left by char in command mode" })
+map("c", "<C-l>", "<Right>", { desc = "move right by char in command mode" })
+map("c", "<M-h>", "<S-Left>", { desc = "move left by word in command mode" })
+map("c", "<M-l>", "<S-Right>", { desc = "move right by word in command mode" })

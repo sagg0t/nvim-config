@@ -1,7 +1,7 @@
 local M = {}
 local fnamemodify = vim.fn.fnamemodify
 
-local stl_bg = vim.api.nvim_get_hl(0, { name = 'StatusLine' }).bg or 'black'
+local stl_bg = vim.api.nvim_get_hl(0, { name = "StatusLine" }).bg or "black"
 local function stl_attr(group)
     local color = vim.api.nvim_get_hl(0, { name = group, link = false })
     return {
@@ -36,14 +36,18 @@ end
 
 function M.filetype()
     return {
-        name = 'filetype',
+        name = "filetype",
         stl = function()
             local alias = {
-                cpp = 'C++',
-                javascript = "JavaScript"
+                cpp = "C++",
+                javascript = "JavaScript",
+                dapui_breakpoints = "DAP UI breakpoints",
+                dapui_scopes = "DAP UI scopes",
+                dapui_watches = "DAP UI watches",
+                ["dap-repl"] = "DAP REPL",
             }
 
-            local ft = vim.api.nvim_get_option_value('filetype', { buf = 0 })
+            local ft = vim.api.nvim_get_option_value("filetype", { buf = 0 })
             local capital = ft:sub(1, 1):upper()
             local pretty_ft = alias[ft] and alias[ft] or capital .. ft:sub(2, #ft)
             local icon, icon_hl_group = require("nvim-web-devicons").get_icon(vim.fn.expand("%:t", ft))
@@ -64,31 +68,33 @@ function M.filetype()
                 end
 
                 icon = ("%%#%s#%s%%*"):format(hl_name, icon)
+            elseif icon == nil then
+                return ""
             end
 
             return icon .. " " .. pretty_ft
         end,
-        event = { 'BufEnter' },
+        event = { "BufEnter" },
     }
 end
 
 function M.progress()
-    local spinner = { '⣶', '⣧', '⣏', '⡟', '⠿', '⢻', '⣹', '⣼' }
+    local spinner = { "⣶", "⣧", "⣏", "⡟", "⠿", "⢻", "⣹", "⣼" }
     local idx = 1
     return {
         stl = function(args)
             if args.data and args.data.params then
                 local val = args.data.params.value
-                if val.message and val.kind ~= 'end' then
+                if val.message and val.kind ~= "end" then
                     idx = idx + 1 > #spinner and 1 or idx + 1
-                    return ('%s'):format(spinner[idx - 1 > 0 and idx - 1 or 1])
+                    return ("%s"):format(spinner[idx - 1 > 0 and idx - 1 or 1])
                 end
             end
-            return ''
+            return ""
         end,
-        name = 'LspProgress',
-        event = { 'LspProgress' },
-        attr = stl_attr('Type'),
+        name = "LspProgress",
+        event = { "LspProgress" },
+        attr = stl_attr("Type"),
     }
 end
 
@@ -97,35 +103,35 @@ function M.lsp()
         stl = function(args)
             local client = vim.lsp.get_clients({ bufnr = 0 })[1]
             if not client then
-                return ''
+                return ""
             end
-            local msg = ''
+            local msg = ""
             if args.data and args.data.params then
                 local val = args.data.params.value
-                if not val.message or val.kind == 'end' then
-                    msg = ('[%s:%s]'):format(
+                if not val.message or val.kind == "end" then
+                    msg = ("[%s:%s]"):format(
                         client.name,
-                        client.root_dir and fnamemodify(client.root_dir, ':t') or 'single'
+                        client.root_dir and fnamemodify(client.root_dir, ":t") or "single"
                     )
                 else
-                    msg = ('%s %s%s'):format(
+                    msg = ("%s %s%s"):format(
                         val.title,
-                        (val.message and val.message .. ' ' or ''),
-                        (val.percentage and val.percentage .. '%' or '')
+                        (val.message and val.message .. " " or ""),
+                        (val.percentage and val.percentage .. "%" or "")
                     )
                 end
-            elseif args.event == 'BufEnter' or args.event == 'LspAttach' then
-                msg = ('[%s:%s]'):format(
+            elseif args.event == "BufEnter" or args.event == "LspAttach" then
+                msg = ("[%s:%s]"):format(
                     client.name,
-                    client.root_dir and fnamemodify(client.root_dir, ':t') or 'single'
+                    client.root_dir and fnamemodify(client.root_dir, ":t") or "single"
                 )
-            elseif args.event == 'LspDetach' then
-                msg = ''
+            elseif args.event == "LspDetach" then
+                msg = ""
             end
-            return '   %-20s' .. msg
+            return "   %-20s" .. msg
         end,
-        name = 'Lsp',
-        event = { 'LspProgress', 'LspAttach', 'LspDetach', 'BufEnter' },
+        name = "Lsp",
+        event = { "LspProgress", "LspAttach", "LspDetach", "BufEnter" },
     }
 end
 
@@ -133,37 +139,52 @@ local function diagnostic_info()
     local diagnostics_icons = { "󰅚 ", "󰀪 ", "󰋽 ", "󰌶 " }
 
     return function()
-        if not vim.diagnostic.is_enabled({ bufnr = 0 }) or #vim.lsp.get_clients({ bufnr = 0 }) == 0 then
-            return ''
-        end
-        local t = {}
-        for i = 1, 4 do
-            local count = #vim.diagnostic.get(0, { severity = i })
-            if count > 0 then
-                t[#t + 1] = ('%%#StatusLine%s#%s%s%%*'):format(vim.diagnostic.severity[i], diagnostics_icons[i], count)
-            end
-        end
-        return table.concat(t, ' ')
+        -- if not vim.diagnostic.is_enabled({ bufnr = 0 }) or #vim.lsp.get_clients({ bufnr = 0 }) == 0 then
+        --     return ""
+        -- end
+        -- local t = {}
+        -- for i = 1, 4 do
+        --     local count = #vim.diagnostic.get(0, { severity = i })
+        --     if count > 0 then
+        --         t[#t + 1] = ("%%#StatusLine%s#%s%s%%*"):format(vim.diagnostic.severity[i], diagnostics_icons[i], count)
+        --     end
+        -- end
+        -- return table.concat(t, " ")
+        return vim.diagnostic.status()
     end
 end
 
 function M.diagnostic()
     for i = 1, 4 do
-        local name = ('Diagnostic%s'):format(vim.diagnostic.severity[i])
+        local name = ("Diagnostic%s"):format(vim.diagnostic.severity[i])
         local fg = vim.api.nvim_get_hl(0, { name = name }).fg
-        vim.api.nvim_set_hl(0, 'StatusLine' .. vim.diagnostic.severity[i], { fg = fg, bg = stl_bg })
+        vim.api.nvim_set_hl(0, "StatusLine" .. vim.diagnostic.severity[i], { fg = fg, bg = stl_bg })
     end
     return {
         stl = diagnostic_info(),
-        event = { 'DiagnosticChanged', 'BufEnter', 'LspAttach' },
+        event = { "DiagnosticChanged", "BufEnter", "LspAttach" },
     }
 end
 
 function M.encoding()
     return {
-        stl = ('%s'):format(vim.bo.fileencoding),
-        name = 'filencode',
-        event = { 'BufEnter' },
+        stl = ("%s"):format(vim.bo.fileencoding),
+        name = "filencode",
+        event = { "BufEnter" },
+    }
+end
+
+function M.dap_status()
+    return {
+        name = "dap_status",
+        stl = function()
+            if require("dap").session() then
+                return "󰟾 DAP 󰟾 "
+            else
+                return ""
+            end
+        end,
+        event = { "User DapProgressUpdate" },
     }
 end
 

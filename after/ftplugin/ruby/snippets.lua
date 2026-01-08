@@ -1,4 +1,4 @@
-require("snippet").add("ruby", {
+require("snippet").set("ruby", {
     {
         prefix = "frozen",
         body = {

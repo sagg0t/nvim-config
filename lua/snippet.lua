@@ -16,10 +16,14 @@ setmetatable(M.store, {
 --- Add snippets for filetype.
 ---@param ft string
 ---@param snippets table[]
-function M.add(ft, snippets)
-    for _, snip in ipairs(snippets) do
-        table.insert(M.store[ft], snip)
+function M.set(ft, snippets)
+    if not M.store[ft] or #M.store[ft] == 0 then
+        M.store[ft] = snippets
     end
+
+    -- for _, snip in ipairs(snippets) do
+    --     table.insert(M.store[ft], snip)
+    -- end
 end
 
 local function get_ft(buf)
@@ -50,10 +54,17 @@ function M.expand()
     local best_id, best_match_width = nil, 0
     local pattern_boundary = '^[%s%p]?$'
     for i, s in ipairs(snippets) do
-        local w = (s.prefix or ''):len()
-        if best_match_width < w and line:sub(-w) == s.prefix and
-            line:sub(-w - 1, -w - 1):find(pattern_boundary) then
-          best_id, best_match_width = i, w
+        local prefixes = s.prefix
+        if type(prefixes) == "string" then
+            prefixes = { prefixes }
+        end
+
+        for _, prefix in ipairs(prefixes) do
+            local w = (prefix or ''):len()
+            if best_match_width < w and line:sub(-w) == prefix and
+                line:sub(-w - 1, -w - 1):find(pattern_boundary) then
+                best_id, best_match_width = i, w
+            end
         end
     end
 
