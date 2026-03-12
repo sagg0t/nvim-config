@@ -3,7 +3,6 @@ local util = require("util.load")
 vim.pack.add({
     "https://github.com/szw/vim-maximizer",
     "https://github.com/kylechui/nvim-surround",
-    -- "https://github.com/windwp/nvim-autopairs",
     "https://github.com/Wansmer/treesj",
     "https://github.com/danymat/neogen",
 
@@ -20,7 +19,6 @@ vim.pack.add({
 util.on_ui_enter(function()
     require("nvim-web-devicons").setup({ default = true })
     require("nvim-surround").setup({})
-    -- require("nvim-autopairs").setup({})
     require("treesj").setup({
         use_default_keymaps = false,
         max_join_length = 1000
