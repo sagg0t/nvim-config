@@ -34,7 +34,6 @@ vim.api.nvim_create_autocmd("FileType", {
             if not ok then
                 vim.notify("TS parser for " .. evt.match .. " is missing, installing...", vim.log.levels.INFO)
                 local lang = ft_map[evt.match] or evt.match
-                vim.print(("ft: %s, lang: %s"):format(evt.match, lang))
                 ts.install(lang):wait(120000)
                 pcall(vim.treesitter.start, evt.buf)
             end
@@ -42,11 +41,19 @@ vim.api.nvim_create_autocmd("FileType", {
     end
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+    group = cmd_group,
+    pattern = { "gitcommit" },
+    callback = function(evt)
+        vim.bo[evt.buf].syntax = "on"
+    end,
+})
+
 vim.api.nvim_create_autocmd({ "PackChanged" }, {
     group = cmd_group,
     callback = function(evt)
-        if (evt.kind == "install" or evt.kind == "update") and
-            evt.spec.name == "nvim-treesitter" then
+        local name, kind = evt.data.spec.name, evt.data.kind
+        if name == "nvim-treesitter" and (kind == "install" or kind == "update") then
             vim.cmd("TSUpdate")
         end
     end
