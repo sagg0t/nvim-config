@@ -50,7 +50,7 @@ return {
 
     NormalFloat = { bg = c.overlay.bg },
     FloatBorder = { fg = c.invisible, bg = c.overlay.bg },
-    FloatTitle = { fg = c.overlay.accent, bg = c.overlay.bg },
+    FloatTitle = { fg = c.module, bg = c.overlay.bg },
     FloatFooter = { link = "FloatTitle" },
 
     Pmenu = { bg = c.overlay.bg },
@@ -144,4 +144,6 @@ return {
 
     Error = { fg = c.severity.error },
     Todo = { fg = c.severity.info },
+
+    NvimInternalError = { fg = "#0000ff", bg = "#ff0000" },
 }
