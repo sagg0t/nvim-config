@@ -90,7 +90,7 @@ local function code_action(opts)
         end
         params.context = context
 
-        client.request(ms.textDocument_codeAction, params, on_result, bufnr)
+        client:request(ms.textDocument_codeAction, params, on_result, bufnr)
     end
 end
 

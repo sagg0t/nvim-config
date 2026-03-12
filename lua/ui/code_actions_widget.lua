@@ -171,10 +171,10 @@ function CodeActionsWidget:on_user_choice(choice)
     local reg = client.dynamic_capabilities:get(ms.textDocument_codeAction, { bufnr = self.bufnr })
 
     local supports_resolve = vim.tbl_get(reg or {}, 'registerOptions', 'resolveProvider')
-        or client.supports_method(ms.codeAction_resolve)
+        or client:supports_method(ms.codeAction_resolve)
 
     if not action.edit and client and supports_resolve then
-        client.request(ms.codeAction_resolve, action, function(err, resolved_action)
+        client:request(ms.codeAction_resolve, action, function(err, resolved_action)
             if err then
                 if action.command then
                     self:apply_action(action, client, choice.ctx)

@@ -19,7 +19,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
                 function()
                     local params = vim.lsp.util.make_text_document_params()
 
-                    client.request("rubyLsp/workspace/dependencies", params, function(error, gems)
+                    client:request("rubyLsp/workspace/dependencies", params, function(error, gems)
                         if error then
                             print("Error showing deps: " .. error)
                             return
