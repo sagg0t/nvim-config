@@ -40,6 +40,7 @@ opt.scrolloff = 10
 opt.wrap = false
 opt.ruler = false
 opt.foldenable = false -- unfold everything by default
+opt.foldlevelstart = 99
 opt.foldmethod = "expr"
 opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 -- see: plugin/statusline.lua
@@ -48,7 +49,7 @@ opt.guicursor = "a:block-Cursor"
 opt.updatetime = 250
 opt.timeoutlen = 500
 
-opt.completeopt = "menu,menuone,fuzzy,popup,noinsert"
+opt.completeopt = "menuone,fuzzy,popup,noinsert"
 opt.pumheight = 20
 
 opt.clipboard = "unnamedplus"
@@ -58,8 +59,20 @@ opt.ignorecase = true
 opt.smartcase = true
 
 vim.cmd.colorscheme("sigma")
+opt.listchars = {
+  tab = "→ ",
+  space = "·",
+  nbsp = "␣",
+  trail = "·",
+  eol = "␤",
+  extends = "▶",
+  precedes = "◀",
+  conceal = "│",
+}
+opt.list = false
 
-opt.winborder = "rounded"
+vim.o.winborder = "solid"
+
 opt.fillchars = {
     eob = " ",
 --     horiz     = "━",

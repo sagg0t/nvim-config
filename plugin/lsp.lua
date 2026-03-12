@@ -42,6 +42,7 @@ vim.lsp.enable({
     "html",
     -- "htmx",
     "jsonls",
+    -- "emmylua_ls",
     "lua_ls",
     "ols",
     "neocmake",
@@ -100,7 +101,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end
         map("gd", vim.lsp.buf.definition, "Goto Definition")
         map("gD", vim.lsp.buf.declaration, "Goto Declaration")
-        map("gq", vim.lsp.buf.format, "Format document")
+        map("grf", vim.lsp.buf.format, "Format document")
         map("grl", vim.lsp.codelens.run, "Run codelens")
 
         -- if client:supports_method(ms.textDocument_formatting) then
@@ -124,10 +125,20 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end
 
         if client:supports_method(ms.textDocument_codeLens) then
-            api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+            vim.lsp.codelens.enable(true, { client_id = client.id })
+        end
+
+        if client:supports_method(ms.textDocument_documentHighlight) then
+            api.nvim_create_autocmd({ "CursorHold" }, {
+                buffer = event.buf,
                 callback = function()
-                    vim.lsp.codelens.refresh({ bufnr = 0 })
+                    vim.lsp.buf.clear_references()
+                    vim.lsp.buf.document_highlight()
                 end,
+            })
+            api.nvim_create_autocmd({ "CursorMoved", "InsertEnter", "BufLeave" }, {
+                buffer = event.buf,
+                callback = vim.lsp.buf.clear_references,
             })
         end
 
@@ -156,12 +167,21 @@ vim.api.nvim_create_autocmd("LspAttach", {
                     buffer = event.buf,
                     group = completion_group,
                     callback = function()
-                        local info = vim.fn.complete_info({ "selected" })
+                        local info = vim.fn.complete_info({
+                            "selected",
+                            "preview_bufnr",
+                            "preview_winid",
+                        })
+
                         if info.preview_bufnr and vim.bo[info.preview_bufnr].filetype == "" then
                             vim.bo[info.preview_bufnr].filetype = "markdown"
                             vim.wo[info.preview_winid].conceallevel = 2
                             vim.wo[info.preview_winid].concealcursor = "niv"
                         end
+
+                        -- if info.preview_winid then
+                        --     vim.w
+                        -- end
                     end,
                 })
 
@@ -191,34 +211,41 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 api.nvim_create_autocmd({ "LspProgress" }, {
-    callback = function()
-        require("fidget").setup({})
+    callback = function(evt)
+        local params = evt.data.params
+        local value = params.value
+        local ls = vim.lsp.get_client_by_id(evt.data.client_id)
+
+        local id_format = type(params.token) == "number" and "lsp_%d_%d" or "lsp_%d_%s"
+
+        vim.api.nvim_echo({ { value.message or "done" }, }, false, {
+            id = id_format:format(evt.data.client_id, params.token),
+            kind = "progress",
+            title = ("(%s) "):format(ls.name) .. value.title,
+            status = value.kind ~= "end" and "running" or "success",
+            percent = value.percentage,
+        })
     end,
-    once = true,
 })
 
-api.nvim_create_user_command(
-    "LspLog",
-    function(opts)
-        local logfile = vim.lsp.log.get_filename()
+api.nvim_create_user_command("LspLog", function(opts)
+    local logfile = vim.lsp.log.get_filename()
 
-        if opts.args == "clear" then
-            local success, error = os.remove(logfile)
+    if opts.args == "clear" then
+        local success, error = os.remove(logfile)
 
-            if success then
-                vim.notify("LspLog: LSP log file deleted")
-            else
-                vim.notify(error, vim.log.levels.ERROR)
-            end
-        elseif opts.args == "" then
-            vim.cmd("tabnew " .. logfile)
+        if success then
+            vim.notify("LspLog: LSP log file deleted")
         else
-            vim.notify("LspLog: unknow arg - " .. opts.args)
+            vim.notify(error, vim.log.levels.ERROR)
         end
-    end,
-    {
-        nargs = "?",
-        desc = "Opens LSP logfile in a new tab",
-        complete = function() return { "clear" } end,
-    }
-)
+    elseif opts.args == "" then
+        vim.cmd("tabnew " .. logfile)
+    else
+        vim.notify("LspLog: unknow arg - " .. opts.args)
+    end
+end, {
+    nargs = "?",
+    desc = "Opens LSP logfile in a new tab",
+    complete = function() return { "clear" } end,
+})
