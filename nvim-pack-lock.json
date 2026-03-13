@@ -4,10 +4,6 @@
       "rev": "648aca6d33ec011dc3166e7af3b38820d01a71e4",
       "src": "https://github.com/laytan/cloak.nvim"
     },
-    "fidget.nvim": {
-      "rev": "7fa433a83118a70fe24c1ce88d5f0bd3453c0970",
-      "src": "https://github.com/j-hui/fidget.nvim"
-    },
     "harpoon": {
       "rev": "87b1a3506211538f460786c23f98ec63ad9af4e5",
       "src": "https://github.com/ThePrimeagen/harpoon",
@@ -20,10 +16,6 @@
     "mini.pick": {
       "rev": "8521fe21df86e08d9e4b3c3f3a7d50e47954e1af",
       "src": "https://github.com/nvim-mini/mini.pick"
-    },
-    "neogen": {
-      "rev": "23e7e9f883d01289ebd90e98025acc860ea26366",
-      "src": "https://github.com/danymat/neogen"
     },
     "neotest": {
       "rev": "deadfb1af5ce458742671ad3a013acb9a6b41178",
