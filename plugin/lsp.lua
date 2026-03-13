@@ -1,7 +1,4 @@
-vim.pack.add({
-    "https://github.com/neovim/nvim-lspconfig",
-    "https://github.com/j-hui/fidget.nvim",
-})
+vim.pack.add({ "https://github.com/neovim/nvim-lspconfig" })
 
 local protocol = vim.lsp.protocol
 local ms = protocol.Methods
