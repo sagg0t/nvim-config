@@ -4,11 +4,11 @@ return {
     PickerDir = { fg = c.comment },
 
     MiniPickBorder = { link = "FloatBorder" }, -- window border.
-    -- MiniPickBorderBusy = {}, -- window border while picker is busy processing.
+    MiniPickBorderBusy = { fg = c.severity.warning, bg = c.overlay.bg }, -- window border while picker is busy processing.
     -- MiniPickBorderText = {}, -- non-prompt on border.
     -- MiniPickCursor = {}, -- cursor during active picker (hidden by default).
     -- MiniPickIconDirectory = {}, -- default icon for directory.
-    -- MiniPickIconFile = {}, -- default icon for file.
+    -- MiniPickIconFile = {}, -- default icon for file
     MiniPickHeader = { link = "Title" }, -- headers in info buffer and previews.
     -- MiniPickMatchCurrent = {}, -- current matched item.
     MiniPickMatchMarked = { fg = c.overlay.accent }, -- marked matched items.

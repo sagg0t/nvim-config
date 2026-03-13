@@ -20,7 +20,7 @@ util.on_ui_enter(function()
                     anchor = "SE",
                     width = vim.o.columns,
                     height = height,
-                    border = { "━", "━", "━", " ", " ", " ", " ", " " },
+                    border = { "━", "━", "━", " ", "━", "━", "━", " " },
                 }
             end,
             prompt_prefix = "  ",
@@ -61,91 +61,97 @@ vim.keymap.set("n", "<Leader>ff", function()
     })
 end, { desc = "Find files", })
 
-vim.keymap.set("n", "<Leader>ft", function()
-    local MiniPick = require("mini.pick")
+local function live_grep_show(buf, raw_items, picker_query)
+    local ok, err = pcall(function()
+        local items = {}
+        local marks = {}
+        local max_path = 0
 
-    MiniPick.builtin.grep_live(nil, {
-        source = {
-            show = function(buf, raw_items, picker_query)
-                local items = {}
-                local marks = {}
-                local max_path = 0
+        for i, raw_item in ipairs(raw_items) do
+            local row = i - 1
+            local path, slnum, scol, match_text = unpack(vim.split(raw_item, "\0"))
+            local lnum, col = tonumber(slnum), tonumber(scol)
+            local ft = vim.filetype.match({ filename = path })
+            local text = ("%s:%d:%d"):format(path, lnum, col)
 
-                for i, raw_item in ipairs(raw_items) do
-                    local row = i - 1
-                    local path, slnum, scol, match_text = unpack(vim.split(raw_item, "\0"))
-                    local lnum, col = tonumber(slnum), tonumber(scol)
-                    local ft = vim.filetype.match({ filename = path })
-                    local text = ("%s:%d:%d"):format(path, lnum, col)
+            match_text = match_text:gsub("\t", "    ")
 
-                    match_text = match_text:gsub("\t", "    ")
+            local new_item = {
+                path = path,
+                lnum = lnum,
+                col = col,
+                text = text,
+                __match_text = match_text,
+                __ft = ft,
+            }
 
-                    local new_item = {
-                        path = path,
-                        lnum = lnum,
-                        col = col,
-                        text = text,
-                        __match_text = match_text,
-                        __ft = ft,
-                    }
+            max_path = math.max(max_path, #new_item.text)
 
-                    max_path = math.max(max_path, #new_item.text)
+            table.insert(items, new_item)
 
-                    table.insert(items, new_item)
-
-                    local dir = vim.fn.fnamemodify(path, ":h")
-                    if dir ~= "." then
-                        table.insert(marks, { "PickerDir", row, 4, 5 + #dir })
-                    end
-
-                    table.insert(marks, { "Operator", row, 4 + #path, 5 + #path })
-                    table.insert(marks, { "Number", row, 5 + #path, 5 + #path + #slnum })
-                    local col_start = 6 + #path + #slnum
-                    table.insert(marks, { "Operator", row, col_start - 1, col_start })
-                    table.insert(marks, { "String", row, col_start, col_start + #scol })
-                end
-
-                local format_str = string.format("%%-%ds  %%s", max_path)
-
-                for i, item in ipairs(items) do
-                    item.text = format_str:format(item.text, item.__match_text)
-
-                    local lang = vim.treesitter.language.get_lang(item.__ft)
-                    local parser = vim.treesitter.get_string_parser(item.__match_text, lang)
-                    if parser then
-                        local col_offset = max_path + 6
-
-                        parser:parse(true)
-                        parser:for_each_tree(function(tstree, tree)
-                            if not tstree then return end
-
-                            local query = vim.treesitter.query.get(tree:lang(), "highlights")
-                            if not query then return end
-
-                            for id, node in query:iter_captures(tstree:root(), item.__match_text) do
-                                local hl = string.format("@%s.%s", query.captures[id], lang)
-                                local _, start_col, _, end_col = node:range()
-                                table.insert(marks, { hl, i - 1, start_col + col_offset, end_col + col_offset })
-                            end
-                        end)
-                    end
-                end
-
-                MiniPick.default_show(buf, items, picker_query, { show_icons = true })
-
-                -- api.nvim_buf_set_lines(buf, 0, -1, false, vim.tbl_map(function(v) return "    ".. v.text end, items))
-                api.nvim_buf_clear_namespace(buf, ns.files, 0, -1)
-
-                for _, mark in ipairs(marks) do
-                    api.nvim_buf_set_extmark(buf, ns.files, mark[2], mark[3], {
-                        hl_group = mark[1],
-                        end_col = mark[4],
-                        priority = 100,
-                    })
-                end
+            local dir = vim.fn.fnamemodify(path, ":h")
+            if dir ~= "." then
+                table.insert(marks, { "PickerDir", row, 4, 5 + #dir })
             end
-        }
-    })
+
+            table.insert(marks, { "Operator", row, 4 + #path, 5 + #path })
+            table.insert(marks, { "Number", row, 5 + #path, 5 + #path + #slnum })
+            local col_start = 6 + #path + #slnum
+            table.insert(marks, { "Operator", row, col_start - 1, col_start })
+            table.insert(marks, { "String", row, col_start, col_start + #scol })
+        end
+
+        local format_str = string.format("%%-%ds  %%s", max_path)
+
+        for i, item in ipairs(items) do
+            item.text = format_str:format(item.text, item.__match_text)
+
+            local lang = vim.treesitter.language.get_lang(item.__ft)
+            local ok, parser = pcall(vim.treesitter.get_string_parser, item.__match_text, lang)
+            if ok and parser then
+                local col_offset = max_path + 6
+
+                parser:parse(true)
+                parser:for_each_tree(function(tstree, tree)
+                    if not tstree then return end
+
+                    local query = vim.treesitter.query.get(tree:lang(), "highlights")
+                    if not query then return end
+
+                    for id, node in query:iter_captures(tstree:root(), item.__match_text) do
+                        local hl = string.format("@%s.%s", query.captures[id], lang)
+                        local _, start_col, _, end_col = node:range()
+                        table.insert(marks, {
+                            hl,
+                            i - 1,
+                            start_col + col_offset,
+                            end_col + col_offset,
+                        })
+                    end
+                end)
+            end
+        end
+
+        require("mini.pick").default_show(buf, items, picker_query, { show_icons = true })
+
+        api.nvim_buf_clear_namespace(buf, ns.files, 0, -1)
+
+        for _, mark in ipairs(marks) do
+            api.nvim_buf_set_extmark(buf, ns.files, mark[2], mark[3], {
+                hl_group = mark[1],
+                end_col = mark[4],
+                priority = 100,
+            })
+        end
+    end)
+
+    if not ok then
+        vim.notify(err)
+    end
+end
+
+vim.keymap.set("n", "<Leader>ft", function()
+    require("mini.pick").builtin.grep_live(nil, { source = { show = live_grep_show } })
 end, { desc = "Grep" })
 
 vim.keymap.set("n", "<Leader>fh", function()
@@ -245,7 +251,8 @@ vim.keymap.set("n", "<Leader>fH", function()
                         local lnum = #lines - 1
                         table.insert(marks, { "@property", lnum, 0, #key })
                         table.insert(marks, { "Operator", lnum, #key + 1, #key + 2 })
-                        table.insert(marks, { preview_type_map[type(value)] or "UNSET", lnum, #key + 3, #key + 3 + #str_val })
+                        table.insert(marks,
+                            { preview_type_map[type(value)] or "UNSET", lnum, #key + 3, #key + 3 + #str_val })
                     end
                     table.insert(lines, "")
 
@@ -305,9 +312,9 @@ vim.keymap.set("n", "<Leader>fk", function()
     local sep_char_len = string.len("│")
 
     local hls = {
-        { "SpecialChar", 1, 1 + sizes.mode },
-        { "Comment", 2 + sizes.mode, 2 + sizes.mode + sep_char_len },
-        { "Comment", 4 + sizes.mode + sep_char_len + sizes.lhs, 4 + sizes.mode + 2 * sep_char_len + sizes.lhs},
+        { "SpecialChar", 1,                                         1 + sizes.mode },
+        { "Comment",     2 + sizes.mode,                            2 + sizes.mode + sep_char_len },
+        { "Comment",     4 + sizes.mode + sep_char_len + sizes.lhs, 4 + sizes.mode + 2 * sep_char_len + sizes.lhs },
     }
 
     local MiniPick = require("mini.pick")
@@ -420,12 +427,12 @@ vim.keymap.set("n", "<Leader>fd", function()
                     end
 
                     local l_sep_s = 8 + #item.__dir + #item.__file
-                    table.insert(marks, { "Operator", row, l_sep_s, l_sep_s + 1  })
+                    table.insert(marks, { "Operator", row, l_sep_s, l_sep_s + 1 })
                     table.insert(marks, { "Number", row, l_sep_s + 1, l_sep_s + 1 + #tostring(item.lnum) })
 
                     local c_sep_s = l_sep_s + 1 + #tostring(item.lnum)
-                    table.insert(marks, { "Operator", row, c_sep_s, c_sep_s + 1  })
-                    table.insert(marks, { "String", row, c_sep_s + 1, c_sep_s + 1 + #tostring(item.col)  })
+                    table.insert(marks, { "Operator", row, c_sep_s, c_sep_s + 1 })
+                    table.insert(marks, { "String", row, c_sep_s + 1, c_sep_s + 1 + #tostring(item.col) })
 
                     table.insert(marks, { "Folded", row, 9 + max_path, 11 + max_path + #item.__code })
                 end
