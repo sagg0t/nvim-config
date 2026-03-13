@@ -4,7 +4,6 @@ vim.pack.add({
     "https://github.com/szw/vim-maximizer",
     "https://github.com/kylechui/nvim-surround",
     "https://github.com/Wansmer/treesj",
-    "https://github.com/danymat/neogen",
 
     "https://github.com/nvim-tree/nvim-web-devicons",
 
@@ -28,14 +27,34 @@ util.on_ui_enter(function()
         [vim.diagnostic.severity.ERROR] = "󰅚",
         [vim.diagnostic.severity.WARN] = "󰀪",
         [vim.diagnostic.severity.INFO] = "󰋽",
-        [vim.diagnostic.severity.HINT] = "󰌶"
+        [vim.diagnostic.severity.HINT] = "󰌶",
     }
+
+
+    -- == SHOULD WORK ==
+    -- FIX: ddddddasdasdasdasdasda
+    -- ddddd
+    -- FIX: ddd
+    -- TODO: What else?
+    -- NOTE: adding a note
+    --
+    -- FIX: this needs fixing
+    -- WARN: ???
+    -- WARNING: ???
+    -- FIX: ddddd
+    --       continuation
+    -- @TODO foobar
+
+    -- == SHOULD NOT WORK ==
+    -- TODO alskdjf
+    -- @hack foobar
+
     require("todo-comments").setup({
         signs = false,
         highlight = {
             multiline = false,
             keyword = "fg",
-            after = "",                                 -- "fg" or "bg" or empty
+            after = "", -- "fg" or "bg" or empty
             -- pattern = [[.*<(KEYWORDS)(\(\.\*\))?\s*\W*]], -- pattern or table of patterns, used for highlighting (vim regex)
             pattern = [[<(KEYWORDS)(\(\.\*\))?\s*\W*]], -- pattern or table of patterns, used for highlighting (vim regex)
         },
@@ -74,24 +93,16 @@ util.on_ui_enter(function()
             },
         }
     })
-
-    require("neogen").setup({})
 end)
 
 vim.keymap.set("n", "<Leader>m",
     ":MaximizerToggle<CR>",
     { noremap = true, silent = true, desc = "Maximizer" })
 
-vim.keymap.set("n", "<Leader>fn",
-    function() Snacks.picker.todo_comments() end,
-    { noremap = true, silent = true, desc = "Workspace TODO comments" })
-
 vim.keymap.set("n", "gs", function() require("treesj").toggle() end)
 vim.keymap.set("n", "gS", function()
     require("treesj").toggle({ split = { recursive = true } })
 end)
-
-vim.keymap.set("n", "<Leader>nf", function() require("neogen").generate() end)
 
 -- {
 --     "nvimdev/indentmini.nvim",
