@@ -38,7 +38,7 @@ function Run.new(run_idx, chan_id, buf, output_win, task, callback)
         self.interrupted = true
         self:_write(color.red("\n[INTERRUPT]\n", { bold = true }))
 
-        vim.keymap.del("n", "K", { buffer = buf })
+        vim.keymap.del("n", "K", { buf = buf })
 
         local contains_running = vim.tbl_contains(self.processes, function(p)
             return not p:is_closing()
@@ -63,7 +63,7 @@ function Run.new(run_idx, chan_id, buf, output_win, task, callback)
                 end
             end
         end))
-    end, { buffer = buf })
+    end, { buf = buf })
 
     return self
 end

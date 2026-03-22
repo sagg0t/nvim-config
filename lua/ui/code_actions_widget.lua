@@ -91,14 +91,14 @@ function CodeActionsWidget:create_buf()
         end
     })
 
-    vim.keymap.set("n", "q", function() self:close_win() end, { buffer = self.bufnr })
-    vim.keymap.set("n", "<Esc>", function() self:close_win() end, { buffer = self.bufnr })
-    vim.keymap.set("n", "<Enter>", function() self:handle_choice_confirm() end, { buffer = self.bufnr })
+    vim.keymap.set("n", "q", function() self:close_win() end, { buf = self.bufnr })
+    vim.keymap.set("n", "<Esc>", function() self:close_win() end, { buf = self.bufnr })
+    vim.keymap.set("n", "<Enter>", function() self:handle_choice_confirm() end, { buf = self.bufnr })
 
     for idx, choice in ipairs(self.choices) do
         vim.keymap.set("n", tostring(idx), function()
             self:on_user_choice(choice)
-        end, { buffer = self.bufnr })
+        end, { buf = self.bufnr })
     end
 end
 

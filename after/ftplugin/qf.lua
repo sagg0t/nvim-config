@@ -18,4 +18,4 @@ vim.keymap.set("n", "<C-/>", function()
 
         vim.cmd(cmd .. " " .. input)
     end)
-end, { buffer = 0 })
+end, { buf = 0 })
