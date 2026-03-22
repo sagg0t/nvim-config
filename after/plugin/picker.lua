@@ -20,11 +20,11 @@ util.on_ui_enter(function()
                     anchor = "SE",
                     width = vim.o.columns,
                     height = height,
-                    border = { "━", "━", "━", " ", "━", "━", "━", " " },
+                    border = { " ", " ", " ", " ", "━", "━", "━", " " },
                 }
             end,
-            prompt_prefix = "  ",
-            prompt_caret = "_ ",
+            prompt_prefix = " ",
+            prompt_caret = "_",
         }
     })
     -- from telescope config selection_caret = " ",
