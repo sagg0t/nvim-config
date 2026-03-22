@@ -4,7 +4,6 @@ require("vim._core.ui2").enable({
         target = "cmd",
         targets = {
             progress = "msg",
-            list_cmd = "pager",
         },
     }
 })
