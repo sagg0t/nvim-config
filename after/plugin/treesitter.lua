@@ -1,3 +1,16 @@
+local cmd_group = vim.api.nvim_create_augroup("sagg0t.treesitter", { clear = true })
+
+-- NOTE: must be before vim.pack.add
+vim.api.nvim_create_autocmd({ "PackChanged" }, {
+    group = cmd_group,
+    callback = function(evt)
+        local name, kind = evt.data.spec.name, evt.data.kind
+        if name == "nvim-treesitter" and (kind == "install" or kind == "update") then
+            vim.cmd("TSUpdate")
+        end
+    end
+})
+
 vim.pack.add({
     {
         src = "https://github.com/nvim-treesitter/nvim-treesitter",
@@ -5,7 +18,6 @@ vim.pack.add({
     },
 }, { load = true })
 
-local cmd_group = vim.api.nvim_create_augroup("sagg0t.treesitter", { clear = true })
 local ts = require("nvim-treesitter")
 
 --- @type table<string, string> -- <ft, lang> 
@@ -47,14 +59,4 @@ vim.api.nvim_create_autocmd("FileType", {
     callback = function(evt)
         vim.bo[evt.buf].syntax = "on"
     end,
-})
-
-vim.api.nvim_create_autocmd({ "PackChanged" }, {
-    group = cmd_group,
-    callback = function(evt)
-        local name, kind = evt.data.spec.name, evt.data.kind
-        if name == "nvim-treesitter" and (kind == "install" or kind == "update") then
-            vim.cmd("TSUpdate")
-        end
-    end
 })
