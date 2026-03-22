@@ -25,4 +25,7 @@ return {
     DiagnosticSignInfo         = { fg = c.severity.info, bg = c.overlay.bg },
     DiagnosticSignHint         = { fg = c.severity.hint, bg = c.overlay.bg },
     DiagnosticSignOk           = { fg = c.severity.ok, bg = c.overlay.bg },
+
+    DiagnosticDeprecated       = { fg = c.comment, strikethrough = true },
+    DiagnosticUnnecessary      = { fg = c.comment },
 }

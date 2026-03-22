@@ -24,8 +24,13 @@ return {
     TermCursor = { link = "Cursor" },
     TermCursorNC = { link = "Cursor" },
 
+    OkMsg = { fg = c.severity.ok },
     ErrorMsg = { fg = c.severity.error },
     WarningMsg = { fg = c.severity.warning },
+
+    -- No idea where this comes from, but some groups in "log" ft
+    --      are linked to this one.
+    LogGreen = { fg = c.severity.ok },
 
     -- WinSeparator = { fg = c.invisible, bg = c.bg },
     WinSeparator = { fg = c.overlay.fg },

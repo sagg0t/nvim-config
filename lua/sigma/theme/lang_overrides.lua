@@ -18,6 +18,7 @@ return {
     qfSeparator2 = { link = "Comment" },
 
     logBrackets = { link = "Operator" },
+    logLvTrace = { link = "Comment" },
 
     gitrebasePick = { link = "Function" },
     gitrebaseCommit = { link = "Number" },
