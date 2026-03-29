@@ -1,14 +1,7 @@
 local M = {}
 local fnamemodify = vim.fn.fnamemodify
 
-local stl_bg = vim.api.nvim_get_hl(0, { name = "StatusLine" }).bg or "black"
-local function stl_attr(group)
-    local color = vim.api.nvim_get_hl(0, { name = group, link = false })
-    return {
-        bg = stl_bg,
-        fg = color.fg,
-    }
-end
+local stl_bg = vim.api.nvim_get_hl(0, { name = "StatusLine" }).bg or "#000000"
 
 function M.fileinfo()
     return {
@@ -78,25 +71,7 @@ function M.filetype()
     }
 end
 
-function M.progress()
-    local spinner = { "⣶", "⣧", "⣏", "⡟", "⠿", "⢻", "⣹", "⣼" }
-    local idx = 1
-    return {
-        stl = function(args)
-            if args.data and args.data.params then
-                local val = args.data.params.value
-                if val.message and val.kind ~= "end" then
-                    idx = idx + 1 > #spinner and 1 or idx + 1
-                    return ("%s"):format(spinner[idx - 1 > 0 and idx - 1 or 1])
-                end
-            end
-            return ""
-        end,
-        name = "LspProgress",
-        event = { "LspProgress" },
-        attr = stl_attr("Type"),
-    }
-end
+-- local spinner = { "⣶", "⣧", "⣏", "⡟", "⠿", "⢻", "⣹", "⣼" }
 
 function M.lsp()
     return {
@@ -135,33 +110,11 @@ function M.lsp()
     }
 end
 
-local function diagnostic_info()
-    local diagnostics_icons = { "󰅚 ", "󰀪 ", "󰋽 ", "󰌶 " }
-
-    return function()
-        -- if not vim.diagnostic.is_enabled({ bufnr = 0 }) or #vim.lsp.get_clients({ bufnr = 0 }) == 0 then
-        --     return ""
-        -- end
-        -- local t = {}
-        -- for i = 1, 4 do
-        --     local count = #vim.diagnostic.get(0, { severity = i })
-        --     if count > 0 then
-        --         t[#t + 1] = ("%%#StatusLine%s#%s%s%%*"):format(vim.diagnostic.severity[i], diagnostics_icons[i], count)
-        --     end
-        -- end
-        -- return table.concat(t, " ")
-        return vim.diagnostic.status()
-    end
-end
-
 function M.diagnostic()
-    for i = 1, 4 do
-        local name = ("Diagnostic%s"):format(vim.diagnostic.severity[i])
-        local fg = vim.api.nvim_get_hl(0, { name = name }).fg
-        vim.api.nvim_set_hl(0, "StatusLine" .. vim.diagnostic.severity[i], { fg = fg, bg = stl_bg })
-    end
     return {
-        stl = diagnostic_info(),
+        stl = function()
+            return vim.diagnostic.status()
+        end,
         event = { "DiagnosticChanged", "BufEnter", "LspAttach" },
     }
 end
@@ -171,20 +124,6 @@ function M.encoding()
         stl = ("%s"):format(vim.bo.fileencoding),
         name = "filencode",
         event = { "BufEnter" },
-    }
-end
-
-function M.dap_status()
-    return {
-        name = "dap_status",
-        stl = function()
-            if require("dap").session() then
-                return "󰟾 DAP 󰟾 "
-            else
-                return ""
-            end
-        end,
-        event = { "User DapProgressUpdate" },
     }
 end
 

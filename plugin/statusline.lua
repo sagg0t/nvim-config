@@ -11,8 +11,6 @@ local components = {
     " ",
     sources.diagnostic(),
     "%=",
-    sources.dap_status(),
-    "%=",
     -- sources.progress(),
     -- "   ",
     sources.filetype(),
@@ -36,7 +34,7 @@ local components = {
     " ",
 }
 
-vim.api.nvim_set_hl(0, "StatusLine_separator", { link = "Operator" })
+vim.api.nvim_set_hl(0, "StatusLine_separator", { link = "Comment" })
 vim.api.nvim_set_hl(0, "StatusLine_linenr", { link = "Number" })
 vim.api.nvim_set_hl(0, "StatusLine_colnr", { link = "String" })
 vim.api.nvim_set_hl(0, "StatusLine_percent", { fg = "#a1bebf" })
