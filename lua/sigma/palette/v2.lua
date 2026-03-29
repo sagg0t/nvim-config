@@ -18,7 +18,10 @@ return {
         accentDark = "#115f57", -- darkCyan
     },
 
-    search = "#6bae86", -- green
+    -- search = "#6bae86", -- green
+    search = "#c0fe04",
+    search2 = "#57d7e3",
+    search3 = "#fe04be",
 
     comment =  "#686868", -- invisibleGrey
     commentHighlight =  "#787878", -- invisibleGrey

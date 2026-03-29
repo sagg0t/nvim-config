@@ -1,7 +1,8 @@
 local c = require("sigma.colors")
 
 return {
-    ["@keyword.import"] = { fg = c.keyword },
+    ["@keyword"] = { link = "Keyword" },
+    ["@keyword.import"] = { link = "@keyword", },
     ["@keyword.conditional"] = { link = "Conditional" },
     ["@keyword.exception"] = { link = "Exception" },
     ["@keyword.repeat"] = { link = "Repeat" },
@@ -22,7 +23,7 @@ return {
     ["@type.builtin"] = { link = "@type" },
     ["@type.qualifier"] = { link = "StorageClass" },
     ["@variable"] = { link = "Identifier" },
-    ["@variable.builtin"] = { fg = c.stringSpecial, italic = true },
+    ["@variable.builtin"] = { fg = c.stringSpecial },
     ["@variable.member"] = { link = "@property" },
     ["@module.builtin"] = { link = "@module" },
 
@@ -51,9 +52,7 @@ return {
     ["@lsp.typemod.variable.default_library"] = { link = "@variable.builtin" },
 
     -- Lua
-    ["@constructor.lua"] = { link = "Function" },
-    ["@keyword.lua"] = { fg = c.keyword },
-    ["@keyword.function.lua"] = { fg = c.keyword },
+    ["@constructor.lua"] = { link = "Operator" },
     ["@lsp.typemod.class.declaration.lua"] = { standout = true },
 
     -- Embedded templates
