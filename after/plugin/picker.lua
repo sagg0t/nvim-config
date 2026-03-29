@@ -6,6 +6,7 @@ local ns = {
     files       = api.nvim_create_namespace("sagg0t.files-picker"),
     keymap      = api.nvim_create_namespace("sagg0t.keymap-picker"),
     hl_group    = api.nvim_create_namespace("sagg0t.hl-group-picker"),
+    colors      = api.nvim_create_namespace("sagg0t.colors-picker"),
     diagnostics = api.nvim_create_namespace("sagg0t.diagnostics-picker"),
 }
 
@@ -452,3 +453,93 @@ vim.keymap.set("n", "<Leader>fd", function()
         }
     })
 end, { desc = "workspace diagnostics" })
+
+---@param hex string
+---@return integer, integer, integer
+local function hex_to_rgb(hex)
+    return tonumber(hex:sub(1, 2), 16), tonumber(hex:sub(3, 4), 16), tonumber(hex:sub(5, 6), 16)
+end
+
+---@param c string
+---@return boolean
+local function color_is_light(c)
+    local r, g, b = hex_to_rgb(c)
+    local luminance = 0.299 * r + 0.587 * g + 0.114 * b
+    return luminance > 186
+end
+
+vim.keymap.set("n", "<Leader>fC", function()
+    local color_map = vim.api.nvim_get_color_map()
+    local color_items = {}
+    local max_color = 0
+
+    for color_name, color_val in pairs(color_map) do
+        max_color = math.max(max_color, #color_name)
+
+        table.insert(color_items, {
+            text = color_name,
+            __name = color_name,
+            __val = string.format("#%06x", color_val),
+        })
+    end
+
+    local format_str = string.format(" %%-%ds │ %%s ■■■■", max_color)
+
+    for _, item in ipairs(color_items) do
+        item.text = format_str:format(item.text, item.__val)
+    end
+
+    local bar_start = max_color + 2
+    local bar_end = bar_start + 3 -- bar is 3 bytes
+    local preview_start = max_color + 6 + 7
+    local preview_end = preview_start + 12 -- boxes are 3 bytes each
+
+    local MiniPick = require("mini.pick")
+    MiniPick.start({
+        source = {
+            name = "Colors",
+            items = color_items,
+            preview = function()
+            end,
+
+            choose = function(item)
+                local v = item.__val
+                local copy_fn = require("vim.ui.clipboard.osc52").copy("+")
+                copy_fn({ v })
+                vim.notify(string.format("%s color value copied (%s)", item.__name, v))
+            end,
+            show = function(buf, items, query)
+                local ok, err = pcall(function()
+                    local marks = {}
+
+                    for i, item in ipairs(items) do
+                        local row = i - 1
+
+                        local hl = "Picker.ColorPreview." .. tostring(i)
+                        api.nvim_set_hl(0, hl, { fg = item.__val })
+                        -- fg = (color_is_light(item.__val) and "#000000" or "#ffffff"),
+
+                        table.insert(marks, { "Comment", row, bar_start, bar_end })
+                        table.insert(marks, { hl, row, preview_start, preview_end })
+                    end
+
+                    MiniPick.default_show(buf, items, query)
+
+                    api.nvim_buf_clear_namespace(buf, ns.colors, 0, -1)
+
+                    for _, mark in ipairs(marks) do
+                        api.nvim_buf_set_extmark(buf, ns.colors, mark[2], mark[3], {
+                            hl_group = mark[1],
+                            end_col = mark[4],
+                            priority = 100,
+                        })
+                    end
+                end)
+
+                if not ok then
+                    vim.notify(err, vim.log.levels.ERROR)
+                end
+            end
+        }
+    })
+end, { desc = "colors" })
