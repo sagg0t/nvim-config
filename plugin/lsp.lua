@@ -213,10 +213,11 @@ api.nvim_create_autocmd({ "LspProgress" }, {
         local value = params.value
         local ls = vim.lsp.get_client_by_id(evt.data.client_id)
 
-        local id_format = type(params.token) == "number" and "lsp_%d_%d" or "lsp_%d_%s"
+        local source = "lsp_" .. tostring(evt.data.client_id)
 
         vim.api.nvim_echo({ { value.message or "done" }, }, false, {
-            id = id_format:format(evt.data.client_id, params.token),
+            id = source .. tostring(params.token),
+            source = source,
             kind = "progress",
             title = ("(%s) "):format(ls.name) .. value.title,
             status = value.kind ~= "end" and "running" or "success",
