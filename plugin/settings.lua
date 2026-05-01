@@ -46,7 +46,7 @@ opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 -- see: plugin/statusline.lua
 -- opt.statusline = "%f %m%=%y %{&fileencoding?&fileencoding:&encoding} [%{&fileformat}] %p%% %l:%c"
 opt.guicursor = "a:block-Cursor"
-opt.updatetime = 250
+opt.updatetime = 500
 opt.timeoutlen = 500
 
 opt.completeopt = "menuone,fuzzy,popup,noinsert"
