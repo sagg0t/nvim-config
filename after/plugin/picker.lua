@@ -147,7 +147,7 @@ local function live_grep_show(buf, raw_items, picker_query)
     end)
 
     if not ok then
-        vim.notify(err)
+        vim.notify(err, vim.log.levels.ERROR)
     end
 end
 
@@ -197,6 +197,25 @@ vim.keymap.set("n", "<Leader>fH", function()
         source = {
             name = "Highlight Groups",
             items = hl_items,
+            choose = function(item)
+                local opts = assert(item.__opts)
+                local copy_fn = require("vim.ui.clipboard.osc52").copy("+")
+
+                local col, layer ---@type number?, string?
+                if opts.fg then
+                    col = opts.fg
+                    layer = "fg"
+                elseif opts.bg then
+                    col = opts.bg
+                    layer = "bg"
+                end
+
+                if col then
+                    local hex = string.format("#%06X", col)
+                    copy_fn({ hex })
+                    vim.notify(string.format("%s copied (%s)", assert(layer), hex))
+                end
+            end,
             show = function(buf, items, query)
                 MiniPick.default_show(buf, items, query)
 
@@ -372,18 +391,23 @@ local diagnostic_hls = {
 }
 
 vim.keymap.set("n", "<Leader>fd", function()
+    xpcall(function()
     local diagnostics = vim.diagnostic.get()
     local diagnostic_items = {}
     local max_path = 0
 
     for _, d in ipairs(diagnostics) do
         local path = api.nvim_buf_get_name(d.bufnr)
-        local dir = vim.fn.fnamemodify(path, ":h")
+        local rel_path = vim.fn.fnamemodify(path, ":.")
+        local dir = vim.fn.fnamemodify(rel_path, ":h")
         if dir == "." then
             dir = ""
         end
         local file = vim.fn.fnamemodify(path, ":t")
-        local location = ("%s:%d:%d"):format(path, d.lnum, d.col)
+        local location = ("%s:%d:%d"):format(rel_path, d.lnum, d.col)
+
+        local severity = d.severity and diagnostic_signs[d.severity] or " "
+        local code = d.code and tostring(d.code) or ""
 
         max_path = math.max(max_path, #location)
 
@@ -394,18 +418,25 @@ vim.keymap.set("n", "<Leader>fd", function()
             __dir = dir,
             __file = file,
             __location = location,
+            __severity = severity,
+            __code = code,
             __d = d,
         })
     end
 
-    local format_str = string.format(" %%s  %%-%ds  [%%s] %%s", max_path)
-
     for _, item in ipairs(diagnostic_items) do
         local d = item.__d
 
-        item.__severity = d.severity and diagnostic_signs[d.severity] or " "
-        item.__code = tostring(d.code) or ""
-        item.text = format_str:format(item.__severity, item.__location, item.__code, d.message)
+
+        local loc_padding = string.rep(" ", max_path - item.__location:len())
+
+        item.text = string.format(
+            " %s  %s  [%s] %s",
+            item.__severity,
+            item.__location .. loc_padding,
+            item.__code,
+            d.message
+        )
     end
 
     local MiniPick = require("mini.pick")
@@ -413,46 +444,52 @@ vim.keymap.set("n", "<Leader>fd", function()
         source = {
             items = diagnostic_items,
             show = function(buf, items, query)
-                local marks = {}
+                xpcall(function()
+                    local marks = {}
 
-                for i, item in ipairs(items) do
-                    local d = item.__d
-                    local row = i - 1
+                    for i, item in ipairs(items) do
+                        local d = item.__d
+                        local row = i - 1
 
-                    if d.severity then
-                        table.insert(marks, { diagnostic_hls[d.severity], row, 1, 2 })
+                        if d.severity then
+                            table.insert(marks, { diagnostic_hls[d.severity], row, 1, 2 })
+                        end
+
+                        if #item.__dir > 0 then
+                            table.insert(marks, { "PickerDir", row, 7, 8 + #item.__dir })
+                        end
+
+                        local l_sep_s = 8 + #item.__dir + #item.__file
+                        table.insert(marks, { "Operator", row, l_sep_s, l_sep_s + 1 })
+                        table.insert(marks, { "Number", row, l_sep_s + 1, l_sep_s + 1 + #tostring(item.lnum) })
+
+                        local c_sep_s = l_sep_s + 1 + #tostring(item.lnum)
+                        table.insert(marks, { "Operator", row, c_sep_s, c_sep_s + 1 })
+                        table.insert(marks, { "String", row, c_sep_s + 1, c_sep_s + 1 + #tostring(item.col) })
+
+                        table.insert(marks, { "Folded", row, 9 + max_path, 11 + max_path + #item.__code })
                     end
 
-                    if #item.__dir > 0 then
-                        table.insert(marks, { "PickerDir", row, 7, 8 + #item.__dir })
+                    MiniPick.default_show(buf, items, query)
+
+                    api.nvim_buf_clear_namespace(buf, ns.diagnostics, 0, -1)
+
+                    for _, mark in ipairs(marks) do
+                        api.nvim_buf_set_extmark(buf, ns.diagnostics, mark[2], mark[3], {
+                            hl_group = mark[1],
+                            end_col = mark[4],
+                            priority = 100,
+                        })
                     end
-
-                    local l_sep_s = 8 + #item.__dir + #item.__file
-                    table.insert(marks, { "Operator", row, l_sep_s, l_sep_s + 1 })
-                    table.insert(marks, { "Number", row, l_sep_s + 1, l_sep_s + 1 + #tostring(item.lnum) })
-
-                    local c_sep_s = l_sep_s + 1 + #tostring(item.lnum)
-                    table.insert(marks, { "Operator", row, c_sep_s, c_sep_s + 1 })
-                    table.insert(marks, { "String", row, c_sep_s + 1, c_sep_s + 1 + #tostring(item.col) })
-
-                    table.insert(marks, { "Folded", row, 9 + max_path, 11 + max_path + #item.__code })
-                end
-
-                MiniPick.default_show(buf, items, query)
-
-                api.nvim_buf_clear_namespace(buf, ns.diagnostics, 0, -1)
-
-                for _, mark in ipairs(marks) do
-                    api.nvim_buf_set_extmark(buf, ns.diagnostics, mark[2], mark[3], {
-                        hl_group = mark[1],
-                        end_col = mark[4],
-                        priority = 100,
-                    })
-                end
+                end, function(err)
+                    vim.print(err)
+                end)
             end
         }
     })
-end, { desc = "workspace diagnostics" })
+end, function(err)
+    vim.print(err)
+end)end, { desc = "workspace diagnostics" })
 
 ---@param hex string
 ---@return integer, integer, integer
