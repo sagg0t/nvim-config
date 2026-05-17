@@ -1,4 +1,5 @@
-local function once(cb)
+local M = {}
+function M.once(cb)
     local done = false
 
     return function(...)
@@ -10,7 +11,7 @@ local function once(cb)
     end
 end
 
-local function command(name, cb)
+function M.command(name, cb)
     vim.api.nvim_create_user_command(name, function()
         vim.api.nvim_del_user_command(name)
 
@@ -21,7 +22,7 @@ local function command(name, cb)
 end
 
 local lazy_load_g = vim.api.nvim_create_augroup("sagg0t.VimEnter", { clear = true })
-local function on_ui_enter(cb)
+function M.on_ui_enter(cb)
     vim.api.nvim_create_autocmd("VimEnter", {
         group = lazy_load_g,
         callback = function()
@@ -31,8 +32,4 @@ local function on_ui_enter(cb)
     })
 end
 
-return {
-    once = once,
-    command = command,
-    on_ui_enter = on_ui_enter,
-}
+return M
