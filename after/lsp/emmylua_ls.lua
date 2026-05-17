@@ -1,16 +1,26 @@
 return {
     settings = {
-        emmylua_ls = {
-            workspace = {
-                library = {
-                    vim.env.VIMRUNTIME .. "/lua",
-                    vim.fn.stdpath("config"),
-                    "${3rd}/luv/library",
-                }
+        emmylua = {
+            codeLens = { enable = true },
+            documentColor = { enable = true },
+            hint = {
+                enable = true,
+                paramHint = false,
+                localHint = false,
+            },
+            semanticTokens = {
+                enabled = false,
             },
             runtime = {
                 version = "LuaJIT",
-            }
+                requirePattern = { "?.lua", "?/init.lua" },
+            },
+            workspace = {
+                library = {
+                    vim.env.VIMRUNTIME,
+                    vim.fn.stdpath("config"),
+                }
+            },
         }
     }
 }

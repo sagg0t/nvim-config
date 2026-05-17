@@ -4,12 +4,7 @@ return {
         Lua = {
             runtime = {
                 version = "LuaJIT",
-                -- Tell the language server how to find Lua modules same way as Neovim
-                -- (see `:h lua-module-load`)
-                path = {
-                    "?.lua",
-                    "?/init.lua",
-                },
+                path = { "?.lua", "?/init.lua" },
                 -- special = {
                 --     ["vim.uv"] = "luv",
                 -- }
@@ -19,10 +14,6 @@ return {
                 checkThirdParty = "ApplyInMemory",
                 library = {
                   vim.env.VIMRUNTIME
-                  -- Depending on the usage, you might want to add additional paths
-                  -- here.
-                  -- "${3rd}/luv/library"
-                  -- "${3rd}/busted/library"
                 }
             },
             diagnostics = {
