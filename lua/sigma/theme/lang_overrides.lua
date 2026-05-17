@@ -18,7 +18,10 @@ return {
     qfSeparator2 = { link = "Comment" },
 
     logBrackets = { link = "Operator" },
-    logLvTrace = { link = "Comment" },
+    logLvTiming = { fg = c.operator, underline = true },
+    logLvTrace = { fg = c.comment },
+    logLvDebug = { fg = c.keyword },
+    logLvInfo = { fg = c.property },
 
     gitrebasePick = { link = "Function" },
     gitrebaseCommit = { link = "Number" },

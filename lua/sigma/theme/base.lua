@@ -73,9 +73,9 @@ return {
     QuickFixLine = { bold = true },
 
     Search = { fg = c.bg, bg = c.search, bold = true },
-    CurSearch = { fg = c.bg, bg = c.search2, bold = true },
+    CurSearch = { fg = c.bg, bg = c.search3, bold = true },
     IncSearch = { link = "Search" },
-    Substitute = { fg = c.bg, bg = c.search3, bold = true },
+    Substitute = { fg = c.bg, bg = c.keyword, bold = true },
 
     SpecialKey = { fg = c.invisible },
     SpellBad = { sp = c.severity.error, undercurl = true },
