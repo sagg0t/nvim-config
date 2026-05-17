@@ -87,6 +87,17 @@ local kind_icons = {
     TypeParameter = "",
 }
 
+---@param lnum? number
+_G.sagg0t_foldtext = function(lnum)
+    local chunks = vim.lsp.foldtext(lnum)
+
+    -- for _, chunk in ipairs(chunks) do
+    --     if chunk[1] 
+    -- end
+
+    return chunks
+end
+
 vim.api.nvim_create_autocmd("LspAttach", {
     group = lsp_attach_group,
     callback = function(event)
@@ -99,7 +110,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
         map("gd", vim.lsp.buf.definition, "Goto Definition")
         map("gD", vim.lsp.buf.declaration, "Goto Declaration")
         map("grf", vim.lsp.buf.format, "Format document")
-        map("grl", vim.lsp.codelens.run, "Run codelens")
 
         -- if client:supports_method(ms.textDocument_formatting) then
         --     vim.api.nvim_create_autocmd("BufWritePre", {
@@ -115,6 +125,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
             local win = vim.api.nvim_get_current_win()
             vim.wo[win][0].foldmethod = "expr"
             vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
+            vim.wo[win][0].foldtext = "v:lua.sagg0t_foldtext()"
+        end
+
+        if client:supports_method(ms.textDocument_linkedEditingRange) then
+            vim.lsp.linked_editing_range.enable(true, { client_id = client.id })
         end
 
         if client:supports_method(ms.textDocument_documentColor) then
