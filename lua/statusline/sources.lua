@@ -19,7 +19,7 @@ function M.fileinfo()
             return table.concat(s, " ")
         end,
         name = "fileinfo",
-        event = { "BufEnter", "BufModifiedSet", "FileChangedRO" },
+        event = { "BufEnter", "OptionSet", "FileChangedRO" },
         attr = {
             bold = true,
             bg = stl_bg,
@@ -27,22 +27,29 @@ function M.fileinfo()
     }
 end
 
+local ft_alias = {
+    cpp = "C++",
+    javascript = "JavaScript",
+    ["nvim-debugger.breakpoints-widget"] = "DBG Breakpoints",
+    ["nvim-debugger.breakpoints-widget.detaisl"] = "DBG Breakpoint details",
+    ["nvim-debugger.modules-widget"] = "DBG Modules",
+    ["nvim-debugger.threads-widget"] = "DBG Threads",
+    ["nvim-debugger.stack-trace-widget"] = "DBG Stack trace",
+    ["nvim-debugger.variables-widget"] = "DBG Variables",
+    ["nvim-debugger.watch-widget"] = "DBG Watches",
+    ["nvim-debugger.watch-widget.info"] = "DBG Watch Info",
+    ["nvim-debugger.output-widget.stdout"] = "DBG Stdout",
+    ["nvim-debugger.output-widget.stderr"] = "DBG Stderr",
+}
+
 function M.filetype()
     return {
         name = "filetype",
         stl = function()
-            local alias = {
-                cpp = "C++",
-                javascript = "JavaScript",
-                dapui_breakpoints = "DAP UI breakpoints",
-                dapui_scopes = "DAP UI scopes",
-                dapui_watches = "DAP UI watches",
-                ["dap-repl"] = "DAP REPL",
-            }
 
             local ft = vim.api.nvim_get_option_value("filetype", { buf = 0 })
             local capital = ft:sub(1, 1):upper()
-            local pretty_ft = alias[ft] and alias[ft] or capital .. ft:sub(2, #ft)
+            local pretty_ft = ft_alias[ft] and ft_alias[ft] or capital .. ft:sub(2, #ft)
             local icon, icon_hl_group = require("nvim-web-devicons").get_icon(vim.fn.expand("%:t", ft))
 
             if icon ~= nil and icon_hl_group ~= nil then
@@ -67,7 +74,7 @@ function M.filetype()
 
             return icon .. " " .. pretty_ft
         end,
-        event = { "BufEnter" },
+        event = { "BufEnter", "FileType" },
     }
 end
 
@@ -124,6 +131,19 @@ function M.encoding()
         stl = ("%s"):format(vim.bo.fileencoding),
         name = "filencode",
         event = { "BufEnter" },
+    }
+end
+
+function M.debugger()
+    return {
+        stl = function()
+            local ok, dbg = pcall(require, "debugger")
+            return ok and dbg.status() or ""
+        end,
+        name = "debugger",
+        event = {
+            "User DBGStatus",
+        },
     }
 end
 

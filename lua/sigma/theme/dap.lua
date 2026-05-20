@@ -8,9 +8,10 @@ return {
     DAPBreakpointRejectedLine    = { underdashed = true, sp = c.severity.error },
     DAPBreakpointDisabledLine    = { underdashed = true, sp = c.severity.hint },
 
-    DAPFrameStopLine             = { bg = u.darken(c.boolean, 0.45) },
+    -- ["DBG.FrameStopLine"]        = { bg = u.darken(c.boolean, 0.45) },
+    -- ["DBG.FrameStopLine"]        = { overline = true, sp = c.boolean }, -- overline doesn't respoct "sp"
     DAPFrameStopVirtText         = { fg = c.boolean },
-    DAPFocusedFrameLine          = { underline = true, sp = c.boolean },
+    -- ["DBG.FocusedFrameLine"]     = { overline = true, sp = c.boolean },
 
     -- Legacy:
     -- DapBreakpoint                = { fg = c.severity.error },

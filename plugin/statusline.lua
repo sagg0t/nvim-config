@@ -11,6 +11,8 @@ local components = {
     " ",
     sources.diagnostic(),
     "%=",
+    sources.debugger(),
+    "%=",
     -- sources.progress(),
     -- "   ",
     sources.filetype(),
@@ -19,24 +21,26 @@ local components = {
         name = "percent",
         stl = " %P ",
     },
-    {
-        name = "linenr",
-        stl = "%l",
-    },
+    -- {
+    --     name = "linenr",
+    --     stl = "%l",
+    -- },
+    "%l",
     {
         name = "separator",
         stl = ":"
     },
-    {
-        name = "colnr",
-        stl = "%c",
-    },
+    "%c",
+    -- {
+    --     name = "colnr",
+    --     stl = "%c",
+    -- },
     " ",
 }
 
-vim.api.nvim_set_hl(0, "StatusLine_separator", { link = "Comment" })
-vim.api.nvim_set_hl(0, "StatusLine_linenr", { link = "Number" })
-vim.api.nvim_set_hl(0, "StatusLine_colnr", { link = "String" })
+vim.api.nvim_set_hl(0, "StatusLine_separator", { fg = "#686868" })
+-- vim.api.nvim_set_hl(0, "StatusLine_linenr", { link = "Normal" })
+-- vim.api.nvim_set_hl(0, "StatusLine_colnr", { fg = "#787878" })
 vim.api.nvim_set_hl(0, "StatusLine_percent", { fg = "#a1bebf" })
 vim.api.nvim_set_hl(0, "StatusLine_dap_status", { link = "DiagnosticWarn" })
 
@@ -79,6 +83,8 @@ vim.tbl_map(function(e)
     if e:find("User") then
         pattern = vim.split(e, "%s")[2]
         tmp = "User"
+    elseif e == "OptionSet" then
+        pattern = "modified"
     end
     vim.api.nvim_create_autocmd(tmp, {
         pattern = pattern,
