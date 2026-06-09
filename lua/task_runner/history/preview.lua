@@ -64,7 +64,7 @@ function HistoryPreview:open(history)
         api.nvim_win_set_buf(self.index_win_id, self.index_buf)
 
         api.nvim_create_autocmd("WinClosed", {
-            buffer = self.index_buf,
+            buf = self.index_buf,
             once = true,
             desc = "Cleanup task runner history preview state",
             callback = function()
@@ -167,12 +167,12 @@ end
 
 function HistoryPreview:attach_history_nav_cb(cb)
     api.nvim_create_autocmd("CursorMoved", {
-        buffer = self.index_buf,
+        buf = self.index_buf,
         desc = "Update preview buffer when selecting different history entry",
         callback = cb
     })
     -- api.nvim_create_autocmd("CursorHold", {
-    --     buffer = self.index_buf,
+    --     buf = self.index_buf,
     --     callback = function()
     --         vim.print("Cursor hold")
     --     end
@@ -185,7 +185,7 @@ function HistoryPreview:reattach_output_pane_close_cb()
     end
 
     api.nvim_create_autocmd("WinClosed", {
-        buffer = self.output_buf,
+        buf = self.output_buf,
         once = true,
         callback = function(evt)
             local win_id = tonumber(evt.match)

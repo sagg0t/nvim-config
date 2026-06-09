@@ -135,7 +135,7 @@ end
 
 function TaskRunner:attach_win_close_cb(buf)
     self.output.close_cb = api.nvim_create_autocmd("WinClosed", {
-        buffer = buf,
+        buf = buf,
         desc = "Cleanup after task runner output window is closed",
         callback = function(evt)
             local closed_win_id = tonumber(evt.match)
