@@ -114,7 +114,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         -- if client:supports_method(ms.textDocument_formatting) then
         --     vim.api.nvim_create_autocmd("BufWritePre", {
         --         group = pre_write_group,
-        --         buffer = event.buf,
+        --         buf = event.buf,
         --         callback = function()
         --             vim.lsp.buf.format({ bufnr = event.buf, id = client.id })
         --         end
@@ -142,14 +142,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         if client:supports_method(ms.textDocument_documentHighlight) then
             api.nvim_create_autocmd({ "CursorHold" }, {
-                buffer = event.buf,
+                buf = event.buf,
                 callback = function()
                     vim.lsp.buf.clear_references()
                     vim.lsp.buf.document_highlight()
                 end,
             })
             api.nvim_create_autocmd({ "CursorMoved", "InsertEnter", "BufLeave" }, {
-                buffer = event.buf,
+                buf = event.buf,
                 callback = vim.lsp.buf.clear_references,
             })
         end
@@ -170,13 +170,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
             })
 
             local existing_handlers = vim.api.nvim_get_autocmds({
-                buffer = event.buf,
+                buf = event.buf,
                 event = { "CompleteChanged" },
                 group = completion_group,
             })
             if #existing_handlers == 0 then
                 vim.api.nvim_create_autocmd("CompleteChanged", {
-                    buffer = event.buf,
+                    buf = event.buf,
                     group = completion_group,
                     callback = function()
                         local info = vim.fn.complete_info({
@@ -198,7 +198,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
                 })
 
                 vim.api.nvim_create_autocmd("CompleteDone", {
-                    buffer = event.buf,
+                    buf = event.buf,
                     group = completion_group,
                     desc = "Auto show signature help when compeltion done",
                     callback = function()
