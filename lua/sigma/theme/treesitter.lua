@@ -49,7 +49,6 @@ return {
     -- Ruby
     ["@keyword.exception.ruby"] = { fg = c.keyword, italic = true },
     ["@variable.member.ruby"] = { fg = c.overlay.accentDark },
-    ["@lsp.typemod.variable.default_library"] = { link = "@variable.builtin" },
 
     -- Lua
     ["@constructor.lua"] = { link = "Operator" },
