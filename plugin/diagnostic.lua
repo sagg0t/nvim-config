@@ -1,3 +1,9 @@
+-- local signs = {
+--     [vim.diagnostic.severity.ERROR] = "󰃤",
+--     [vim.diagnostic.severity.WARN] = "",
+--     [vim.diagnostic.severity.INFO] = "󰍩",
+--     [vim.diagnostic.severity.HINT] = ""
+-- }
 local signs = {
     [vim.diagnostic.severity.ERROR] = "󰅚",
     [vim.diagnostic.severity.WARN] = "󰀪",
@@ -45,24 +51,4 @@ vim.diagnostic.config({
             return table.concat(items, " ")
         end
     },
-    -- signs = {
-    --     text = {
-    --         [vim.diagnostic.severity.ERROR] = "󰅚",
-    --         [vim.diagnostic.severity.WARN] = "󰀪",
-    --         [vim.diagnostic.severity.INFO] = "󰋽",
-    --         [vim.diagnostic.severity.HINT] = "󰌶"
-    --     }
-    -- }
 })
--- text = {
---     [vim.diagnostic.severity.ERROR] = "󰅚",
---     [vim.diagnostic.severity.WARN] = "󰀪",
---     [vim.diagnostic.severity.INFO] = "󰋽",
---     [vim.diagnostic.severity.HINT] = "󰌶"
--- }
--- text = {
---     [vim.diagnostic.severity.ERROR] = "󰃤",
---     [vim.diagnostic.severity.WARN] = "",
---     [vim.diagnostic.severity.INFO] = "󰍩",
---     [vim.diagnostic.severity.HINT] = ""
--- }
