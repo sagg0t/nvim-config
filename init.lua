@@ -107,3 +107,8 @@ require("vim._core.ui2").enable({
         },
     }
 })
+
+vim.pack.add({
+    "https://github.com/nvim-lua/plenary.nvim",
+    "https://github.com/nvim-neotest/nvim-nio",
+}, { load = true })
